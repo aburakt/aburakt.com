@@ -54,7 +54,7 @@ export default function About() {
         <div className="lg:pl-20">
           <div className="max-w-xs px-2.5 lg:max-w-none">
             <Image
-              src="/pp/logo.jpeg"
+              src="/pp/logo.webp"
               alt="Ahmet Burak Tekin"
               sizes="(min-width: 1024px) 32rem, 20rem"
               width={1536}

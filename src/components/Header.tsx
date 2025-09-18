@@ -233,7 +233,7 @@ function Avatar({
       {...props}
     >
       <Image
-        src="/logo.jpeg"
+        src="/pp/logo.webp"
         alt="profile picture"
         sizes={large ? '4rem' : '2.25rem'}
         width={large ? 64 : 36}

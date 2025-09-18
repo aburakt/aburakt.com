@@ -14,9 +14,9 @@ export const metadata: Metadata = {
   description:
     'I’m Ahmet Burak Tekin, a front-end developer in Ankara building mission-critical systems for Türkiye’s Ministry of Interior and mentoring teams that serve millions of citizens.',
   icons: {
-    icon: '/favicon.png',
-    shortcut: '/favicon.png',
-    apple: '/favicon.png',
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
   },
   alternates: {
     types: {
