@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import AvatarImage from '@/images/pp/logo.webp'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
@@ -12,8 +13,17 @@ import {
   PopoverPanel,
 } from '@headlessui/react'
 import clsx from 'clsx'
+import { motion } from 'framer-motion'
 
 import { Container } from '@/components/Container'
+
+const NAV_ITEMS = [
+  { href: '/about', label: 'About' },
+  { href: '/articles', label: 'Articles' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/community', label: 'Community' },
+  { href: '/uses', label: 'Uses' },
+]
 
 function CloseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -79,16 +89,22 @@ function MoonIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 function MobileNavItem({
   href,
   children,
+  index,
 }: {
   href: string
   children: React.ReactNode
+  index: number
 }) {
   return (
-    <li>
+    <motion.li
+      initial={{ opacity: 0, x: -12 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.2, delay: index * 0.05, ease: 'easeOut' }}
+    >
       <PopoverButton as={Link} href={href} className="block py-2">
         {children}
       </PopoverButton>
-    </li>
+    </motion.li>
   )
 }
 
@@ -119,13 +135,13 @@ function MobileNavigation(
           </h2>
         </div>
         <nav className="mt-6">
-          <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
-            <MobileNavItem href="/about">About</MobileNavItem>
-            <MobileNavItem href="/articles">Articles</MobileNavItem>
-            <MobileNavItem href="/projects">Projects</MobileNavItem>
-            <MobileNavItem href="/speaking">Community</MobileNavItem>
-            <MobileNavItem href="/uses">Uses</MobileNavItem>
-          </ul>
+          <motion.ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
+            {NAV_ITEMS.map((item, index) => (
+              <MobileNavItem key={item.href} href={item.href} index={index}>
+                {item.label}
+              </MobileNavItem>
+            ))}
+          </motion.ul>
         </nav>
       </PopoverPanel>
     </Popover>
@@ -135,14 +151,22 @@ function MobileNavigation(
 function NavItem({
   href,
   children,
+  index,
 }: {
   href: string
   children: React.ReactNode
+  index: number
 }) {
   let isActive = usePathname() === href
 
   return (
-    <li>
+    <motion.li
+      initial={{ opacity: 0, y: -8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.25, delay: index * 0.05, ease: 'easeOut' }}
+      whileHover={{ y: -2 }}
+      whileFocus={{ y: -2 }}
+    >
       <Link
         href={href}
         className={clsx(
@@ -157,21 +181,26 @@ function NavItem({
           <span className="absolute inset-x-1 -bottom-px h-px bg-linear-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0 dark:from-teal-400/0 dark:via-teal-400/40 dark:to-teal-400/0" />
         )}
       </Link>
-    </li>
+    </motion.li>
   )
 }
 
-function DesktopNavigation(props: React.ComponentPropsWithoutRef<'nav'>) {
+function DesktopNavigation({ className }: { className?: string }) {
   return (
-    <nav {...props}>
+    <motion.nav
+      className={className}
+      initial={{ opacity: 0, y: -12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+    >
       <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
-        <NavItem href="/about">About</NavItem>
-        <NavItem href="/articles">Articles</NavItem>
-        <NavItem href="/projects">Projects</NavItem>
-        <NavItem href="/speaking">Community</NavItem>
-        <NavItem href="/uses">Uses</NavItem>
+        {NAV_ITEMS.map((item, index) => (
+          <NavItem key={item.href} href={item.href} index={index}>
+            {item.label}
+          </NavItem>
+        ))}
       </ul>
-    </nav>
+    </motion.nav>
   )
 }
 
@@ -232,18 +261,25 @@ function Avatar({
       className={clsx(className, 'pointer-events-auto')}
       {...props}
     >
-      <Image
-        src="/pp/logo.webp"
-        alt="profile picture"
-        sizes={large ? '4rem' : '2.25rem'}
-        width={large ? 64 : 36}
-        height={large ? 64 : 36}
-        className={clsx(
-          'rounded-full bg-zinc-100 object-cover dark:bg-zinc-800',
-          large ? 'h-16 w-16' : 'h-9 w-9',
-        )}
-        priority
-      />
+      <motion.div
+        whileHover={{ scale: 1.04, y: -2 }}
+        whileTap={{ scale: 0.98 }}
+        transition={{ duration: 0.25, ease: 'easeOut' }}
+        className="inline-block will-change-transform"
+      >
+        <Image
+          src={AvatarImage}
+          alt="profile picture"
+          sizes={large ? '4rem' : '2.25rem'}
+          width={large ? 64 : 36}
+          height={large ? 64 : 36}
+          className={clsx(
+            'rounded-full bg-zinc-100 object-cover dark:bg-zinc-800',
+            large ? 'h-16 w-16' : 'h-9 w-9',
+          )}
+          priority
+        />
+      </motion.div>
     </Link>
   )
 }
