@@ -2,6 +2,10 @@
   "name": "aburakt.com",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "pnpm@10.17.0",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
