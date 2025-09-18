@@ -36,85 +36,93 @@ function Tool({
 
 export const metadata = {
   title: 'Uses',
-  description: 'Software I use, gadgets I love, and other things I recommend.',
+  description:
+    'The frameworks, libraries, and tooling I rely on to deliver enterprise front-end platforms.',
 }
 
 export default function Uses() {
   return (
     <SimpleLayout
-      title="Software I use, gadgets I love, and other things I recommend."
-      intro="I get asked a lot about the things I use to build software, stay productive, or buy to fool myself into thinking I’m being productive when I’m really just procrastinating. Here’s a big list of all of my favorite stuff."
+      title="The stack behind nationwide-scale front-end delivery."
+      intro="Every project at the Ministry of Interior demands reliable, well-tested tooling. These are the technologies and practices I lean on to keep teams productive and platforms resilient."
     >
       <div className="space-y-20">
-        <ToolsSection title="Workstation">
-          <Tool title="16” MacBook Pro, M1 Max, 64GB RAM (2021)">
-            I was using an Intel-based 16” MacBook Pro prior to this and the
-            difference is night and day. I’ve never heard the fans turn on a
-            single time, even under the incredibly heavy loads I put it through
-            with our various launch simulations.
+        <ToolsSection title="Languages & Frameworks">
+          <Tool title="React & Next.js">
+            My core stack for enterprise dashboards and workflows. Server
+            components and Next.js routing let us ship secure modules without
+            sacrificing developer velocity.
           </Tool>
-          <Tool title="Apple Pro Display XDR (Standard Glass)">
-            The only display on the market if you want something HiDPI and
-            bigger than 27”. When you’re working at planetary scale, every pixel
-            you can get counts.
+          <Tool title="TypeScript">
+            Strict typing has been essential while mentoring our front-end team;
+            it shortens review cycles and keeps integrations with Spring Boot
+            services safe.
           </Tool>
-          <Tool title="IBM Model M SSK Industrial Keyboard">
-            They don’t make keyboards the way they used to. I buy these any time
-            I see them go up for sale and keep them in storage in case I need
-            parts or need to retire my main.
+          <Tool title="React Native">
+            When I take on freelance engagements, React Native lets me extend
+            government platforms into mobile workflows without rebuilding the
+            entire stack. Shared TypeScript models keep parity with our web
+            applications.
           </Tool>
-          <Tool title="Apple Magic Trackpad">
-            Something about all the gestures makes me feel like a wizard with
-            special powers. I really like feeling like a wizard with special
-            powers.
-          </Tool>
-          <Tool title="Herman Miller Aeron Chair">
-            If I’m going to slouch in the worst ergonomic position imaginable
-            all day, I might as well do it in an expensive chair.
+          <Tool title="Vue.js & Svelte.js">
+            Useful for lightweight internal tools where we need rapid
+            prototyping or to extend legacy systems without a full rewrite.
           </Tool>
         </ToolsSection>
-        <ToolsSection title="Development tools">
-          <Tool title="Sublime Text 4">
-            I don’t care if it’s missing all of the fancy IDE features everyone
-            else relies on, Sublime Text is still the best text editor ever
-            made.
+        <ToolsSection title="State & Data Flow">
+          <Tool title="Redux Toolkit & Zustand">
+            Large workflows still live in Redux Toolkit, while modular features
+            benefit from Zustand’s minimal footprint.
           </Tool>
-          <Tool title="iTerm2">
-            I’m honestly not even sure what features I get with this that aren’t
-            just part of the macOS Terminal but it’s what I use.
+          <Tool title="TanStack Query & Recoil">
+            TanStack Query powers complex, cached API interactions. Recoil helps
+            when we need fine-grained control over shared UI state.
           </Tool>
-          <Tool title="TablePlus">
-            Great software for working with databases. Has saved me from
-            building about a thousand admin interfaces for my various projects
-            over the years.
-          </Tool>
-        </ToolsSection>
-        <ToolsSection title="Design">
-          <Tool title="Figma">
-            We started using Figma as just a design tool but now it’s become our
-            virtual whiteboard for the entire company. Never would have expected
-            the collaboration features to be the real hook.
+          <Tool title="Secure API Integration">
+            RESTful services, JWT, and OAuth 2.0 are the backbone of our
+            security posture. I maintain the shared client libraries and token
+            lifecycles across applications.
           </Tool>
         </ToolsSection>
-        <ToolsSection title="Productivity">
-          <Tool title="Alfred">
-            It’s not the newest kid on the block but it’s still the fastest. The
-            Sublime Text of the application launcher world.
+        <ToolsSection title="Interface Systems">
+          <Tool title="Tailwind CSS & PrimeFlex">
+            Tailwind keeps our design tokens consistent, while PrimeFlex speeds
+            up internal layout work when teams need reusable patterns.
           </Tool>
-          <Tool title="Reflect">
-            Using a daily notes system instead of trying to keep things
-            organized by topics has been super powerful for me. And with
-            Reflect, it’s still easy for me to keep all of that stuff
-            discoverable by topic even though all of my writing happens in the
-            daily note.
+          <Tool title="Material UI, Shadcn, and Radix UI">
+            I combine these component systems to match institutional guidelines
+            and accessibility requirements without reinventing every control.
           </Tool>
-          <Tool title="SavvyCal">
-            Great tool for scheduling meetings while protecting my calendar and
-            making sure I still have lots of time for deep work during the week.
+          <Tool title="Custom Component Libraries">
+            Standardizing visuals across ministries means documenting patterns,
+            hardening them with Storybook, and sharing usage guides with every
+            squad.
           </Tool>
-          <Tool title="Focus">
-            Simple tool for blocking distracting websites when I need to just do
-            the work and get some momentum going.
+        </ToolsSection>
+        <ToolsSection title="Build & Quality">
+          <Tool title="Vite, Jest, and Vitest">
+            Migrating our CI/CD pipelines to Vite cut build times by 75%. Jest
+            and Vitest cover unit and component suites across the monorepo.
+          </Tool>
+          <Tool title="ESLint & Prettier">
+            Automated formatting and linting enforce the standards I coach the
+            team on, reducing drift in large collaborative codebases.
+          </Tool>
+          <Tool title="Electron & Express.js">
+            When we package internal utilities for desktop or embed Node-based
+            services, these tools let us bridge front-end skills with custom
+            infrastructure.
+          </Tool>
+        </ToolsSection>
+        <ToolsSection title="Collaboration & Design">
+          <Tool title="Figma & Framer">
+            Product discovery starts here. Shared libraries keep designers and
+            developers in sync before any code lands in the repo.
+          </Tool>
+          <Tool title="Mentorship & Documentation">
+            Structured code reviews, onboarding guides, and knowledge bases make
+            it easier for junior developers to contribute to mission-critical
+            projects.
           </Tool>
         </ToolsSection>
       </div>

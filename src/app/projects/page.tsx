@@ -1,53 +1,174 @@
 import { type Metadata } from 'next'
-import Image from 'next/image'
+import type {
+  ComponentPropsWithoutRef,
+  ComponentType,
+} from 'react'
 
 import { Card } from '@/components/Card'
 import { SimpleLayout } from '@/components/SimpleLayout'
-import logoAnimaginary from '@/images/logos/animaginary.svg'
-import logoCosmos from '@/images/logos/cosmos.svg'
-import logoHelioStream from '@/images/logos/helio-stream.svg'
-import logoOpenShuttle from '@/images/logos/open-shuttle.svg'
-import logoPlanetaria from '@/images/logos/planetaria.svg'
 
-const projects = [
+function ShieldIcon(props: ComponentPropsWithoutRef<'svg'>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <path
+        d="M12 3 4.5 6v6c0 4.97 3.285 8.815 7.5 9 4.215-.185 7.5-4.03 7.5-9V6L12 3Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <path
+        d="m9.5 12 1.75 1.75L14.5 10.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+function KeyIcon(props: ComponentPropsWithoutRef<'svg'>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <path
+        d="M14.5 5.5a4.5 4.5 0 1 0 1.414 8.776L17.5 15h2v2h2v2h-4.5l-2.036-2.036A4.5 4.5 0 0 0 14.5 5.5Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M14.5 8.5a1.5 1.5 0 1 1 0 3"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+function ChartIcon(props: ComponentPropsWithoutRef<'svg'>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <path
+        d="M5 20h14M7 16V9m5 7V8m5 8V6"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+function DataIcon(props: ComponentPropsWithoutRef<'svg'>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <ellipse
+        cx="12"
+        cy="6"
+        rx="7"
+        ry="3"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M5 6v6c0 1.657 3.134 3 7 3s7-1.343 7-3V6"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M5 12v6c0 1.657 3.134 3 7 3s7-1.343 7-3v-6"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+    </svg>
+  )
+}
+
+function BuildingIcon(props: ComponentPropsWithoutRef<'svg'>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <path
+        d="M5 21V5l7-3 7 3v16"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9 21v-6h6v6M9 9.5h.01M12 9.5h.01M15 9.5h.01M9 13h.01M12 13h.01M15 13h.01"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+type ProjectIcon = ComponentType<ComponentPropsWithoutRef<'svg'>>
+
+const projects: Array<{
+  name: string
+  description: string
+  link: { href: string; label: string }
+  icon: ProjectIcon
+}> = [
   {
-    name: 'Planetaria',
+    name: 'Authorization Management Platform',
     description:
-      'Creating technology to empower civilians to explore space on their own terms.',
-    link: { href: 'http://planetaria.tech', label: 'planetaria.tech' },
-    logo: logoPlanetaria,
+      'React and TypeScript architecture powering nationwide permission requests, approvals, and reporting for the Ministry of Interior.',
+    link: {
+      href: 'mailto:info@aburakt.com?subject=Authorization%20Platform%20Overview',
+      label: 'Request an overview',
+    },
+    icon: ShieldIcon,
   },
   {
-    name: 'Animaginary',
+    name: 'Secure Access Gateway',
     description:
-      'High performance web animation library, hand-written in optimized WASM.',
-    link: { href: '#', label: 'github.com' },
-    logo: logoAnimaginary,
+      'Organization-wide authentication layer managed with JWT and OAuth, distributing trusted tokens to every internal application.',
+    link: {
+      href: 'mailto:info@aburakt.com?subject=Secure%20Access%20Gateway',
+      label: 'info@aburakt.com',
+    },
+    icon: KeyIcon,
   },
   {
-    name: 'HelioStream',
+    name: 'Nationwide Analytics Hub',
     description:
-      'Real-time video streaming library, optimized for interstellar transmission.',
-    link: { href: '#', label: 'github.com' },
-    logo: logoHelioStream,
+      'Centralized analytics platform serving 81 provinces with high-availability dashboards, proactive monitoring, and performance tuning.',
+    link: {
+      href: 'mailto:info@aburakt.com?subject=Analytics%20Hub%20Case%20Study',
+      label: 'Request the case study',
+    },
+    icon: ChartIcon,
   },
   {
-    name: 'cosmOS',
+    name: 'Data Insights Workspace',
     description:
-      'The operating system that powers our Planetaria space shuttles.',
-    link: { href: '#', label: 'github.com' },
-    logo: logoCosmos,
+      'Interactive querying environment delivering complex reporting and visualization workflows through a bespoke React interface.',
+    link: {
+      href: 'mailto:info@aburakt.com?subject=Data%20Insights%20Workspace',
+      label: 'Discuss the tooling',
+    },
+    icon: DataIcon,
   },
   {
-    name: 'OpenShuttle',
+    name: 'Visitor & Facility Suite',
     description:
-      'The schematics for the first rocket I designed that successfully made it to orbit.',
-    link: { href: '#', label: 'github.com' },
-    logo: logoOpenShuttle,
+      'Integrated visitor management, accommodation, and procurement tools designed to modernize daily operations across internal teams.',
+    link: {
+      href: 'mailto:info@aburakt.com?subject=Visitor%20and%20Facility%20Suite',
+      label: 'Learn about the suite',
+    },
+    icon: BuildingIcon,
   },
 ]
 
-function LinkIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+function LinkIcon(props: ComponentPropsWithoutRef<'svg'>) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
       <path
@@ -60,39 +181,39 @@ function LinkIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 export const metadata: Metadata = {
   title: 'Projects',
-  description: 'Things I’ve made trying to put my dent in the universe.',
+  description:
+    'Enterprise-scale front-end platforms designed for the Ministry of Interior and nationwide stakeholders.',
 }
 
 export default function Projects() {
   return (
     <SimpleLayout
-      title="Things I’ve made trying to put my dent in the universe."
-      intro="I’ve worked on tons of little projects over the years but these are the ones that I’m most proud of. Many of them are open-source, so if you see something that piques your interest, check out the code and contribute if you have ideas for how it can be improved."
+      title="Designing front-end systems that keep public services running."
+      intro="These initiatives span authorization, security, analytics, and day-to-day operations across Türkiye’s Ministry of Interior. Each project blends modern React tooling with enterprise governance to deliver resilient outcomes for nationwide teams."
     >
       <ul
         role="list"
         className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
       >
-        {projects.map((project) => (
-          <Card as="li" key={project.name}>
-            <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md ring-1 shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-              <Image
-                src={project.logo}
-                alt=""
-                className="h-8 w-8"
-                unoptimized
-              />
-            </div>
-            <h2 className="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">
-              <Card.Link href={project.link.href}>{project.name}</Card.Link>
-            </h2>
-            <Card.Description>{project.description}</Card.Description>
-            <p className="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200">
-              <LinkIcon className="h-6 w-6 flex-none" />
-              <span className="ml-2">{project.link.label}</span>
-            </p>
-          </Card>
-        ))}
+        {projects.map((project) => {
+          let Icon = project.icon
+
+          return (
+            <Card as="li" key={project.name}>
+              <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white text-teal-600 shadow-md ring-1 shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:text-teal-400 dark:ring-0">
+                <Icon className="h-6 w-6" />
+              </div>
+              <h2 className="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">
+                <Card.Link href={project.link.href}>{project.name}</Card.Link>
+              </h2>
+              <Card.Description>{project.description}</Card.Description>
+              <p className="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200">
+                <LinkIcon className="h-6 w-6 flex-none" />
+                <span className="ml-2">{project.link.label}</span>
+              </p>
+            </Card>
+          )
+        })}
       </ul>
     </SimpleLayout>
   )

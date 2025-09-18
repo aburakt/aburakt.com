@@ -4,7 +4,7 @@ import { Card } from '@/components/Card'
 import { Section } from '@/components/Section'
 import { SimpleLayout } from '@/components/SimpleLayout'
 
-function SpeakingSection({
+function CommunitySection({
   children,
   ...props
 }: React.ComponentPropsWithoutRef<typeof Section>) {
@@ -15,7 +15,7 @@ function SpeakingSection({
   )
 }
 
-function Appearance({
+function Contribution({
   title,
   description,
   event,
@@ -41,57 +41,71 @@ function Appearance({
 }
 
 export const metadata: Metadata = {
-  title: 'Speaking',
+  title: 'Community',
   description:
-    'I’ve spoken at events all around the world and been interviewed for many podcasts.',
+    'Volunteer leadership across JCI Ankara, JCI Europe, and Iyader focused on growth, outreach, and digital transformation.',
 }
 
-export default function Speaking() {
+export default function Community() {
   return (
     <SimpleLayout
-      title="I’ve spoken at events all around the world and been interviewed for many podcasts."
-      intro="One of my favorite ways to share my ideas is live on stage, where there’s so much more communication bandwidth than there is in writing, and I love podcast interviews because they give me the opportunity to answer questions instead of just present my opinions."
+      title="Leading volunteer teams to amplify community impact."
+      intro="I stay close to the people my work serves by contributing to civil society organizations. From strategic leadership roles in JCI to youth programs at Iyader, I focus on growth, digital transformation, and collaborative outreach."
     >
       <div className="space-y-20">
-        <SpeakingSection title="Conferences">
-          <Appearance
-            href="#"
-            title="In space, no one can watch you stream — until now"
-            description="A technical deep-dive into HelioStream, the real-time streaming library I wrote for transmitting live video back to Earth."
-            event="SysConf 2021"
-            cta="Watch video"
+        <CommunitySection title="Leadership">
+          <Contribution
+            href="mailto:info@aburakt.com?subject=JCI%20Ankara%20Collaboration"
+            title="Secretary General"
+            description="Coordinating chapter operations, governance, and volunteer engagement while guiding strategic initiatives across JCI Ankara."
+            event="JCI Ankara · 2025"
+            cta="Discuss the role"
           />
-          <Appearance
-            href="#"
-            title="Lessons learned from our first product recall"
-            description="They say that if you’re not embarassed by your first version, you’re doing it wrong. Well when you’re selling DIY space shuttle kits it turns out it’s a bit more complicated."
-            event="Business of Startups 2020"
-            cta="Watch video"
+          <Contribution
+            href="mailto:info@aburakt.com?subject=JCI%20Europe%20Outreach"
+            title="Development Council Officer · Outreach & Engagement"
+            description="Planning outreach programs that connect new members with impact-driven projects throughout Europe."
+            event="JCI Europe · 2025"
+            cta="Plan an initiative"
           />
-        </SpeakingSection>
-        <SpeakingSection title="Podcasts">
-          <Appearance
-            href="#"
-            title="Using design as a competitive advantage"
-            description="How we used world-class visual design to attract a great team, win over customers, and get more press for Planetaria."
-            event="Encoding Design, July 2022"
-            cta="Listen to podcast"
+          <Contribution
+            href="mailto:info@aburakt.com?subject=Digital%20Platforms%20Initiatives"
+            title="Board Member · Digital Platforms"
+            description="Directed digital transformation programs, refreshed communication channels, and improved platform governance for members."
+            event="JCI Ankara · 2024"
+            cta="Learn about the initiatives"
           />
-          <Appearance
-            href="#"
-            title="Bootstrapping an aerospace company to $17M ARR"
-            description="The story of how we built one of the most promising space startups in the world without taking any capital from investors."
-            event="The Escape Velocity Show, March 2022"
-            cta="Listen to podcast"
+          <Contribution
+            href="mailto:info@aburakt.com?subject=Growth%20and%20Development"
+            title="Board Member · Growth & Development"
+            description="Designed recruitment journeys and mentorship frameworks that increased membership engagement and retention."
+            event="JCI Ankara · 2023"
+            cta="Request program insights"
           />
-          <Appearance
-            href="#"
-            title="Programming your company operating system"
-            description="On the importance of creating systems and processes for running your business so that everyone on the team knows how to make the right decision no matter the situation."
-            event="How They Work Radio, September 2021"
-            cta="Listen to podcast"
+          <Contribution
+            href="mailto:info@aburakt.com?subject=JCI%20Europe%20Impact"
+            title="Development Council Officer· Impact & Promotion"
+            description="Supporting Impact & Promotion initiatives across JCI Europe, enabling collaboration between chapters and amplifying success stories."
+            event="JCI Europe · 2024"
+            cta="Explore regional collaboration"
           />
-        </SpeakingSection>
+        </CommunitySection>
+        <CommunitySection title="Programs & Advocacy">
+          <Contribution
+            href="mailto:info@aburakt.com?subject=JciThon%20Experience"
+            title="JciThon: Sustainable Entrepreneurship Journey"
+            description="Participated in innovation sprints that addressed sustainability challenges and sparked long-term community projects."
+            event="JCI Ankara · 2022"
+            cta="Talk about the program"
+          />
+          <Contribution
+            href="mailto:info@aburakt.com?subject=Iyader%20Youth%20Ambassador"
+            title="Youth Ambassador"
+            description="Represented Iyader in empowering youth-focused initiatives and promoted civic engagement opportunities."
+            event="Iyader · 2021"
+            cta="Collaborate with Iyader"
+          />
+        </CommunitySection>
       </div>
     </SimpleLayout>
   )

@@ -7,12 +7,17 @@ import '@/styles/tailwind.css'
 
 export const metadata: Metadata = {
   title: {
-    template: '%s - Spencer Sharp',
+    template: '%s - Ahmet Burak Tekin',
     default:
-      'Spencer Sharp - Software designer, founder, and amateur astronaut',
+      'Ahmet Burak Tekin - Front-end developer leading enterprise-scale platforms',
   },
   description:
-    'I’m Spencer, a software designer and entrepreneur based in New York City. I’m the founder and CEO of Planetaria, where we develop technologies that empower regular people to explore space on their own terms.',
+    'I’m Ahmet Burak Tekin, a front-end developer in Ankara building mission-critical systems for Türkiye’s Ministry of Interior and mentoring teams that serve millions of citizens.',
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
   alternates: {
     types: {
       'application/rss+xml': `${process.env.NEXT_PUBLIC_SITE_URL}/feed.xml`,

@@ -2,7 +2,7 @@ import { ArticleLayout } from '@/components/ArticleLayout'
 
 export const article = {
   author: 'Ahmet Burak Tekin',
-  date: '2024-12-05',
+  date: '2025-09-17',
   title: 'Automating macOS System Data Cleanup',
   description:
     'How the cleanup-macos-sysdata script keeps my development machine lean without risky manual steps.',
@@ -15,14 +15,13 @@ export const metadata = {
 
 export default (props) => <ArticleLayout article={article} {...props} />
 
-After running out of disk space one too many times, I wrote the
+On the eve of launching this portfolio refresh I ran out of storage — again. To
+stop babysitting Finder, I wrote the
 [cleanup-macos-sysdata](https://github.com/aburakt/cleanup-macos-sysdata)
-utility to reclaim the mysterious “System Data” storage category. The script
-systematically prunes Xcode caches, derived data, and orphaned Time Machine
-snapshots, while logging every action so you can review changes before they’re
-committed.
+script, which sweeps Xcode caches, derived data, and orphaned Time Machine
+snapshots while logging every action for review.
 
-The project leans on familiar shell tooling—`tmutil`, `xcrun`, and `find`—but
-wraps everything in safety rails like dry-run mode and explicit confirmations.
-It’s become part of my monthly maintenance checklist, keeping my MacBook ready
-for large React Native builds and ministry analytics datasets alike.
+It leans on familiar shell tooling but adds dry-run mode, confirmation prompts,
+and simple reporting so I can reclaim space with confidence before big builds or
+recording demos. Keeping my development machine tidy now takes minutes instead of
+hours.

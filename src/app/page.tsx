@@ -68,6 +68,27 @@ function ArrowDownIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
+function EyeIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <path
+        d="M2.25 12s3.25-6.75 9.75-6.75 9.75 6.75 9.75 6.75-3.25 6.75-9.75 6.75S2.25 12 2.25 12Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M12 8.25a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 function Article({ article }: { article: ArticleWithSlug }) {
   return (
     <Card as="article">
@@ -224,14 +245,12 @@ function Resume() {
         ))}
       </ol>
       <Button
-        href="/cv/Ahmet_Burak_Tekin_CV.pdf"
+        href="/cv"
         variant="secondary"
         className="group mt-6 w-full"
-        target="_blank"
-        rel="noreferrer"
       >
-        Download CV
-        <ArrowDownIcon className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
+        View CV
+        <EyeIcon className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
       </Button>
     </div>
   )
@@ -239,7 +258,13 @@ function Resume() {
 
 function Photos() {
   let rotations = ['rotate-2', '-rotate-2', 'rotate-2', 'rotate-2', '-rotate-2']
-  let photos = ['/1.jpeg', '/2.jpeg', '/3.jpeg', '/4.jpeg', '/5.jpeg']
+  let photos = [
+    '/photos/1.jpeg',
+    '/photos/2.jpeg',
+    '/photos/3.jpeg',
+    '/photos/4.jpeg',
+    '/photos/5.jpeg',
+  ]
 
   return (
     <div className="mt-16 sm:mt-20">
@@ -274,7 +299,7 @@ export default async function Home() {
       <Container className="mt-9">
         <div className="max-w-2xl">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-            Front-end developer building resilient public-sector platforms.
+            Front-end developer building resilient digital platforms.
           </h1>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
             I’m Ahmet Burak Tekin, leading the front-end team at Türkiye’s

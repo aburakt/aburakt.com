@@ -1,0 +1,27 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const article = {
+  author: 'Ahmet Burak Tekin',
+  date: '2023-08-14',
+  title: 'Scaling Secure Access Across the Ministry',
+  description:
+    'Migrating every internal product to a unified OAuth 2.0 + JWT gateway without interrupting daily work.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+When I joined the Ministry of Interior in late 2022, every product team owned its
+own login flow. By August 2023 we had collapsed those one-off solutions into a
+single OAuth 2.0 and JWT gateway that now issues millions of tokens each month.
+The project blended lightweight Node.js services, Spring Boot integrations, and a
+shared TypeScript client that front-end teams can drop in without ceremony.
+
+Rolling out the gateway meant pairing with each squad, rehearsing cutovers, and
+building dashboards that surface token health in real time. Today security
+reviews focus on policy instead of plumbing, and new applications ship faster
+because authentication is already solved.
