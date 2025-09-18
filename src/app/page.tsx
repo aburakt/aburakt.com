@@ -259,11 +259,11 @@ function Resume() {
 function Photos() {
   let rotations = ['rotate-2', '-rotate-2', 'rotate-2', 'rotate-2', '-rotate-2']
   let photos = [
-    '/photos/1.jpeg',
-    '/photos/2.jpeg',
-    '/photos/3.jpeg',
-    '/photos/4.jpeg',
-    '/photos/5.jpeg',
+    '/photos/1.webp',
+    '/photos/2.webp',
+    '/photos/3.webp',
+    '/photos/4.webp',
+    '/photos/5.webp',
   ]
 
   return (
