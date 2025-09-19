@@ -268,21 +268,23 @@ function Photos() {
 
   return (
     <div className="mt-16 sm:mt-20">
-      <div className="-my-4 flex justify-center gap-5 overflow-x-auto overscroll-x-contain py-4 sm:gap-8 sm:overflow-visible">
-        {photos.map((image, imageIndex) => (
-          <AnimatedImage
-            key={image.src}
-            src={image}
-            alt=""
-            fill
-            sizes="(min-width: 640px) 18rem, 11rem"
-            containerClassName={clsx(
-              'relative aspect-9/10 w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 sm:w-72 sm:rounded-2xl dark:bg-zinc-800',
-              rotations[imageIndex % rotations.length],
-            )}
-            className="object-cover"
-          />
-        ))}
+      <div className="-mx-4 overflow-x-auto px-4 py-4 sm:mx-0 sm:overflow-hidden">
+        <div className="-my-4 flex gap-5 sm:justify-center sm:gap-8">
+          {photos.map((image, imageIndex) => (
+            <AnimatedImage
+              key={image.src}
+              src={image}
+              alt=""
+              fill
+              sizes="(min-width: 640px) 18rem, 11rem"
+              containerClassName={clsx(
+                'relative aspect-9/10 w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 sm:w-72 sm:rounded-2xl dark:bg-zinc-800',
+                rotations[imageIndex % rotations.length],
+              )}
+              className="object-cover"
+            />
+          ))}
+        </div>
       </div>
     </div>
   )
