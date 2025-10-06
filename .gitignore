@@ -1,28 +1,38 @@
-# Logs
-logs
-*.log
+# dependencies
+node_modules
+.pnp
+.pnp.*
+
+# testing
+coverage
+
+# production
+dist
+
+# misc
+.DS_Store
+*.pem
+
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-.next
-dist
-dist-ssr
-*.local
-package-lock.json
+# env files
+.env
+.env.local
+.env.production.local
+.env.development.local
+
+# vite
+.vite
+
+# ide
+.vscode
+.vscode/*
+!.vscode/settings.json
+.idea
+
 pnpm-lock.yaml
 pnpm-workspace.yaml
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?

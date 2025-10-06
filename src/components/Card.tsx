@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 
 function ChevronRightIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
@@ -35,12 +35,13 @@ export function Card<T extends React.ElementType = 'div'>({
 
 Card.Link = function CardLink({
   children,
+  to,
   ...props
-}: React.ComponentPropsWithoutRef<typeof Link>) {
+}: { to: string; children: React.ReactNode } & Omit<React.ComponentPropsWithoutRef<typeof Link>, 'to'>) {
   return (
     <>
       <div className="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 sm:rounded-2xl dark:bg-zinc-800/50" />
-      <Link {...props}>
+      <Link to={to} {...props}>
         <span className="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl" />
         <span className="relative z-10">{children}</span>
       </Link>
@@ -60,7 +61,7 @@ Card.Title = function CardTitle<T extends React.ElementType = 'h2'>({
 
   return (
     <Component className="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
-      {href ? <Card.Link href={href}>{children}</Card.Link> : children}
+      {href ? <Card.Link to={href}>{children}</Card.Link> : children}
     </Component>
   )
 }

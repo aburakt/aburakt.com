@@ -1,10 +1,7 @@
-'use client'
-
 import clsx from 'clsx'
-import Image, { type ImageProps } from 'next/image'
 import { motion } from 'framer-motion'
 
-type AnimatedImageProps = ImageProps & {
+type AnimatedImageProps = React.ImgHTMLAttributes<HTMLImageElement> & {
   containerClassName?: string
 }
 
@@ -22,7 +19,7 @@ export function AnimatedImage({
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.35, ease: 'easeOut' }}
     >
-      <Image {...props} className={className} />
+      <img {...props} className={className} />
     </motion.div>
   )
 }

@@ -1,7 +1,5 @@
-'use client'
-
 import { createContext, useEffect, useRef } from 'react'
-import { usePathname } from 'next/navigation'
+import { useLocation } from 'react-router-dom'
 import { ThemeProvider, useTheme } from 'next-themes'
 
 function usePrevious<T>(value: T) {
@@ -41,7 +39,8 @@ function ThemeWatcher() {
 export const AppContext = createContext<{ previousPathname?: string }>({})
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  let pathname = usePathname()
+  const location = useLocation()
+  let pathname = location.pathname
   let previousPathname = usePrevious(pathname)
 
   return (

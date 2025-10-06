@@ -1,4 +1,3 @@
-import { type Metadata } from 'next'
 import type {
   ComponentPropsWithoutRef,
   ComponentType,
@@ -177,12 +176,6 @@ function LinkIcon(props: ComponentPropsWithoutRef<'svg'>) {
       />
     </svg>
   )
-}
-
-export const metadata: Metadata = {
-  title: 'Projects',
-  description:
-    'Enterprise-scale front-end platforms designed for the Ministry of Interior and nationwide stakeholders.',
 }
 
 export default function Projects() {

@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 
 const variantStyles = {
@@ -12,7 +12,7 @@ type ButtonProps = {
   variant?: keyof typeof variantStyles
 } & (
   | (React.ComponentPropsWithoutRef<'button'> & { href?: undefined })
-  | React.ComponentPropsWithoutRef<typeof Link>
+  | (React.ComponentPropsWithoutRef<'a'> & { href: string })
 )
 
 export function Button({
@@ -26,9 +26,15 @@ export function Button({
     className,
   )
 
-  return typeof props.href === 'undefined' ? (
-    <button className={className} {...props} />
+  if (typeof props.href === 'undefined') {
+    return <button className={className} {...props} />
+  }
+
+  const isExternal = props.href.startsWith('http') || props.href.startsWith('mailto')
+
+  return isExternal ? (
+    <a className={className} {...props} />
   ) : (
-    <Link className={className} {...props} />
+    <Link to={props.href} className={className} {...(props as any)} />
   )
 }

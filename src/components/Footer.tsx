@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from 'react-router-dom'
 
 import { ContainerInner, ContainerOuter } from '@/components/Container'
 
@@ -11,7 +11,7 @@ function NavLink({
 }) {
   return (
     <Link
-      href={href}
+      to={href}
       className="transition hover:text-teal-500 dark:hover:text-teal-400"
     >
       {children}

@@ -1,5 +1,3 @@
-import { type Metadata } from 'next'
-
 import { Card } from '@/components/Card'
 import { SimpleLayout } from '@/components/SimpleLayout'
 import { type ArticleWithSlug, getAllArticles } from '@/lib/articles'
@@ -32,12 +30,6 @@ function Article({ article }: { article: ArticleWithSlug }) {
       </Card.Eyebrow>
     </article>
   )
-}
-
-export const metadata: Metadata = {
-  title: 'Articles',
-  description:
-    'Field notes on building resilient front-end platforms for Türkiye’s public sector.',
 }
 
 export default async function ArticlesIndex() {
