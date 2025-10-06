@@ -1,10 +1,6 @@
-'use client'
-
 import { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
 import AvatarImage from '@/images/pp/logo.webp'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { Link, useLocation } from 'react-router-dom'
 import { useTheme } from 'next-themes'
 import {
   Popover,
@@ -101,7 +97,11 @@ function MobileNavItem({
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.2, delay: index * 0.05, ease: 'easeOut' }}
     >
-      <PopoverButton as={Link} href={href} className="block py-2">
+      <PopoverButton
+        as={Link}
+        to={href}
+        className="block py-2 transition-colors duration-300 ease-out hover:text-teal-500 dark:hover:text-teal-400"
+      >
         {children}
       </PopoverButton>
     </motion.li>
@@ -157,7 +157,8 @@ function NavItem({
   children: React.ReactNode
   index: number
 }) {
-  let isActive = usePathname() === href
+  const location = useLocation()
+  let isActive = location.pathname === href
 
   return (
     <motion.li
@@ -168,9 +169,9 @@ function NavItem({
       whileFocus={{ y: -2 }}
     >
       <Link
-        href={href}
+        to={href}
         className={clsx(
-          'relative block px-3 py-2 transition',
+          'relative block px-3 py-2 transition-colors duration-300 ease-out',
           isActive
             ? 'text-teal-500 dark:text-teal-400'
             : 'hover:text-teal-500 dark:hover:text-teal-400',
@@ -178,7 +179,11 @@ function NavItem({
       >
         {children}
         {isActive && (
-          <span className="absolute inset-x-1 -bottom-px h-px bg-linear-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0 dark:from-teal-400/0 dark:via-teal-400/40 dark:to-teal-400/0" />
+          <motion.span
+            layoutId="activeTab"
+            className="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0 dark:from-teal-400/0 dark:via-teal-400/40 dark:to-teal-400/0"
+            transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+          />
         )}
       </Link>
     </motion.li>
@@ -251,12 +256,12 @@ function Avatar({
   large = false,
   className,
   ...props
-}: Omit<React.ComponentPropsWithoutRef<typeof Link>, 'href'> & {
+}: Omit<React.ComponentPropsWithoutRef<typeof Link>, 'to'> & {
   large?: boolean
 }) {
   return (
     <Link
-      href="/"
+      to="/"
       aria-label="Home"
       className={clsx(className, 'pointer-events-auto')}
       {...props}
@@ -267,17 +272,15 @@ function Avatar({
         transition={{ duration: 0.25, ease: 'easeOut' }}
         className="inline-block will-change-transform"
       >
-        <Image
+        <img
           src={AvatarImage}
           alt="profile picture"
-          sizes={large ? '4rem' : '2.25rem'}
           width={large ? 64 : 36}
           height={large ? 64 : 36}
           className={clsx(
             'rounded-full bg-zinc-100 object-cover dark:bg-zinc-800',
             large ? 'h-16 w-16' : 'h-9 w-9',
           )}
-          priority
         />
       </motion.div>
     </Link>
@@ -285,7 +288,8 @@ function Avatar({
 }
 
 export function Header() {
-  let isHomePage = usePathname() === '/'
+  const location = useLocation()
+  let isHomePage = location.pathname === '/'
 
   let headerRef = useRef<React.ElementRef<'div'>>(null)
   let avatarRef = useRef<React.ElementRef<'div'>>(null)

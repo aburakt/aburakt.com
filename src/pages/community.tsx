@@ -1,5 +1,3 @@
-import { type Metadata } from 'next'
-
 import { Card } from '@/components/Card'
 import { Section } from '@/components/Section'
 import { SimpleLayout } from '@/components/SimpleLayout'
@@ -38,12 +36,6 @@ function Contribution({
       <Card.Cta>{cta}</Card.Cta>
     </Card>
   )
-}
-
-export const metadata: Metadata = {
-  title: 'Community',
-  description:
-    'Volunteer leadership across JCI Ankara, JCI Europe, and Iyader focused on growth, outreach, and digital transformation.',
 }
 
 export default function Community() {

@@ -1,5 +1,4 @@
-import { type Metadata } from 'next'
-import Link from 'next/link'
+import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 
 import { Container } from '@/components/Container'
@@ -21,7 +20,7 @@ function SocialLink({
   return (
     <li className={clsx(className, 'flex')}>
       <Link
-        href={href}
+        to={href}
         className="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
       >
         <Icon className="h-6 w-6 flex-none fill-zinc-500 transition group-hover:fill-teal-500" />
@@ -40,12 +39,6 @@ function MailIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
       />
     </svg>
   )
-}
-
-export const metadata: Metadata = {
-  title: 'About',
-  description:
-    'I’m Ahmet Burak Tekin, a front-end developer in Ankara building enterprise-scale platforms for Türkiye’s public sector.',
 }
 
 export default function About() {
@@ -109,7 +102,7 @@ export default function About() {
               ensures the solutions I design stay grounded in real human needs.
             </p>
             <p>
-              Curious about the full story? You can <Link href="/cv" className="font-semibold text-teal-600 transition hover:text-teal-500 dark:text-teal-400 dark:hover:text-teal-300">view my CV here</Link> to dive into projects, certifications, and community work at a glance.
+              Curious about the full story? You can <Link to="/cv" className="font-semibold text-teal-600 transition hover:text-teal-500 dark:text-teal-400 dark:hover:text-teal-300">view my CV here</Link> to dive into projects, certifications, and community work at a glance.
             </p>
           </div>
         </div>

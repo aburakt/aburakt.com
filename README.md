@@ -1,19 +1,19 @@
 # aburakt.com
 
-This is the personal portfolio of Ahmet Burak Tekin. Built with Next.js,
-Tailwind CSS, and MDX, it showcases projects, articles, and talks, and serves
+This is the personal portfolio of Ahmet Burak Tekin. Built with Vite, React,
+and Tailwind CSS, it showcases projects, articles, and talks, and serves
 as the canonical place for my CV.
 
 ## Project Description
 
 This repository contains the source code for my personal portfolio website. It brings together projects from the public and private sectors, long-form articles, community contributions, and talks, while also offering an always-up-to-date copy of my CV. The site is built with modern web best practices and emphasizes performance, accessibility, and an enjoyable writing workflow.
 
-- **Tech stack**: Next.js (App Router), TypeScript, Tailwind CSS, MDX
+- **Tech stack**: Vite, React, React Router, TypeScript, Tailwind CSS
 - **Highlights**:
-  - MDX-powered article workflow
-  - Up-to-date CV download via the `cv/download` route
-  - Content feed served at `feed.xml`
-  - Simple, accessible UI components
+  - Client-side routing with React Router
+  - Fast build times with Vite
+  - Simple, accessible UI components with Framer Motion animations
+  - Dark mode support with next-themes
 
 ## Project Structure
 
@@ -21,53 +21,62 @@ A quick overview of the key folders and files:
 
 ```
 src/
-  app/                  # Next.js App Router routes and pages
-    layout.tsx          # App-level layout
-    page.tsx            # Home page
-    about/              # About page
-    articles/           # Articles index and MDX content
-    community/          # Community/engagement page
-    contact/            # Contact page (route placeholder)
-    cv/                 # CV page and download route
-      download/route.ts # Serves the PDF CV
-    feed.xml/route.ts   # Content feed
-    projects/           # Projects page
-    thank-you/          # Post-form thank you page
-    uses/               # Uses/tools page
+  pages/                # React Router page components
+    home.tsx            # Home page
+    about.tsx           # About page
+    articles.tsx        # Articles index
+    articles/           # Individual article pages (TSX)
+    community.tsx       # Community/engagement page
+    cv.tsx              # CV page
+    projects.tsx        # Projects page
+    thank-you.tsx       # Post-form thank you page
+    uses.tsx            # Uses/tools page
+    not-found.tsx       # 404 page
 
   components/           # UI components (Layout, Header, Footer, etc.)
   images/               # Assets (avatar, photos, logos)
   lib/                  # Utilities (article listing, date formatting)
-  styles/               # Global styles (Tailwind and Prism)
+  providers.tsx         # Theme and context providers
 
-public/
-  cv/                   # Published PDF CV
+  App.tsx               # Main app component with routing
+  main.tsx              # Application entry point
 
-configuration files: next.config.mjs, tailwind/postcss, tsconfig.json, vercel.json
+public/                 # Static assets (favicon, etc.)
+
+configuration files: vite.config.ts, tailwind/postcss, tsconfig.json
 ```
 
 ## Getting started
 
-Install dependencies:
+Install dependencies (using pnpm):
 
 ```bash
-npm install
-```
-
-Set the site URL in `.env.local`:
-
-```bash
-NEXT_PUBLIC_SITE_URL=https://aburakt.com
+pnpm install
 ```
 
 Run the development server:
 
 ```bash
-npm run dev
+pnpm dev
+```
+
+The dev server runs on `http://localhost:4264`
+
+Build for production:
+
+```bash
+pnpm build
+```
+
+Preview production build:
+
+```bash
+pnpm preview
 ```
 
 ## Learn more
 
-- [Next.js Documentation](https://nextjs.org/docs)
+- [Vite Documentation](https://vitejs.dev/guide/)
+- [React Documentation](https://react.dev)
+- [React Router Documentation](https://reactrouter.com)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [MDX Documentation](https://mdxjs.com/docs)
