@@ -1,21 +1,22 @@
-import { lazy, Suspense } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
-import { AnimatePresence } from 'framer-motion'
-import { Providers } from '@/providers'
 import { Layout } from '@/components/Layout'
 import { LoadingSpinner } from '@/components/LoadingSpinner'
 import { PageTransition } from '@/components/PageTransition'
+import { Providers } from '@/providers'
+import { AnimatePresence } from 'framer-motion'
+import { lazy, Suspense } from 'react'
+import { Route, Routes, useLocation } from 'react-router-dom'
 
 // Pages
-import HomePage from '@/pages/home'
 import AboutPage from '@/pages/about'
 import ArticlesPage from '@/pages/articles'
-import CvPage from '@/pages/cv'
-import ProjectsPage from '@/pages/projects'
-import UsesPage from '@/pages/uses'
 import CommunityPage from '@/pages/community'
-import ThankYouPage from '@/pages/thank-you'
+import CvPage from '@/pages/cv'
+import HomePage from '@/pages/home'
 import NotFound from '@/pages/not-found'
+import ProjectsPage from '@/pages/projects'
+import ThankYouPage from '@/pages/thank-you'
+import UsesPage from '@/pages/uses'
+import Redirecting from '@/pages/redirecting'
 
 // Lazy load articles
 const ArticleAnalytics = lazy(() => import('@/pages/articles/analytics-across-81-provinces'))
@@ -35,20 +36,21 @@ function App() {
             <PageTransition>
               <Suspense fallback={<LoadingSpinner />}>
                 <Routes location={location} key={location.pathname}>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/articles" element={<ArticlesPage />} />
-              <Route path="/articles/analytics-across-81-provinces" element={<ArticleAnalytics />} />
-              <Route path="/articles/architecting-the-authorization-platform" element={<ArticleAuthorization />} />
-              <Route path="/articles/automating-macos-sysdata-cleanup" element={<ArticleMacOS />} />
-              <Route path="/articles/building-this-portfolio" element={<ArticlePortfolio />} />
-              <Route path="/articles/scaling-secure-access" element={<ArticleSecureAccess />} />
-              <Route path="/cv" element={<CvPage />} />
-              <Route path="/projects" element={<ProjectsPage />} />
-              <Route path="/uses" element={<UsesPage />} />
-              <Route path="/community" element={<CommunityPage />} />
-              <Route path="/thank-you" element={<ThankYouPage />} />
-              <Route path="*" element={<NotFound />} />
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/about" element={<AboutPage />} />
+                  <Route path="/articles" element={<ArticlesPage />} />
+                  <Route path="/articles/analytics-across-81-provinces" element={<ArticleAnalytics />} />
+                  <Route path="/articles/architecting-the-authorization-platform" element={<ArticleAuthorization />} />
+                  <Route path="/articles/automating-macos-sysdata-cleanup" element={<ArticleMacOS />} />
+                  <Route path="/articles/building-this-portfolio" element={<ArticlePortfolio />} />
+                  <Route path="/articles/scaling-secure-access" element={<ArticleSecureAccess />} />
+                  <Route path="/cv" element={<CvPage />} />
+                  <Route path="/projects" element={<ProjectsPage />} />
+                  <Route path="/uses" element={<UsesPage />} />
+                  <Route path="/community" element={<CommunityPage />} />
+                  <Route path="/thank-you" element={<ThankYouPage />} />
+                  <Route path="/invite" element={<Redirecting url="https://www.icloud.com/invites/037A2hm_ELLqFkmKrI_zgaVvA" />} />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
             </PageTransition>
