@@ -1,0 +1,11 @@
+name = "aburakt-api"
+main = "src/index.ts"
+compatibility_date = "2025-03-01"
+
+[vars]
+ENVIRONMENT = "production"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "aburakt-db"
+database_id = "placeholder-replace-with-actual-id"

@@ -1,0 +1,54 @@
+---
+import '@/styles/global.css'
+import { getLocaleFromUrl, t } from '@/i18n'
+import VimNavigation from '@/components/react/VimNavigation'
+import KeyboardCheatsheet from '@/components/react/KeyboardCheatsheet'
+import SearchModal from '@/components/react/SearchModal'
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+const locale = getLocaleFromUrl(Astro.url)
+const { title, description } = Astro.props
+const siteTitle = title
+  ? `${title} — ${t(locale, 'site.title')}`
+  : t(locale, 'site.title')
+const siteDescription = description || t(locale, 'site.description')
+---
+
+<!doctype html>
+<html lang={locale} class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={siteDescription} />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <title>{siteTitle}</title>
+    <!-- Prevent flash of wrong theme -->
+    <script is:inline>
+      (function () {
+        const theme = localStorage.getItem('theme')
+        if (theme === 'light') {
+          document.documentElement.classList.remove('dark')
+        } else if (theme === 'dark' || !theme) {
+          document.documentElement.classList.add('dark')
+        } else {
+          // system
+          if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark')
+          } else {
+            document.documentElement.classList.remove('dark')
+          }
+        }
+      })()
+    </script>
+  </head>
+  <body class="min-h-screen bg-white text-zinc-900 antialiased dark:bg-zinc-900 dark:text-zinc-100">
+    <slot />
+    <VimNavigation locale={locale} client:load />
+    <KeyboardCheatsheet locale={locale} client:idle />
+    <SearchModal locale={locale} client:idle />
+  </body>
+</html>

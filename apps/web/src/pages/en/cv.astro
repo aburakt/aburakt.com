@@ -1,0 +1,41 @@
+---
+import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
+import Container from '@/components/astro/Container.astro'
+import { t } from '@/i18n'
+
+const locale = 'en'
+const CV_FILE = 'Ahmet_Burak_Tekin_CV.v2025-09.pdf'
+const CV_PATH = `/cv/${CV_FILE}`
+---
+
+<PortfolioLayout title="CV">
+  <Container class="mt-16 flex flex-col items-center sm:mt-24" data-section="cv">
+    <div class="w-full max-w-3xl text-center mx-auto">
+      <h1 class="text-3xl font-bold tracking-tight text-zinc-800 sm:text-4xl dark:text-zinc-100">
+        {t(locale, 'cv.title')}
+      </h1>
+      <p class="mt-4 text-base text-zinc-600 text-center dark:text-zinc-400">
+        {t(locale, 'cv.description')}
+      </p>
+      <div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <a href={CV_PATH} target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 justify-center rounded-md bg-zinc-800 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:bg-zinc-700 dark:bg-zinc-700 dark:hover:bg-zinc-600">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" class="h-4 w-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 11.25L12 15.75l4.5-4.5M12 3v12.75" />
+          </svg>
+          {t(locale, 'cv.download')}
+        </a>
+        <a href="mailto:info@aburakt.com" class="inline-flex items-center gap-2 justify-center rounded-md border border-zinc-300 px-4 py-2 text-sm font-semibold text-zinc-700 transition hover:border-zinc-400 hover:text-zinc-900 dark:border-zinc-600 dark:text-zinc-200 dark:hover:border-zinc-500">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" class="h-4 w-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 7.5v9A2.25 2.25 0 0119.5 18.75h-15A2.25 2.25 0 012.25 16.5v-9A2.25 2.25 0 014.5 5.25h15A2.25 2.25 0 0121.75 7.5Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L12 13.5 21 7.5" />
+          </svg>
+          {t(locale, 'cv.contactMe')}
+        </a>
+      </div>
+    </div>
+    <div class="mt-10 aspect-[1/1.414] w-full max-w-4xl overflow-hidden rounded-2xl border border-zinc-200 shadow-lg dark:border-zinc-700 dark:bg-zinc-900 mx-auto">
+      <iframe src={`${CV_PATH}#view=FitH`} title="Ahmet Burak Tekin CV" class="h-full w-full" />
+    </div>
+  </Container>
+</PortfolioLayout>

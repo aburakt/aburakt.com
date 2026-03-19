@@ -1,0 +1,93 @@
+{
+  "site": {
+    "title": "Ahmet Burak Tekin",
+    "description": "Front-end developer building resilient digital platforms for the public sector."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "cv": "CV",
+    "playground": "Playground",
+    "dashboard": "Dashboard"
+  },
+  "hero": {
+    "title": "Front-end developer building resilient digital platforms.",
+    "description": "I'm Ahmet Burak Tekin, leading the front-end team at Türkiye's Ministry of Interior. I architect React and TypeScript applications that manage nationwide authorization, analytics, and operational workflows for thousands of public servants every day while mentoring a team of four developers and driving modernization across the organization."
+  },
+  "sections": {
+    "projects": "Projects",
+    "work": "Experience",
+    "skills": "Skills",
+    "contact": "Contact"
+  },
+  "contact": {
+    "title": "Let's build together",
+    "description": "Have a front-end platform to ship or a team that needs mentorship? Reach out and let's create reliable systems for the public sector.",
+    "email": "Email me",
+    "linkedin": "Connect on LinkedIn"
+  },
+  "cv": {
+    "title": "Ahmet Burak Tekin · CV",
+    "description": "Download the latest PDF or browse the embedded preview below.",
+    "download": "Download PDF",
+    "contactMe": "Contact me"
+  },
+  "about": {
+    "title": "I'm Ahmet Burak Tekin, a front-end developer helping Türkiye's public sector deliver dependable digital services.",
+    "p1": "Based in Ankara, I specialize in architecting React and TypeScript applications that power critical government services. I led the front-end design of the Ministry of Interior's authorization management system, creating the workflows that keep permissions and approvals synchronized across every province.",
+    "p2": "My day-to-day involves mentoring a team of four developers while collaborating closely with Java Spring Boot teams to deliver secure, well-tested integrations. I maintain the organization's authentication gateway built on JWT and OAuth, and keep a nationwide analytics platform running smoothly for stakeholders in all 81 provinces.",
+    "p3": "Beyond authorization and analytics, I launch new internal tools — from data query applications that unlock reporting across directorates to bespoke photo processing workflows and visitor management dashboards. Each project is an opportunity to embed modern front-end practices into institutions that millions rely on daily.",
+    "p4": "Earlier in my career at EBS Computer Systems & IT I built responsive interfaces, WordPress sites, and SQL reports that served complex accounting workflows. My internships at public and private organizations gave me firsthand insight into enterprise software delivery, shaping how I approach large-scale projects today.",
+    "p5": "I stay curious through community work with JCI Ankara and JCI Europe, where I've served on growth, digital platforms, and outreach teams — most recently as Secretary General and a Development Council Officer. Giving back keeps me learning and ensures the solutions I design stay grounded in real human needs.",
+    "cvLink": "Curious about the full story? You can view my CV here."
+  },
+  "playground": {
+    "title": "Playground",
+    "description": "Sharpen your Vim and typing skills.",
+    "vim": {
+      "title": "Vim Learning Center",
+      "description": "Learn vim motions, practice with exercises, and play games."
+    },
+    "typing": {
+      "title": "Typing Center",
+      "description": "Improve your typing speed with tests, lessons, and games."
+    }
+  },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light",
+    "system": "System"
+  },
+  "vim": {
+    "normal": "-- NORMAL --",
+    "insert": "-- INSERT --"
+  },
+  "cheatsheet": {
+    "title": "Keyboard Shortcuts",
+    "navigation": "Navigation",
+    "scrollDown": "Scroll down",
+    "scrollUp": "Scroll up",
+    "goTop": "Go to top",
+    "goBottom": "Go to bottom",
+    "firstSection": "First section",
+    "middleSection": "Middle section",
+    "lastSection": "Last section",
+    "search": "Search",
+    "goGithub": "Go to GitHub",
+    "goCv": "Go to CV",
+    "goPlayground": "Go to Playground",
+    "showHelp": "Show this help",
+    "close": "Close"
+  },
+  "common": {
+    "present": "Present",
+    "viewCv": "View CV"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  },
+  "lang": {
+    "switch": "Türkçe",
+    "switchTo": "/"
+  }
+}

@@ -25,8 +25,13 @@ pnpm-debug.log*
 .env.production.local
 .env.development.local
 
-# vite
+# vite / astro
 .vite
+.astro
+
+# cloudflare
+.wrangler
+.dev.vars
 
 # ide
 .vscode
@@ -34,6 +39,5 @@ pnpm-debug.log*
 !.vscode/settings.json
 .idea
 
-pnpm-lock.yaml
-pnpm-workspace.yaml
+# lock files tracked separately
 bun.lock

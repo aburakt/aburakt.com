@@ -1,0 +1,78 @@
+---
+import { getLocaleFromUrl, t, getLocalePath } from '@/i18n'
+import ThemeToggle from '@/components/react/ThemeToggle'
+
+const locale = getLocaleFromUrl(Astro.url)
+
+const navItems = [
+  { href: getLocalePath(locale, '/'), label: t(locale, 'nav.home') },
+  { href: getLocalePath(locale, '/about'), label: t(locale, 'nav.about') },
+  { href: getLocalePath(locale, '/cv'), label: t(locale, 'nav.cv') },
+  { href: getLocalePath(locale, '/playground'), label: t(locale, 'nav.playground') },
+]
+---
+
+<header class="relative z-50 flex flex-none flex-col no-print" data-section="header">
+  <div class="sm:px-8">
+    <div class="mx-auto w-full max-w-7xl lg:px-8">
+      <div class="relative px-4 sm:px-8 lg:px-12">
+        <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="flex items-center justify-between gap-4 py-6">
+            <!-- Logo / Name -->
+            <a
+              href={getLocalePath(locale, '/')}
+              class="text-lg font-semibold tracking-tight text-zinc-800 transition hover:text-primary-500 dark:text-zinc-100 dark:hover:text-primary-400"
+            >
+              ABT
+            </a>
+
+            <!-- Nav -->
+            <nav class="hidden md:flex md:gap-6">
+              {navItems.map((item) => (
+                <a
+                  href={item.href}
+                  class:list={[
+                    'text-sm font-medium transition',
+                    Astro.url.pathname === item.href || (item.href !== getLocalePath(locale, '/') && Astro.url.pathname.startsWith(item.href))
+                      ? 'text-primary-500 dark:text-primary-400'
+                      : 'text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100',
+                  ]}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+
+            <!-- Right side: lang switch + theme toggle -->
+            <div class="flex items-center gap-3">
+              <a
+                href={t(locale, 'lang.switchTo')}
+                class="text-xs font-medium text-zinc-500 transition hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200"
+              >
+                {t(locale, 'lang.switch')}
+              </a>
+              <ThemeToggle client:load />
+            </div>
+          </div>
+
+          <!-- Mobile nav -->
+          <nav class="flex gap-4 overflow-x-auto pb-3 md:hidden">
+            {navItems.map((item) => (
+              <a
+                href={item.href}
+                class:list={[
+                  'whitespace-nowrap text-sm font-medium transition',
+                  Astro.url.pathname === item.href
+                    ? 'text-primary-500 dark:text-primary-400'
+                    : 'text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100',
+                ]}
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

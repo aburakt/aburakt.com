@@ -1,0 +1,186 @@
+import { useState, useEffect, useCallback, useRef } from 'react'
+
+type VimMode = 'normal' | 'insert'
+
+interface Props {
+  locale: string
+}
+
+export default function VimNavigation({ locale }: Props) {
+  const [mode, setMode] = useState<VimMode>('normal')
+  const [enabled, setEnabled] = useState(true)
+  const [showIndicator, setShowIndicator] = useState(true)
+  const keyBuffer = useRef('')
+  const keyTimeout = useRef<ReturnType<typeof setTimeout>>()
+
+  // Load preferences
+  useEffect(() => {
+    const pref = localStorage.getItem('vim-nav-enabled')
+    if (pref === 'false') {
+      setEnabled(false)
+      setShowIndicator(false)
+    }
+  }, [])
+
+  // Track focus for insert mode
+  useEffect(() => {
+    function onFocus(e: FocusEvent) {
+      const target = e.target as HTMLElement
+      if (
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.isContentEditable
+      ) {
+        setMode('insert')
+      }
+    }
+
+    function onBlur() {
+      setMode('normal')
+    }
+
+    document.addEventListener('focusin', onFocus)
+    document.addEventListener('focusout', onBlur)
+    return () => {
+      document.removeEventListener('focusin', onFocus)
+      document.removeEventListener('focusout', onBlur)
+    }
+  }, [])
+
+  const getSections = useCallback(() => {
+    return Array.from(document.querySelectorAll('[data-section]')) as HTMLElement[]
+  }, [])
+
+  const handleKey = useCallback(
+    (e: KeyboardEvent) => {
+      if (!enabled) return
+      if (mode === 'insert') return
+
+      // Don't interfere with modifier keys
+      if (e.ctrlKey || e.metaKey || e.altKey) return
+
+      const key = e.key
+
+      // Handle search modal trigger
+      if (key === '/') {
+        e.preventDefault()
+        document.dispatchEvent(new CustomEvent('vim:search'))
+        return
+      }
+
+      // Handle cheatsheet trigger
+      if (key === '?') {
+        e.preventDefault()
+        document.dispatchEvent(new CustomEvent('vim:cheatsheet'))
+        return
+      }
+
+      // Single-key actions
+      if (key === 'j') {
+        e.preventDefault()
+        window.scrollBy({ top: 100, behavior: 'smooth' })
+        return
+      }
+      if (key === 'k') {
+        e.preventDefault()
+        window.scrollBy({ top: -100, behavior: 'smooth' })
+        return
+      }
+      if (key === 'G') {
+        e.preventDefault()
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
+        return
+      }
+      if (key === 'H') {
+        e.preventDefault()
+        const sections = getSections()
+        const first = sections.find(
+          (s) => s.getBoundingClientRect().top >= 0
+        )
+        first?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        return
+      }
+      if (key === 'M') {
+        e.preventDefault()
+        const sections = getSections()
+        const mid = sections[Math.floor(sections.length / 2)]
+        mid?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        return
+      }
+      if (key === 'L') {
+        e.preventDefault()
+        const sections = getSections()
+        const last = sections[sections.length - 1]
+        last?.scrollIntoView({ behavior: 'smooth', block: 'end' })
+        return
+      }
+
+      // Multi-key sequences
+      clearTimeout(keyTimeout.current)
+      keyBuffer.current += key
+      keyTimeout.current = setTimeout(() => {
+        keyBuffer.current = ''
+      }, 500)
+
+      const buf = keyBuffer.current
+
+      if (buf === 'gg') {
+        e.preventDefault()
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+        keyBuffer.current = ''
+        return
+      }
+      if (buf === 'gi') {
+        e.preventDefault()
+        window.open('https://github.com/aburakt', '_blank')
+        keyBuffer.current = ''
+        return
+      }
+      if (buf === 'gc') {
+        e.preventDefault()
+        const cvPath = locale === 'en' ? '/en/cv' : '/cv'
+        window.location.href = cvPath
+        keyBuffer.current = ''
+        return
+      }
+      if (buf === 'gp') {
+        e.preventDefault()
+        const playPath = locale === 'en' ? '/en/playground' : '/playground'
+        window.location.href = playPath
+        keyBuffer.current = ''
+        return
+      }
+    },
+    [enabled, mode, locale, getSections]
+  )
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKey)
+    return () => document.removeEventListener('keydown', handleKey)
+  }, [handleKey])
+
+  function toggleVimNav() {
+    const next = !enabled
+    setEnabled(next)
+    setShowIndicator(next)
+    localStorage.setItem('vim-nav-enabled', String(next))
+  }
+
+  if (!showIndicator) return null
+
+  return (
+    <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2 no-print">
+      <button
+        onClick={toggleVimNav}
+        className="rounded bg-zinc-800/80 px-2 py-1 font-mono text-xs text-primary-400 shadow-lg backdrop-blur transition hover:bg-zinc-700/80 dark:bg-zinc-800/90 dark:text-primary-400"
+        title={enabled ? 'Disable vim navigation' : 'Enable vim navigation'}
+      >
+        {enabled
+          ? mode === 'normal'
+            ? '-- NORMAL --'
+            : '-- INSERT --'
+          : '-- OFF --'}
+      </button>
+    </div>
+  )
+}
