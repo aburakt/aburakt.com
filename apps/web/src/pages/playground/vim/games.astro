@@ -1,0 +1,49 @@
+---
+import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
+import Container from '@/components/astro/Container.astro'
+import DeleteSpeed from '@/components/react/vim/games/DeleteSpeed'
+import CIGame from '@/components/react/vim/games/CIGame'
+import RelativeJump from '@/components/react/vim/games/RelativeJump'
+import { getLocaleFromUrl } from '@/i18n'
+
+const locale = getLocaleFromUrl(Astro.url)
+---
+
+<PortfolioLayout title={locale === 'tr' ? 'Vim Oyunları' : 'Vim Games'}>
+  <Container class="mt-16 sm:mt-24" data-section="vim-games">
+    <div class="mb-12 max-w-2xl">
+      <a href={locale === 'tr' ? '/playground/vim' : '/en/playground/vim'} class="text-sm text-primary-500 hover:text-primary-400">
+        ← {locale === 'tr' ? 'Vim Merkezi' : 'Vim Center'}
+      </a>
+      <h1 class="mt-4 text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
+        {locale === 'tr' ? 'Vim Oyunları' : 'Vim Games'}
+      </h1>
+      <p class="mt-4 text-base text-zinc-600 dark:text-zinc-400">
+        {locale === 'tr'
+          ? 'vim-be-good tarzı oyunlarla hızınızı ve doğruluğunuzu test edin.'
+          : 'Test your speed and accuracy with vim-be-good style games.'}
+      </p>
+    </div>
+
+    <!-- Desktop-only notice -->
+    <div class="mb-8 rounded-lg border border-yellow-500/20 bg-yellow-500/5 p-4 sm:hidden">
+      <p class="text-sm text-yellow-400">
+        {locale === 'tr'
+          ? '⚠️ Vim oyunları masaüstünde daha iyi çalışır. Lütfen masaüstü kullanın.'
+          : '⚠️ Vim games work best on desktop. Please use a desktop device.'}
+      </p>
+    </div>
+
+    <div class="space-y-8">
+      <DeleteSpeed locale={locale} client:only="react" />
+      <CIGame locale={locale} client:only="react" />
+      <RelativeJump locale={locale} client:only="react" />
+    </div>
+
+    <p class="mt-8 text-center text-sm text-zinc-500">
+      {locale === 'tr'
+        ? 'Word Jump ve Macro Run oyunları yakında eklenecek.'
+        : 'Word Jump and Macro Run games coming soon.'}
+    </p>
+  </Container>
+</PortfolioLayout>

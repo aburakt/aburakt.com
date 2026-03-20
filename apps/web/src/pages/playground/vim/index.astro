@@ -1,0 +1,69 @@
+---
+import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
+import Container from '@/components/astro/Container.astro'
+import { getLocaleFromUrl, t, getLocalePath } from '@/i18n'
+
+const locale = getLocaleFromUrl(Astro.url)
+const prefix = locale === 'en' ? '/en' : ''
+
+const modules = [
+  {
+    href: `${prefix}/playground/vim/motions`,
+    title: locale === 'tr' ? 'Hareketler & Cheatsheet' : 'Motions & Cheatsheet',
+    description: locale === 'tr'
+      ? 'Tüm vim komutlarını kategorilere göre keşfedin. Fuzzy arama ve seviye filtreleri ile.'
+      : 'Explore all vim commands by category. With fuzzy search and level filters.',
+    icon: 'book',
+  },
+  {
+    href: `${prefix}/playground/vim/practice`,
+    title: locale === 'tr' ? 'İnteraktif Alıştırmalar' : 'Interactive Exercises',
+    description: locale === 'tr'
+      ? 'Görev bazlı alıştırmalarla vim komutlarını pratik yapın. 20+ görev.'
+      : 'Practice vim commands with task-based exercises. 20+ tasks.',
+    icon: 'target',
+  },
+  {
+    href: `${prefix}/playground/vim/games`,
+    title: locale === 'tr' ? 'Vim Oyunları' : 'Vim Games',
+    description: locale === 'tr'
+      ? 'vim-be-good tarzı oyunlarla hızınızı ve doğruluğunuzu test edin.'
+      : 'Test your speed and accuracy with vim-be-good style games.',
+    icon: 'gamepad',
+  },
+]
+---
+
+<PortfolioLayout title={locale === 'tr' ? 'Vim Öğrenme Merkezi' : 'Vim Learning Center'}>
+  <Container class="mt-16 sm:mt-24" data-section="vim-hub">
+    <div class="max-w-2xl">
+      <h1 class="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
+        {locale === 'tr' ? 'Vim Öğrenme Merkezi' : 'Vim Learning Center'}
+      </h1>
+      <p class="mt-6 text-base text-zinc-600 dark:text-zinc-400">
+        {locale === 'tr'
+          ? 'Vim hareketlerini öğrenin, alıştırmalar yapın ve oyunlarla pratik yapın.'
+          : 'Learn vim motions, practice with exercises, and sharpen your skills with games.'}
+      </p>
+    </div>
+
+    <div class="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-3">
+      {modules.map((mod) => (
+        <a
+          href={mod.href}
+          class="group relative rounded-2xl border border-zinc-100 p-8 transition hover:border-primary-500/50 dark:border-zinc-700/40 dark:hover:border-primary-400/50"
+        >
+          <h2 class="text-lg font-semibold text-zinc-800 group-hover:text-primary-500 dark:text-zinc-100 dark:group-hover:text-primary-400">
+            {mod.title}
+          </h2>
+          <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+            {mod.description}
+          </p>
+          <span class="mt-4 inline-flex items-center text-sm font-medium text-primary-500 dark:text-primary-400">
+            {locale === 'tr' ? 'Başla' : 'Start'} →
+          </span>
+        </a>
+      ))}
+    </div>
+  </Container>
+</PortfolioLayout>
