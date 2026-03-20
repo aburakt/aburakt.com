@@ -9,3 +9,9 @@ ENVIRONMENT = "production"
 binding = "DB"
 database_name = "aburakt-db"
 database_id = "placeholder-replace-with-actual-id"
+migrations_dir = "migrations"
+
+# Secrets (set via `wrangler secret put`):
+# GITHUB_CLIENT_ID
+# GITHUB_CLIENT_SECRET
+# SESSION_SECRET

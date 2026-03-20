@@ -1,0 +1,25 @@
+---
+import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
+import Container from '@/components/astro/Container.astro'
+import Dashboard from '@/components/react/Dashboard'
+import { getLocaleFromUrl } from '@/i18n'
+
+const locale = getLocaleFromUrl(Astro.url)
+---
+
+<PortfolioLayout title={locale === 'tr' ? 'Dashboard' : 'Dashboard'}>
+  <Container class="mt-16 sm:mt-24" data-section="dashboard">
+    <div class="mb-12 max-w-2xl">
+      <h1 class="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
+        Dashboard
+      </h1>
+      <p class="mt-4 text-base text-zinc-600 dark:text-zinc-400">
+        {locale === 'tr'
+          ? 'Yazma ve vim istatistiklerinizi takip edin.'
+          : 'Track your typing and vim statistics.'}
+      </p>
+    </div>
+
+    <Dashboard locale={locale} client:only="react" />
+  </Container>
+</PortfolioLayout>

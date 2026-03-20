@@ -4,6 +4,8 @@ import Container from '@/components/astro/Container.astro'
 import DeleteSpeed from '@/components/react/vim/games/DeleteSpeed'
 import CIGame from '@/components/react/vim/games/CIGame'
 import RelativeJump from '@/components/react/vim/games/RelativeJump'
+import WordJump from '@/components/react/vim/games/WordJump'
+import MacroRun from '@/components/react/vim/games/MacroRun'
 import { getLocaleFromUrl } from '@/i18n'
 
 const locale = getLocaleFromUrl(Astro.url)
@@ -38,12 +40,8 @@ const locale = getLocaleFromUrl(Astro.url)
       <DeleteSpeed locale={locale} client:only="react" />
       <CIGame locale={locale} client:only="react" />
       <RelativeJump locale={locale} client:only="react" />
+      <WordJump locale={locale} client:only="react" />
+      <MacroRun locale={locale} client:only="react" />
     </div>
-
-    <p class="mt-8 text-center text-sm text-zinc-500">
-      {locale === 'tr'
-        ? 'Word Jump ve Macro Run oyunları yakında eklenecek.'
-        : 'Word Jump and Macro Run games coming soon.'}
-    </p>
   </Container>
 </PortfolioLayout>
