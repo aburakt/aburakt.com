@@ -1,0 +1,35 @@
+---
+import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
+import Container from '@/components/astro/Container.astro'
+import WordRain from '@/components/react/typing/games/WordRain'
+import TypeSprint from '@/components/react/typing/games/TypeSprint'
+import Survival from '@/components/react/typing/games/Survival'
+import { getLocaleFromUrl } from '@/i18n'
+
+const locale = getLocaleFromUrl(Astro.url)
+const prefix = locale === 'en' ? '/en' : ''
+---
+
+<PortfolioLayout title={locale === 'tr' ? 'Yazma Oyunları' : 'Typing Games'}>
+  <Container class="mt-16 sm:mt-24" data-section="typing-games">
+    <div class="mb-12 max-w-2xl">
+      <a href={`${prefix}/playground/typing`} class="text-sm text-primary-500 hover:text-primary-400">
+        ← {locale === 'tr' ? 'Yazma Merkezi' : 'Typing Center'}
+      </a>
+      <h1 class="mt-4 text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
+        {locale === 'tr' ? 'Yazma Oyunları' : 'Typing Games'}
+      </h1>
+      <p class="mt-4 text-base text-zinc-600 dark:text-zinc-400">
+        {locale === 'tr'
+          ? 'Eğlenceli oyunlarla yazma hızınızı artırın.'
+          : 'Improve your typing speed with fun games.'}
+      </p>
+    </div>
+
+    <div class="space-y-8">
+      <WordRain locale={locale} client:only="react" />
+      <TypeSprint locale={locale} client:only="react" />
+      <Survival locale={locale} client:only="react" />
+    </div>
+  </Container>
+</PortfolioLayout>

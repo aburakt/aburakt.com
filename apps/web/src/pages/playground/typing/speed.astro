@@ -1,0 +1,29 @@
+---
+import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
+import Container from '@/components/astro/Container.astro'
+import SpeedChallenge from '@/components/react/typing/SpeedChallenge'
+import { getLocaleFromUrl } from '@/i18n'
+
+const locale = getLocaleFromUrl(Astro.url)
+const prefix = locale === 'en' ? '/en' : ''
+---
+
+<PortfolioLayout title={locale === 'tr' ? 'Hız Yarışı' : 'Speed Challenge'}>
+  <Container class="mt-16 sm:mt-24" data-section="typing-speed">
+    <div class="mb-12 max-w-2xl">
+      <a href={`${prefix}/playground/typing`} class="text-sm text-primary-500 hover:text-primary-400">
+        ← {locale === 'tr' ? 'Yazma Merkezi' : 'Typing Center'}
+      </a>
+      <h1 class="mt-4 text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
+        {locale === 'tr' ? 'Hız Yarışı' : 'Speed Challenge'}
+      </h1>
+      <p class="mt-4 text-base text-zinc-600 dark:text-zinc-400">
+        {locale === 'tr'
+          ? 'Rastgele kelimelerle hız yarışı yapın. Canlı WPM grafiği ve klavye rehberi ile.'
+          : 'Race through random words with a live WPM graph and keyboard guide.'}
+      </p>
+    </div>
+
+    <SpeedChallenge locale={locale} client:only="react" />
+  </Container>
+</PortfolioLayout>

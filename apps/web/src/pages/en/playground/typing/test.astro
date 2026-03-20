@@ -1,0 +1,29 @@
+---
+import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
+import Container from '@/components/astro/Container.astro'
+import TypingTest from '@/components/react/typing/TypingTest'
+import { getLocaleFromUrl } from '@/i18n'
+
+const locale = getLocaleFromUrl(Astro.url)
+const prefix = locale === 'en' ? '/en' : ''
+---
+
+<PortfolioLayout title={locale === 'tr' ? 'Yazma Testi' : 'Typing Test'}>
+  <Container class="mt-16 sm:mt-24" data-section="typing-test">
+    <div class="mb-12 max-w-2xl">
+      <a href={`${prefix}/playground/typing`} class="text-sm text-primary-500 hover:text-primary-400">
+        ← {locale === 'tr' ? 'Yazma Merkezi' : 'Typing Center'}
+      </a>
+      <h1 class="mt-4 text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
+        {locale === 'tr' ? 'Yazma Testi' : 'Typing Test'}
+      </h1>
+      <p class="mt-4 text-base text-zinc-600 dark:text-zinc-400">
+        {locale === 'tr'
+          ? 'WPM hızınızı ve doğruluğunuzu ölçün. Farklı süreler seçebilirsiniz.'
+          : 'Measure your WPM speed and accuracy. Choose different durations.'}
+      </p>
+    </div>
+
+    <TypingTest locale={locale} client:only="react" />
+  </Container>
+</PortfolioLayout>

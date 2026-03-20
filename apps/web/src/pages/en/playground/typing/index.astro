@@ -1,0 +1,83 @@
+---
+import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
+import Container from '@/components/astro/Container.astro'
+import { getLocaleFromUrl } from '@/i18n'
+
+const locale = getLocaleFromUrl(Astro.url)
+const prefix = locale === 'en' ? '/en' : ''
+
+const modules = [
+  {
+    href: `${prefix}/playground/typing/lessons`,
+    title: locale === 'tr' ? 'Dersler' : 'Lessons',
+    description: locale === 'tr'
+      ? 'Ana sıradan başlayarak tüm klavyeyi adım adım öğrenin.'
+      : 'Learn the full keyboard step by step, starting from the home row.',
+    icon: '📚',
+  },
+  {
+    href: `${prefix}/playground/typing/test`,
+    title: locale === 'tr' ? 'Yazma Testi' : 'Typing Test',
+    description: locale === 'tr'
+      ? 'WPM hızınızı ve doğruluğunuzu ölçün.'
+      : 'Measure your WPM speed and accuracy.',
+    icon: '⏱️',
+  },
+  {
+    href: `${prefix}/playground/typing/speed`,
+    title: locale === 'tr' ? 'Hız Yarışı' : 'Speed Challenge',
+    description: locale === 'tr'
+      ? 'Rastgele kelimelerle hız yarışı yapın ve en yüksek skorunuzu kırın.'
+      : 'Race through random words and beat your best score.',
+    icon: '🏎️',
+  },
+  {
+    href: `${prefix}/playground/typing/games`,
+    title: locale === 'tr' ? 'Oyunlar' : 'Games',
+    description: locale === 'tr'
+      ? 'Word Rain, Type Sprint ve Survival ile eğlenerek pratik yapın.'
+      : 'Practice with Word Rain, Type Sprint, and Survival games.',
+    icon: '🎮',
+  },
+]
+---
+
+<PortfolioLayout title={locale === 'tr' ? 'Yazma Merkezi' : 'Typing Center'}>
+  <Container class="mt-16 sm:mt-24" data-section="typing-hub">
+    <div class="mb-4">
+      <a href={`${prefix}/playground`} class="text-sm text-primary-500 hover:text-primary-400">
+        ← {locale === 'tr' ? 'Playground' : 'Playground'}
+      </a>
+    </div>
+    <div class="max-w-2xl">
+      <h1 class="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
+        {locale === 'tr' ? 'Yazma Merkezi' : 'Typing Center'}
+      </h1>
+      <p class="mt-6 text-base text-zinc-600 dark:text-zinc-400">
+        {locale === 'tr'
+          ? 'Yazma hızınızı artırın, derslerle öğrenin ve oyunlarla pratik yapın.'
+          : 'Improve your typing speed with lessons, tests, and games.'}
+      </p>
+    </div>
+
+    <div class="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2">
+      {modules.map((mod) => (
+        <a
+          href={mod.href}
+          class="group relative rounded-2xl border border-zinc-100 p-8 transition hover:border-primary-500/50 dark:border-zinc-700/40 dark:hover:border-primary-400/50"
+        >
+          <div class="text-3xl">{mod.icon}</div>
+          <h2 class="mt-4 text-lg font-semibold text-zinc-800 group-hover:text-primary-500 dark:text-zinc-100 dark:group-hover:text-primary-400">
+            {mod.title}
+          </h2>
+          <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+            {mod.description}
+          </p>
+          <span class="mt-4 inline-flex items-center text-sm font-medium text-primary-500 dark:text-primary-400">
+            {locale === 'tr' ? 'Başla' : 'Start'} →
+          </span>
+        </a>
+      ))}
+    </div>
+  </Container>
+</PortfolioLayout>

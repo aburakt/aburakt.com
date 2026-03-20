@@ -1,9 +1,10 @@
 ---
 import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
 import Container from '@/components/astro/Container.astro'
-import { getLocaleFromUrl, t } from '@/i18n'
+import { getLocaleFromUrl, t, getLocalePath } from '@/i18n'
 
 const locale = getLocaleFromUrl(Astro.url)
+const prefix = locale === 'en' ? '/en' : ''
 ---
 
 <PortfolioLayout title={t(locale, 'playground.title')}>
@@ -20,7 +21,7 @@ const locale = getLocaleFromUrl(Astro.url)
     <div class="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2">
       <!-- Vim Card -->
       <a
-        href="/playground/vim"
+        href={`${prefix}/playground/vim`}
         class="group relative rounded-2xl border border-zinc-100 p-8 transition hover:border-primary-500/50 dark:border-zinc-700/40 dark:hover:border-primary-400/50"
       >
         <div class="flex h-12 w-12 items-center justify-center rounded-full bg-primary-500/10 text-primary-500 dark:text-primary-400">
@@ -41,7 +42,7 @@ const locale = getLocaleFromUrl(Astro.url)
 
       <!-- Typing Card -->
       <a
-        href="/playground/typing"
+        href={`${prefix}/playground/typing`}
         class="group relative rounded-2xl border border-zinc-100 p-8 transition hover:border-primary-500/50 dark:border-zinc-700/40 dark:hover:border-primary-400/50"
       >
         <div class="flex h-12 w-12 items-center justify-center rounded-full bg-primary-500/10 text-primary-500 dark:text-primary-400">
