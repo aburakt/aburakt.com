@@ -8,7 +8,7 @@ ENVIRONMENT = "production"
 [[d1_databases]]
 binding = "DB"
 database_name = "aburakt-db"
-database_id = "placeholder-replace-with-actual-id"
+database_id = "d79a8e9c-ad38-4461-b15b-e4ee280fba62"
 migrations_dir = "migrations"
 
 # Secrets (set via `wrangler secret put`):
