@@ -1,19 +1,6 @@
-const CACHE_NAME = 'aburakt-v1'
-const STATIC_ASSETS = [
-  '/',
-  '/about',
-  '/cv',
-  '/playground',
-  '/dashboard',
-  '/manifest.json',
-  '/favicon.ico',
-  '/images/pp/logo.webp',
-]
+const CACHE_NAME = 'aburakt-v2'
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_ASSETS))
-  )
   self.skipWaiting()
 })
 
@@ -29,21 +16,25 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const { request } = event
 
-  // Skip non-GET and API requests
+  // Only handle GET requests for same-origin navigation/assets
   if (request.method !== 'GET') return
-  if (request.url.includes('/auth/') || request.url.includes('/stats/') || request.url.includes('/progress/') || request.url.includes('/leaderboard/')) return
+  if (!request.url.startsWith(self.location.origin)) return
 
+  // Skip API calls
+  const url = new URL(request.url)
+  if (url.pathname.startsWith('/auth/') || url.pathname.startsWith('/stats/') || url.pathname.startsWith('/progress/') || url.pathname.startsWith('/leaderboard/')) return
+
+  // Network-first: try network, fall back to cache for offline
   event.respondWith(
-    caches.match(request).then((cached) => {
-      const fetched = fetch(request).then((response) => {
-        if (response.ok) {
+    fetch(request)
+      .then((response) => {
+        // Only cache successful, non-redirected, non-opaque responses
+        if (response.ok && response.type === 'basic' && !response.redirected) {
           const clone = response.clone()
           caches.open(CACHE_NAME).then((cache) => cache.put(request, clone))
         }
         return response
-      }).catch(() => cached)
-
-      return cached || fetched
-    })
+      })
+      .catch(() => caches.match(request))
   )
 })
