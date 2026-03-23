@@ -4,6 +4,10 @@ import { getLocaleFromUrl, t, getLocalePath } from '@/i18n'
 const locale = getLocaleFromUrl(Astro.url)
 const path = Astro.url.pathname
 
+// Build switch-language URL preserving current page
+const basePath = locale === 'en' ? path.replace(/^\/en(\/|$)/, '/') : path
+const switchLocalePath = locale === 'en' ? (basePath || '/') : `/en${basePath === '/' ? '/' : basePath}`
+
 // Detect zone from URL
 const currentZone = path.includes('/vim') ? 'vim'
   : path.includes('/typing') ? 'typing'
@@ -68,7 +72,7 @@ const navItems = [
       <!-- Right side -->
       <div class="flex items-center gap-3">
         <a
-          href={t(locale, 'lang.switchTo')}
+          href={switchLocalePath}
           class="rounded border border-green-900/30 px-2 py-1 text-xs text-green-600 transition hover:border-green-500/50 hover:text-green-400"
           title={`gl — ${t(locale, 'lang.switch')}`}
         >
