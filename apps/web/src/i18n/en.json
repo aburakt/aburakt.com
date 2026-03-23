@@ -7,9 +7,7 @@
     "home": "Home",
     "about": "About",
     "cv": "CV",
-    "playground": "Playground",
-    "lab": "Lab",
-    "dashboard": "Dashboard"
+    "lab": "Lab"
   },
   "hero": {
     "title": "Front-end developer building resilient digital platforms.",
@@ -42,18 +40,6 @@
     "p5": "I stay curious through community work with JCI Ankara and JCI Europe, where I've served on growth, digital platforms, and outreach teams — most recently as Secretary General and a Development Council Officer. Giving back keeps me learning and ensures the solutions I design stay grounded in real human needs.",
     "cvLink": "Curious about the full story? You can view my CV here."
   },
-  "playground": {
-    "title": "Playground",
-    "description": "Sharpen your Vim and typing skills.",
-    "vim": {
-      "title": "Vim Learning Center",
-      "description": "Learn vim motions, practice with exercises, and play games."
-    },
-    "typing": {
-      "title": "Typing Center",
-      "description": "Improve your typing speed with tests, lessons, and games."
-    }
-  },
   "lab": {
     "title": "Lab",
     "description": "Sharpen your Vim and typing skills.",
@@ -65,11 +51,6 @@
       "title": "Typing Center",
       "description": "Improve your typing speed with tests, lessons, and games."
     }
-  },
-  "theme": {
-    "dark": "Dark",
-    "light": "Light",
-    "system": "System"
   },
   "vim": {
     "normal": "-- NORMAL --",
@@ -88,7 +69,6 @@
     "search": "Search",
     "goGithub": "Go to GitHub",
     "goCv": "Go to CV",
-    "goPlayground": "Go to Playground",
     "goLab": "Go to Lab",
     "showHelp": "Show this help",
     "close": "Close"

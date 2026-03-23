@@ -7,9 +7,7 @@
     "home": "Ana Sayfa",
     "about": "Hakkımda",
     "cv": "CV",
-    "playground": "Playground",
-    "lab": "Lab",
-    "dashboard": "Panel"
+    "lab": "Lab"
   },
   "hero": {
     "title": "Güçlü dijital platformlar inşa eden front-end geliştirici.",
@@ -42,18 +40,6 @@
     "p5": "JCI Ankara ve JCI Europe ile topluluk çalışmaları aracılığıyla merakımı canlı tutuyorum; büyüme, dijital platformlar ve erişim ekiplerinde görev aldım — en son Genel Sekreter ve Kalkınma Konseyi Görevlisi olarak. Geri vermek, öğrenmeye devam etmemi sağlıyor ve tasarladığım çözümlerin gerçek insan ihtiyaçlarına dayalı kalmasını garantiliyor.",
     "cvLink": "Tüm hikayeyi görmek için CV'mi buradan inceleyebilirsiniz."
   },
-  "playground": {
-    "title": "Playground",
-    "description": "Vim ve klavye becerilerinizi geliştirin.",
-    "vim": {
-      "title": "Vim Öğrenme Merkezi",
-      "description": "Vim hareketlerini öğrenin, alıştırmalar yapın ve oyunlarla pratik yapın."
-    },
-    "typing": {
-      "title": "Yazma Merkezi",
-      "description": "Hız testi, dersler ve oyunlarla yazma hızınızı geliştirin."
-    }
-  },
   "lab": {
     "title": "Lab",
     "description": "Vim ve klavye becerilerinizi geliştirin.",
@@ -65,11 +51,6 @@
       "title": "Yazma Merkezi",
       "description": "Hız testi, dersler ve oyunlarla yazma hızınızı geliştirin."
     }
-  },
-  "theme": {
-    "dark": "Karanlık",
-    "light": "Aydınlık",
-    "system": "Sistem"
   },
   "vim": {
     "normal": "-- NORMAL --",
@@ -88,7 +69,6 @@
     "search": "Ara",
     "goGithub": "GitHub'a git",
     "goCv": "CV'ye git",
-    "goPlayground": "Playground'a git",
     "goLab": "Lab'a git",
     "showHelp": "Bu yardımı göster",
     "close": "Kapat"
