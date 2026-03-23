@@ -1,0 +1,5 @@
+# Cloudflare Pages configuration
+name = "aburakt-com"
+
+[pages]
+build_output_dir = "apps/web/dist"
