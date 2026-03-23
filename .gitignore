@@ -42,3 +42,4 @@ pnpm-debug.log*
 # lock files tracked separately
 bun.lock
 pnpm-lock.yaml
+.playwright-mcp/
