@@ -38,7 +38,7 @@ export default function OnboardingHint({ locale }: Props) {
       <div className="flex items-center gap-2">
         <span className="text-xs text-green-600">
           {tr
-            ? '\u0130pucu: ? ile k\u0131sayollar\u0131, Space ile h\u0131zl\u0131 komutlar\u0131 g\u00f6rebilirsiniz'
+            ? 'İpucu: ? ile kısayolları, Space ile hızlı komutları görebilirsiniz'
             : 'Tip: Press ? for shortcuts or Space for quick commands'}
         </span>
         <button
@@ -46,7 +46,7 @@ export default function OnboardingHint({ locale }: Props) {
           className="ml-1 text-green-700 transition-colors hover:text-green-400"
           aria-label="Dismiss"
         >
-          \u00d7
+          {'×'}
         </button>
       </div>
     </div>

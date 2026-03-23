@@ -31,12 +31,12 @@ export default function WhichKey({ locale }: Props) {
       setVisible(false)
     }
 
-    window.addEventListener('vim:leader', handleShow)
-    window.addEventListener('vim:leader-dismiss', handleDismiss)
+    document.addEventListener('vim:leader', handleShow)
+    document.addEventListener('vim:leader-dismiss', handleDismiss)
 
     return () => {
-      window.removeEventListener('vim:leader', handleShow)
-      window.removeEventListener('vim:leader-dismiss', handleDismiss)
+      document.removeEventListener('vim:leader', handleShow)
+      document.removeEventListener('vim:leader-dismiss', handleDismiss)
     }
   }, [])
 
