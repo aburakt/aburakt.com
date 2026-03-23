@@ -6,15 +6,16 @@ import Footer from '@/components/astro/Footer.astro'
 interface Props {
   title?: string
   description?: string
+  zone?: string
 }
 
-const { title, description } = Astro.props
+const { title, description, zone } = Astro.props
 ---
 
 <BaseLayout title={title} description={description}>
   <div class="relative flex min-h-screen w-full flex-col">
     <Header />
-    <main class="flex-auto">
+    <main class="flex-auto" data-zone={zone}>
       <slot />
     </main>
     <Footer />

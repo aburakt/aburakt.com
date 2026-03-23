@@ -47,7 +47,7 @@ export function authRoutes() {
         },
       })
 
-      const userData = await userRes.json() as { id?: number }
+      const userData = await userRes.json() as { id?: number; login?: string }
       if (!userData.id) {
         return c.json({ ok: false, error: 'Failed to get user info' }, 400)
       }
@@ -61,9 +61,9 @@ export function authRoutes() {
 
       // Upsert user
       await c.env.DB.prepare(
-        'INSERT INTO users (id) VALUES (?) ON CONFLICT(id) DO NOTHING'
+        'INSERT INTO users (id, username) VALUES (?, ?) ON CONFLICT(id) DO UPDATE SET username = excluded.username'
       )
-        .bind(userHash)
+        .bind(userHash, userData.login ?? null)
         .run()
 
       // Create session token
@@ -96,10 +96,12 @@ export function authRoutes() {
     }
 
     const session = await c.env.DB.prepare(
-      'SELECT user_hash FROM sessions WHERE token = ? AND expires_at > ?'
+      `SELECT s.user_hash, u.username FROM sessions s
+       LEFT JOIN users u ON u.id = s.user_hash
+       WHERE s.token = ? AND s.expires_at > ?`
     )
       .bind(token, Math.floor(Date.now() / 1000))
-      .first<{ user_hash: string }>()
+      .first<{ user_hash: string; username: string | null }>()
 
     if (!session) {
       return c.json({ ok: true, data: { authenticated: false } })
@@ -107,7 +109,7 @@ export function authRoutes() {
 
     return c.json({
       ok: true,
-      data: { authenticated: true, userHash: session.user_hash },
+      data: { authenticated: true, userHash: session.user_hash, username: session.username },
     })
   })
 

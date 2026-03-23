@@ -12,10 +12,10 @@ const articles = (await getCollection('articles')).sort(
   <Container class="mt-16 sm:mt-24" data-section="articles">
     <div class="flex items-center gap-2 text-xs text-green-700 mb-8">
       <span class="text-green-500">$</span>
-      <span>ls -lt ~/articles/</span>
+      <span class="text-cyan-600">ls -lt ~/articles/</span>
     </div>
 
-    <h1 class="text-xl font-bold text-green-400 text-glow sm:text-2xl">
+    <h1 class="text-xl font-bold text-cyan-400 text-glow-cyan sm:text-2xl">
       Articles
     </h1>
     <p class="mt-3 text-xs text-green-600">
@@ -33,7 +33,7 @@ const articles = (await getCollection('articles')).sort(
             <span class="text-green-800">—</span>
             <span class="text-green-600">{article.data.author}</span>
           </div>
-          <h2 class="mt-2 text-sm font-semibold text-green-400 group-hover:text-glow">
+          <h2 class="mt-2 text-sm font-semibold text-cyan-400 group-hover:text-glow-cyan">
             {article.data.title}
           </h2>
           <p class="mt-1 text-xs text-green-600">
