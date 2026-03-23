@@ -1,4 +1,4 @@
-const CACHE_NAME = 'aburakt-v2'
+const CACHE_NAME = 'aburakt-v3'
 
 self.addEventListener('install', (event) => {
   self.skipWaiting()

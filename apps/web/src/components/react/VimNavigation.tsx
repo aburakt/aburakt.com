@@ -12,6 +12,8 @@ export default function VimNavigation({ locale }: Props) {
   const [showIndicator, setShowIndicator] = useState(true)
   const keyBuffer = useRef('')
   const keyTimeout = useRef<ReturnType<typeof setTimeout>>()
+  const leaderActive = useRef(false)
+  const leaderTimeout = useRef<ReturnType<typeof setTimeout>>()
 
   // Load preferences
   useEffect(() => {
@@ -61,8 +63,55 @@ export default function VimNavigation({ locale }: Props) {
 
       const key = e.key
 
+      // Space-leader system
+      if (key === ' ') {
+        e.preventDefault()
+        if (leaderActive.current) {
+          // Space Space = open command palette
+          document.dispatchEvent(new CustomEvent('vim:search'))
+          document.dispatchEvent(new CustomEvent('vim:leader-dismiss'))
+          leaderActive.current = false
+          clearTimeout(leaderTimeout.current)
+          return
+        }
+        leaderActive.current = true
+        document.dispatchEvent(new CustomEvent('vim:leader'))
+        leaderTimeout.current = setTimeout(() => {
+          leaderActive.current = false
+          document.dispatchEvent(new CustomEvent('vim:leader-dismiss'))
+        }, 800)
+        return
+      }
+
+      if (leaderActive.current) {
+        e.preventDefault()
+        leaderActive.current = false
+        clearTimeout(leaderTimeout.current)
+        document.dispatchEvent(new CustomEvent('vim:leader-dismiss'))
+
+        const prefix = locale === 'en' ? '/en' : ''
+        const leaderMap: Record<string, () => void> = {
+          v: () => { window.location.href = `${prefix}/lab/vim` },
+          t: () => { window.location.href = `${prefix}/lab/typing` },
+          s: () => { document.dispatchEvent(new CustomEvent('vim:search')) },
+          g: () => { window.open('https://github.com/aburakt', '_blank') },
+          l: () => { window.location.href = locale === 'en' ? '/' : '/en/' },
+          '?': () => { document.dispatchEvent(new CustomEvent('vim:cheatsheet')) },
+        }
+
+        const action = leaderMap[key]
+        if (action) action()
+        return
+      }
+
       // Handle search modal trigger
       if (key === '/') {
+        e.preventDefault()
+        document.dispatchEvent(new CustomEvent('vim:search'))
+        return
+      }
+
+      if (key === ':') {
         e.preventDefault()
         document.dispatchEvent(new CustomEvent('vim:search'))
         return
@@ -145,8 +194,8 @@ export default function VimNavigation({ locale }: Props) {
       }
       if (buf === 'gp') {
         e.preventDefault()
-        const playPath = locale === 'en' ? '/en/playground' : '/playground'
-        window.location.href = playPath
+        const labPath = locale === 'en' ? '/en/lab' : '/lab'
+        window.location.href = labPath
         keyBuffer.current = ''
         return
       }

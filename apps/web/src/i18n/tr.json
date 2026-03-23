@@ -8,6 +8,7 @@
     "about": "Hakkımda",
     "cv": "CV",
     "playground": "Playground",
+    "lab": "Lab",
     "dashboard": "Panel"
   },
   "hero": {
@@ -53,6 +54,18 @@
       "description": "Hız testi, dersler ve oyunlarla yazma hızınızı geliştirin."
     }
   },
+  "lab": {
+    "title": "Lab",
+    "description": "Vim ve klavye becerilerinizi geliştirin.",
+    "vim": {
+      "title": "Vim Öğrenme Merkezi",
+      "description": "Vim hareketlerini öğrenin, alıştırmalar yapın ve oyunlarla pratik yapın."
+    },
+    "typing": {
+      "title": "Yazma Merkezi",
+      "description": "Hız testi, dersler ve oyunlarla yazma hızınızı geliştirin."
+    }
+  },
   "theme": {
     "dark": "Karanlık",
     "light": "Aydınlık",
@@ -76,6 +89,7 @@
     "goGithub": "GitHub'a git",
     "goCv": "CV'ye git",
     "goPlayground": "Playground'a git",
+    "goLab": "Lab'a git",
     "showHelp": "Bu yardımı göster",
     "close": "Kapat"
   },

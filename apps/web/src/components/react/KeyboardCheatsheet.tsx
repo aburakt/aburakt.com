@@ -15,9 +15,14 @@ const shortcuts = [
   { key: '/', descTr: 'Ara', descEn: 'Search' },
   { key: 'gi', descTr: "GitHub'a git", descEn: 'Go to GitHub' },
   { key: 'gc', descTr: "CV'ye git", descEn: 'Go to CV' },
-  { key: 'gp', descTr: "Playground'a git", descEn: 'Go to Playground' },
+  { key: 'gp', descTr: "Lab'a git", descEn: 'Go to Lab' },
   { key: 'gl', descTr: 'Dil değiştir', descEn: 'Switch language' },
   { key: '?', descTr: 'Bu yardımı göster', descEn: 'Show this help' },
+  { key: 'Space', descTr: 'Leader key — komut menüsü', descEn: 'Leader key — command menu' },
+  { key: 'Space v', descTr: 'Vim bölümüne git', descEn: 'Go to Vim zone' },
+  { key: 'Space t', descTr: 'Typing bölümüne git', descEn: 'Go to Typing zone' },
+  { key: 'Space s', descTr: 'Arama / Komut paleti', descEn: 'Search / Command palette' },
+  { key: ':', descTr: 'Komut paleti aç', descEn: 'Open command palette' },
   { key: 'Esc', descTr: 'Kapat', descEn: 'Close' },
 ]
 

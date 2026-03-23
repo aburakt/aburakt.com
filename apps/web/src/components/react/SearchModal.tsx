@@ -7,19 +7,38 @@ interface Props {
 
 interface SearchItem {
   title: string
-  href: string
+  href?: string
+  action?: string
   category: string
+  badge?: string
 }
 
 function getSearchItems(locale: string): SearchItem[] {
   const prefix = locale === 'en' ? '/en' : ''
+  const tr = locale === 'tr'
   return [
-    { title: locale === 'tr' ? 'Ana Sayfa' : 'Home', href: `${prefix}/`, category: locale === 'tr' ? 'Sayfalar' : 'Pages' },
-    { title: locale === 'tr' ? 'Hakkımda' : 'About', href: `${prefix}/about`, category: locale === 'tr' ? 'Sayfalar' : 'Pages' },
-    { title: 'CV', href: `${prefix}/cv`, category: locale === 'tr' ? 'Sayfalar' : 'Pages' },
-    { title: 'Playground', href: `${prefix}/playground`, category: locale === 'tr' ? 'Sayfalar' : 'Pages' },
-    { title: 'GitHub', href: 'https://github.com/aburakt', category: locale === 'tr' ? 'Bağlantılar' : 'Links' },
-    { title: 'LinkedIn', href: 'https://www.linkedin.com/in/aburakt', category: locale === 'tr' ? 'Bağlantılar' : 'Links' },
+    // Navigation
+    { title: tr ? 'Ana Sayfa' : 'Home', href: `${prefix}/`, category: tr ? 'Sayfalar' : 'Pages', badge: 'nav' },
+    { title: tr ? 'Hakkımda' : 'About', href: `${prefix}/about`, category: tr ? 'Sayfalar' : 'Pages', badge: 'nav' },
+    { title: 'CV', href: `${prefix}/cv`, category: tr ? 'Sayfalar' : 'Pages', badge: 'nav' },
+    { title: 'Lab', href: `${prefix}/lab`, category: tr ? 'Sayfalar' : 'Pages', badge: 'nav' },
+    { title: tr ? 'İstatistikler' : 'Stats', href: `${prefix}/lab/stats`, category: tr ? 'Sayfalar' : 'Pages', badge: 'nav' },
+    { title: tr ? 'Makaleler' : 'Articles', href: `${prefix}/articles`, category: tr ? 'Sayfalar' : 'Pages', badge: 'nav' },
+    // Vim
+    { title: 'Vim Cheatsheet', href: `${prefix}/lab/vim/motions`, category: 'Vim', badge: 'vim' },
+    { title: tr ? 'Vim Alıştırmalar' : 'Vim Exercises', href: `${prefix}/lab/vim/practice`, category: 'Vim', badge: 'vim' },
+    { title: tr ? 'Vim Oyunları' : 'Vim Games', href: `${prefix}/lab/vim/games`, category: 'Vim', badge: 'vim' },
+    // Typing
+    { title: tr ? 'Yazma Dersleri' : 'Typing Lessons', href: `${prefix}/lab/typing/lessons`, category: 'Typing', badge: 'typing' },
+    { title: tr ? 'Yazma Testi' : 'Typing Test', href: `${prefix}/lab/typing/test`, category: 'Typing', badge: 'typing' },
+    { title: tr ? 'Hız Yarışı' : 'Speed Challenge', href: `${prefix}/lab/typing/speed`, category: 'Typing', badge: 'typing' },
+    { title: tr ? 'Yazma Oyunları' : 'Typing Games', href: `${prefix}/lab/typing/games`, category: 'Typing', badge: 'typing' },
+    // Commands
+    { title: tr ? 'Dil Değiştir' : 'Switch Language', action: 'vim:lang', category: tr ? 'Komutlar' : 'Commands', badge: 'cmd' },
+    { title: tr ? 'Kısayollar' : 'Shortcuts', action: 'vim:cheatsheet', category: tr ? 'Komutlar' : 'Commands', badge: 'cmd' },
+    // Links
+    { title: 'GitHub', href: 'https://github.com/aburakt', category: tr ? 'Bağlantılar' : 'Links', badge: 'link' },
+    { title: 'LinkedIn', href: 'https://www.linkedin.com/in/aburakt', category: tr ? 'Bağlantılar' : 'Links', badge: 'link' },
   ]
 }
 
@@ -31,7 +50,7 @@ export default function SearchModal({ locale }: Props) {
 
   const items = useMemo(() => getSearchItems(locale), [locale])
   const fuse = useMemo(
-    () => new Fuse(items, { keys: ['title', 'category'], threshold: 0.4 }),
+    () => new Fuse(items, { keys: ['title', 'category', 'badge'], threshold: 0.4 }),
     [items]
   )
 
@@ -82,9 +101,15 @@ export default function SearchModal({ locale }: Props) {
       setSelectedIndex((i) => Math.max(i - 1, 0))
     } else if (e.key === 'Enter' && results[selectedIndex]) {
       const item = results[selectedIndex]
-      if (item.href.startsWith('http')) {
+      if (item.action) {
+        if (item.action === 'vim:lang') {
+          window.location.href = locale === 'en' ? '/' : '/en/'
+        } else {
+          document.dispatchEvent(new CustomEvent(item.action))
+        }
+      } else if (item.href?.startsWith('http')) {
         window.open(item.href, '_blank')
-      } else {
+      } else if (item.href) {
         window.location.href = item.href
       }
       setOpen(false)
@@ -103,9 +128,7 @@ export default function SearchModal({ locale }: Props) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center border-b border-green-900/30 px-4">
-          <svg className="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
+          <span className="text-green-500 text-sm font-bold">{'>'}</span>
           <input
             ref={inputRef}
             type="text"
@@ -115,7 +138,7 @@ export default function SearchModal({ locale }: Props) {
               setSelectedIndex(0)
             }}
             onKeyDown={handleKeyDown}
-            placeholder={locale === 'tr' ? 'Ara...' : 'Search...'}
+            placeholder={locale === 'tr' ? 'Komut yazın...' : 'Type a command...'}
             className="w-full bg-transparent px-3 py-3 text-sm text-green-400 placeholder-green-700 outline-none"
           />
           <kbd className="rounded bg-green-950/20 px-1.5 py-0.5 text-xs text-green-700">Esc</kbd>
@@ -127,21 +150,36 @@ export default function SearchModal({ locale }: Props) {
             </p>
           ) : (
             results.map((item, i) => (
-              <a
-                key={item.href}
-                href={item.href}
-                target={item.href.startsWith('http') ? '_blank' : undefined}
-                rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
-                className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm transition ${
+              <div
+                key={item.title + (item.href || item.action || '')}
+                role="button"
+                className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm transition cursor-pointer ${
                   i === selectedIndex
                     ? 'bg-green-500/10 text-green-400'
                     : 'text-green-400 hover:bg-green-950/20'
                 }`}
+                onClick={() => {
+                  if (item.action) {
+                    if (item.action === 'vim:lang') {
+                      window.location.href = locale === 'en' ? '/' : '/en/'
+                    } else {
+                      document.dispatchEvent(new CustomEvent(item.action))
+                    }
+                  } else if (item.href?.startsWith('http')) {
+                    window.open(item.href, '_blank')
+                  } else if (item.href) {
+                    window.location.href = item.href
+                  }
+                  setOpen(false)
+                }}
                 onMouseEnter={() => setSelectedIndex(i)}
               >
-                <span>{item.title}</span>
+                <div className="flex items-center gap-2">
+                  <span className="rounded bg-green-950/30 px-1.5 py-0.5 text-xs text-green-600 font-mono">{item.badge}</span>
+                  <span>{item.title}</span>
+                </div>
                 <span className="text-xs text-green-700">{item.category}</span>
-              </a>
+              </div>
             ))
           )}
         </div>

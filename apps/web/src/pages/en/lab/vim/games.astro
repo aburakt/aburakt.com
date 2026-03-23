@@ -1,0 +1,51 @@
+---
+import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
+import Container from '@/components/astro/Container.astro'
+import DeleteSpeed from '@/components/react/vim/games/DeleteSpeed'
+import CIGame from '@/components/react/vim/games/CIGame'
+import RelativeJump from '@/components/react/vim/games/RelativeJump'
+import WordJump from '@/components/react/vim/games/WordJump'
+import MacroRun from '@/components/react/vim/games/MacroRun'
+import { getLocaleFromUrl } from '@/i18n'
+
+const locale = getLocaleFromUrl(Astro.url)
+---
+
+<PortfolioLayout title={locale === 'tr' ? 'Vim Oyunları' : 'Vim Games'} zone="vim">
+  <Container class="mt-16 sm:mt-24" data-section="vim-games">
+    <div class="mb-12 max-w-2xl">
+      <a href={locale === 'tr' ? '/lab/vim' : '/en/lab/vim'} class="text-xs text-cyan-500 hover:text-cyan-400">
+        ← {locale === 'tr' ? 'vim/' : 'vim/'}
+      </a>
+      <div class="flex items-center gap-2 text-xs text-green-700 mt-4 mb-4">
+        <span class="text-green-500">$</span>
+        <span class="text-cyan-600">./vim-games --start</span>
+      </div>
+      <h1 class="text-xl font-bold text-cyan-400 text-glow-cyan sm:text-2xl">
+        {locale === 'tr' ? 'Vim Oyunları' : 'Vim Games'}
+      </h1>
+      <p class="mt-3 text-xs text-green-600">
+        {locale === 'tr'
+          ? 'vim-be-good tarzı oyunlarla hızınızı ve doğruluğunuzu test edin.'
+          : 'Test your speed and accuracy with vim-be-good style games.'}
+      </p>
+    </div>
+
+    <!-- Desktop-only notice -->
+    <div class="mb-8 rounded-lg border border-amber-500/20 bg-amber-500/5 p-4 sm:hidden">
+      <p class="text-sm text-amber-400">
+        {locale === 'tr'
+          ? '⚠️ Vim oyunları masaüstünde daha iyi çalışır. Lütfen masaüstü kullanın.'
+          : '⚠️ Vim games work best on desktop. Please use a desktop device.'}
+      </p>
+    </div>
+
+    <div class="space-y-8">
+      <DeleteSpeed locale={locale} client:only="react" />
+      <CIGame locale={locale} client:only="react" />
+      <RelativeJump locale={locale} client:only="react" />
+      <WordJump locale={locale} client:only="react" />
+      <MacroRun locale={locale} client:only="react" />
+    </div>
+  </Container>
+</PortfolioLayout>

@@ -3,16 +3,19 @@
   "version": "2.0.0",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@10.17.0",
-  "engines": {
-    "node": ">=20"
-  },
+  "workspaces": ["apps/*"],
   "scripts": {
-    "dev": "pnpm --filter @aburakt/web dev",
-    "dev:api": "pnpm --filter @aburakt/api dev",
-    "build": "pnpm --filter @aburakt/web build",
-    "build:api": "pnpm --filter @aburakt/api deploy",
-    "typecheck": "pnpm -r typecheck",
-    "preview": "pnpm --filter @aburakt/web preview"
+    "dev": "bun --filter @aburakt/web dev",
+    "dev:api": "bun --filter @aburakt/api dev",
+    "build": "bun --filter @aburakt/web build",
+    "build:api": "bun --filter @aburakt/api deploy",
+    "typecheck": "bun --filter '*' typecheck",
+    "preview": "bun --filter @aburakt/web preview",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.0"
   }
 }

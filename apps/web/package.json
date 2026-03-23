@@ -20,8 +20,7 @@
     "@replit/codemirror-vim": "^6.3.0",
     "@tailwindcss/vite": "^4.1.0",
     "astro": "^5.7.0",
-    "clsx": "^2.1.1",
-    "fuse.js": "^7.1.0",
+"fuse.js": "^7.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "tailwindcss": "^4.1.0"

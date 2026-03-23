@@ -5,6 +5,8 @@ import VimNavigation from '@/components/react/VimNavigation'
 import KeyboardCheatsheet from '@/components/react/KeyboardCheatsheet'
 import SearchModal from '@/components/react/SearchModal'
 import BootSequence from '@/components/react/BootSequence'
+import WhichKey from '@/components/react/WhichKey'
+import OnboardingHint from '@/components/react/OnboardingHint'
 
 interface Props {
   title?: string
@@ -50,6 +52,8 @@ const siteDescription = description || t(locale, 'site.description')
     <VimNavigation locale={locale} client:load />
     <KeyboardCheatsheet locale={locale} client:idle />
     <SearchModal locale={locale} client:idle />
+    <WhichKey locale={locale} client:idle />
+    <OnboardingHint locale={locale} client:idle />
     <script is:inline src="/register-sw.js"></script>
   </body>
 </html>
