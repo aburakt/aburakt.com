@@ -5,6 +5,7 @@ const API_BASE = import.meta.env.PUBLIC_API_URL ?? 'https://aburakt-api.aburakt.
 interface AuthState {
   authenticated: boolean
   userHash: string | null
+  username: string | null
   token: string | null
   loading: boolean
 }
@@ -13,6 +14,7 @@ export function useAuth() {
   const [state, setState] = useState<AuthState>({
     authenticated: false,
     userHash: null,
+    username: null,
     token: null,
     loading: true,
   })
@@ -29,7 +31,7 @@ export function useAuth() {
 
     const token = urlToken ?? localStorage.getItem('auth_token')
     if (!token) {
-      setState({ authenticated: false, userHash: null, token: null, loading: false })
+      setState({ authenticated: false, userHash: null, username: null, token: null, loading: false })
       return
     }
 
@@ -38,21 +40,22 @@ export function useAuth() {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((r) => r.json())
-      .then((data: { ok: boolean; data?: { authenticated: boolean; userHash?: string } }) => {
+      .then((data: { ok: boolean; data?: { authenticated: boolean; userHash?: string; username?: string } }) => {
         if (data.ok && data.data?.authenticated) {
           setState({
             authenticated: true,
             userHash: data.data.userHash ?? null,
+            username: data.data.username ?? null,
             token,
             loading: false,
           })
         } else {
           localStorage.removeItem('auth_token')
-          setState({ authenticated: false, userHash: null, token: null, loading: false })
+          setState({ authenticated: false, userHash: null, username: null, token: null, loading: false })
         }
       })
       .catch(() => {
-        setState({ authenticated: false, userHash: null, token: null, loading: false })
+        setState({ authenticated: false, userHash: null, username: null, token: null, loading: false })
       })
   }, [])
 
@@ -75,7 +78,7 @@ export function useAuth() {
       })
     }
     localStorage.removeItem('auth_token')
-    setState({ authenticated: false, userHash: null, token: null, loading: false })
+    setState({ authenticated: false, userHash: null, username: null, token: null, loading: false })
   }, [])
 
   return { ...state, login, logout }

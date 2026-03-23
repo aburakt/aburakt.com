@@ -1,15 +1,31 @@
 ---
 import { getLocaleFromUrl, t, getLocalePath } from '@/i18n'
-import ThemeToggle from '@/components/react/ThemeToggle'
 
 const locale = getLocaleFromUrl(Astro.url)
+const path = Astro.url.pathname
+
+// Build switch-language URL preserving current page
+const basePath = locale === 'en' ? path.replace(/^\/en(\/|$)/, '/') : path
+const switchLocalePath = locale === 'en' ? (basePath || '/') : `/en${basePath === '/' ? '/' : basePath}`
+
+// Detect zone from URL
+const currentZone = path.includes('/vim') ? 'vim'
+  : path.includes('/typing') ? 'typing'
+  : path.includes('/dashboard') ? 'dashboard'
+  : null
+
+// Zone-specific active colors
+const zoneActiveClass: Record<string, string> = {
+  vim: 'bg-cyan-500/10 text-cyan-400 text-glow-cyan',
+  typing: 'bg-amber-500/10 text-amber-400 text-glow-amber',
+  dashboard: 'bg-cyan-500/10 text-cyan-400 text-glow-cyan',
+}
 
 const navItems = [
-  { href: getLocalePath(locale, '/'), label: '~/', cmd: 'home' },
-  { href: getLocalePath(locale, '/about'), label: '/about', cmd: 'about' },
-  { href: getLocalePath(locale, '/cv'), label: '/cv', cmd: 'cv' },
-  { href: getLocalePath(locale, '/playground'), label: '/playground', cmd: 'play' },
-  { href: getLocalePath(locale, '/dashboard'), label: '/dashboard', cmd: 'dash' },
+  { href: getLocalePath(locale, '/'), label: '~/' },
+  { href: getLocalePath(locale, '/about'), label: '/about' },
+  { href: getLocalePath(locale, '/playground'), label: '/playground' },
+  { href: getLocalePath(locale, '/dashboard'), label: '/dashboard' },
 ]
 ---
 
@@ -19,25 +35,31 @@ const navItems = [
       <!-- Logo -->
       <a
         href={getLocalePath(locale, '/')}
-        class="group flex items-center gap-2 text-glow"
+        class="group flex items-center gap-2 text-glow-cyan"
       >
-        <span class="text-green-500">$</span>
-        <span class="font-bold text-green-400 transition group-hover:text-green-300">aburakt</span>
+        <span class="text-cyan-500">$</span>
+        <span class="font-bold text-cyan-400 transition group-hover:text-cyan-300">aburakt</span>
         <span class="cursor-blink text-green-600"></span>
       </a>
 
       <!-- Nav -->
       <nav class="hidden items-center gap-1 md:flex">
         {navItems.map((item) => {
-          const isActive = Astro.url.pathname === item.href ||
-            (item.href !== getLocalePath(locale, '/') && Astro.url.pathname.startsWith(item.href))
+          const isActive = path === item.href ||
+            (item.href !== getLocalePath(locale, '/') && path.startsWith(item.href))
+
+          let activeClass = 'bg-green-500/10 text-green-400 text-glow'
+          if (isActive && currentZone && zoneActiveClass[currentZone]) {
+            activeClass = zoneActiveClass[currentZone]
+          }
+
           return (
             <a
               href={item.href}
               class:list={[
                 'rounded px-3 py-1.5 text-xs transition hover-glitch',
                 isActive
-                  ? 'bg-green-500/10 text-green-400 text-glow'
+                  ? activeClass
                   : 'text-green-600 hover:bg-green-500/5 hover:text-green-400',
               ]}
             >
@@ -50,8 +72,9 @@ const navItems = [
       <!-- Right side -->
       <div class="flex items-center gap-3">
         <a
-          href={t(locale, 'lang.switchTo')}
+          href={switchLocalePath}
           class="rounded border border-green-900/30 px-2 py-1 text-xs text-green-600 transition hover:border-green-500/50 hover:text-green-400"
+          title={`gl — ${t(locale, 'lang.switch')}`}
         >
           {t(locale, 'lang.switch')}
         </a>
@@ -61,15 +84,19 @@ const navItems = [
     <!-- Mobile nav -->
     <nav class="flex gap-1 overflow-x-auto pb-3 md:hidden">
       {navItems.map((item) => {
-        const isActive = Astro.url.pathname === item.href
+        const isActive = path === item.href || (item.href !== getLocalePath(locale, '/') && path.startsWith(item.href))
+
+        let activeClass = 'bg-green-500/10 text-green-400'
+        if (isActive && currentZone && zoneActiveClass[currentZone]) {
+          activeClass = zoneActiveClass[currentZone]
+        }
+
         return (
           <a
             href={item.href}
             class:list={[
               'whitespace-nowrap rounded px-2 py-1 text-xs transition',
-              isActive
-                ? 'bg-green-500/10 text-green-400'
-                : 'text-green-600 hover:text-green-400',
+              isActive ? activeClass : 'text-green-600 hover:text-green-400',
             ]}
           >
             {item.label}

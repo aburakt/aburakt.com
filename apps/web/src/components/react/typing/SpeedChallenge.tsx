@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Keyboard from './Keyboard'
 import { findKey, type Layout } from './keyboardLayouts'
+import { saveTypingStat } from '../useAuth'
 
 interface Props {
   locale: string
@@ -68,7 +69,12 @@ export default function SpeedChallenge({ locale }: Props) {
     if (intervalRef.current) clearInterval(intervalRef.current)
     const finalWpm = liveWpm
     if (finalWpm > bestWpm) setBestWpm(finalWpm)
-  }, [liveWpm, bestWpm])
+    const finalAccuracy = typed.length > 0
+      ? Math.round((typed.split('').filter((c, i) => c === text[i]).length / typed.length) * 100)
+      : 100
+    const finalElapsed = startTime ? Math.round((Date.now() - startTime) / 1000) : 0
+    saveTypingStat({ mode: 'speed', wpm: finalWpm, accuracy: finalAccuracy, duration_s: finalElapsed, layout })
+  }, [liveWpm, bestWpm, typed, text, startTime, layout])
 
   useEffect(() => {
     if (state === 'playing') {
@@ -131,19 +137,19 @@ export default function SpeedChallenge({ locale }: Props) {
     <div className="space-y-6">
       {state === 'idle' && (
         <div className="text-center">
-          <p className="mb-4 text-sm text-zinc-400">
+          <p className="mb-4 text-sm text-green-600">
             {tr
               ? 'Rastgele kelimelerle hız yarışı. En yüksek WPM skorunuzu kırın!'
               : 'Race through random words. Beat your best WPM score!'}
           </p>
           {bestWpm > 0 && (
-            <p className="mb-4 text-sm text-zinc-500">
-              {tr ? 'En iyi' : 'Best'}: <span className="font-mono text-primary-400">{bestWpm} WPM</span>
+            <p className="mb-4 text-sm text-green-700">
+              {tr ? 'En iyi' : 'Best'}: <span className="font-mono text-green-400">{bestWpm} WPM</span>
             </p>
           )}
           <button
             onClick={startGame}
-            className="rounded-lg bg-primary-600 px-8 py-3 text-sm font-medium text-white transition hover:bg-primary-500"
+            className="rounded-lg bg-green-600 px-8 py-3 text-sm font-medium text-black transition hover:bg-green-500"
           >
             {tr ? 'Başla' : 'Start'}
           </button>
@@ -157,26 +163,26 @@ export default function SpeedChallenge({ locale }: Props) {
           onKeyDown={handleKeyDown}
           className="outline-none"
         >
-          <div className="mb-4 flex items-center justify-between text-xs text-zinc-500">
-            <span className="text-lg font-bold text-primary-400">{liveWpm} <span className="text-xs font-normal">WPM</span></span>
+          <div className="mb-4 flex items-center justify-between text-xs text-green-700">
+            <span className="text-lg font-bold text-green-400">{liveWpm} <span className="text-xs font-normal">WPM</span></span>
             <span>{accuracy}% {tr ? 'doğruluk' : 'accuracy'}</span>
             <span>{errors} {tr ? 'hata' : 'errors'}</span>
           </div>
 
-          <div className="rounded-lg border border-zinc-700 bg-zinc-900 p-6 font-mono text-lg leading-relaxed tracking-wide">
+          <div className="rounded-lg border border-green-900/30 bg-black p-6 font-mono text-lg leading-relaxed tracking-wide">
             {text.split('').map((char, i) => {
-              let cls = 'text-zinc-600'
+              let cls = 'text-green-800'
               if (i < pos) {
                 cls = typed[i] === char ? 'text-green-400' : 'text-red-400 underline'
               } else if (i === pos) {
-                cls = 'bg-primary-500/30 text-zinc-100 border-b-2 border-primary-400'
+                cls = 'bg-green-500/30 text-green-400 border-b-2 border-green-500'
               }
               return <span key={i} className={cls}>{char === ' ' && i === pos ? '\u00A0' : char}</span>
             })}
           </div>
 
           {wpmHistory.length > 5 && (
-            <div className="mt-3 font-mono text-xs text-zinc-600">
+            <div className="mt-3 font-mono text-xs text-green-800">
               {wpmHistory.slice(-30).map((w) => {
                 const idx = Math.min(Math.floor((w / maxWpm) * (sparkBars.length - 1)), sparkBars.length - 1)
                 return sparkBars[idx]
@@ -192,33 +198,33 @@ export default function SpeedChallenge({ locale }: Props) {
 
       {state === 'done' && (
         <div className="space-y-6 text-center">
-          <div className="rounded-xl bg-zinc-800/50 p-8">
-            <p className="text-5xl font-bold text-primary-400">{liveWpm}</p>
-            <p className="mt-1 text-sm text-zinc-500">WPM</p>
+          <div className="rounded-xl bg-green-950/20 p-8">
+            <p className="text-5xl font-bold text-green-400">{liveWpm}</p>
+            <p className="mt-1 text-sm text-green-700">WPM</p>
             <div className="mt-6 flex justify-center gap-8">
               <div>
                 <p className="text-2xl font-semibold text-green-400">{accuracy}%</p>
-                <p className="text-xs text-zinc-500">{tr ? 'Doğruluk' : 'Accuracy'}</p>
+                <p className="text-xs text-green-700">{tr ? 'Doğruluk' : 'Accuracy'}</p>
               </div>
               <div>
                 <p className="text-2xl font-semibold text-red-400">{errors}</p>
-                <p className="text-xs text-zinc-500">{tr ? 'Hata' : 'Errors'}</p>
+                <p className="text-xs text-green-700">{tr ? 'Hata' : 'Errors'}</p>
               </div>
               <div>
-                <p className="text-2xl font-semibold text-yellow-400">{bestWpm}</p>
-                <p className="text-xs text-zinc-500">{tr ? 'En İyi' : 'Best'}</p>
+                <p className="text-2xl font-semibold text-amber-400">{bestWpm}</p>
+                <p className="text-xs text-green-700">{tr ? 'En İyi' : 'Best'}</p>
               </div>
             </div>
           </div>
 
           {wpmHistory.length > 2 && (
-            <div className="rounded-lg bg-zinc-800/30 p-4">
-              <p className="mb-2 text-xs text-zinc-500">{tr ? 'WPM Grafiği' : 'WPM Graph'}</p>
+            <div className="rounded-lg bg-green-950/20 p-4">
+              <p className="mb-2 text-xs text-green-700">{tr ? 'WPM Grafiği' : 'WPM Graph'}</p>
               <div className="flex h-16 items-end gap-px">
                 {wpmHistory.map((w, i) => (
                   <div
                     key={i}
-                    className="flex-1 rounded-t bg-primary-500/60"
+                    className="flex-1 rounded-t bg-green-500/60"
                     style={{ height: `${Math.max((w / Math.max(...wpmHistory, 1)) * 100, 4)}%` }}
                   />
                 ))}
@@ -228,7 +234,7 @@ export default function SpeedChallenge({ locale }: Props) {
 
           <button
             onClick={startGame}
-            className="rounded-lg bg-primary-600 px-8 py-3 text-sm font-medium text-white transition hover:bg-primary-500"
+            className="rounded-lg bg-green-600 px-8 py-3 text-sm font-medium text-black transition hover:bg-green-500"
           >
             {tr ? 'Tekrar Dene' : 'Try Again'}
           </button>

@@ -11,6 +11,9 @@ database_name = "aburakt-db"
 database_id = "d79a8e9c-ad38-4461-b15b-e4ee280fba62"
 migrations_dir = "migrations"
 
+[triggers]
+crons = ["0 3 * * *"]
+
 # Secrets (set via `wrangler secret put`):
 # GITHUB_CLIENT_ID
 # GITHUB_CLIENT_SECRET

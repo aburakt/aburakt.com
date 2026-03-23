@@ -13,7 +13,7 @@ const modules = [
     description: locale === 'tr'
       ? 'Ana sıradan başlayarak tüm klavyeyi adım adım öğrenin.'
       : 'Learn the full keyboard step by step, starting from the home row.',
-    icon: '📚',
+    icon: 'book',
   },
   {
     href: `${prefix}/playground/typing/test`,
@@ -21,7 +21,7 @@ const modules = [
     description: locale === 'tr'
       ? 'WPM hızınızı ve doğruluğunuzu ölçün.'
       : 'Measure your WPM speed and accuracy.',
-    icon: '⏱️',
+    icon: 'clock',
   },
   {
     href: `${prefix}/playground/typing/speed`,
@@ -29,7 +29,7 @@ const modules = [
     description: locale === 'tr'
       ? 'Rastgele kelimelerle hız yarışı yapın ve en yüksek skorunuzu kırın.'
       : 'Race through random words and beat your best score.',
-    icon: '🏎️',
+    icon: 'bolt',
   },
   {
     href: `${prefix}/playground/typing/games`,
@@ -37,24 +37,24 @@ const modules = [
     description: locale === 'tr'
       ? 'Word Rain, Type Sprint ve Survival ile eğlenerek pratik yapın.'
       : 'Practice with Word Rain, Type Sprint, and Survival games.',
-    icon: '🎮',
+    icon: 'gamepad',
   },
 ]
 ---
 
-<PortfolioLayout title={locale === 'tr' ? 'Yazma Merkezi' : 'Typing Center'}>
+<PortfolioLayout title={locale === 'tr' ? 'Yazma Merkezi' : 'Typing Center'} zone="typing">
   <Container class="mt-16 sm:mt-24" data-section="typing-hub">
     <div class="mb-4">
-      <a href={`${prefix}/playground`} class="text-xs text-green-500 hover:text-green-400">
+      <a href={`${prefix}/playground`} class="text-xs text-amber-500 hover:text-amber-400">
         ← {locale === 'tr' ? 'playground/' : 'playground/'}
       </a>
     </div>
     <div class="max-w-2xl">
       <div class="flex items-center gap-2 text-xs text-green-700 mb-4">
         <span class="text-green-500">$</span>
-        <span>./typing --hub</span>
+        <span class="text-amber-600">./typing --hub</span>
       </div>
-      <h1 class="text-xl font-bold text-green-400 text-glow sm:text-2xl">
+      <h1 class="text-xl font-bold text-amber-400 text-glow-amber sm:text-2xl">
         {locale === 'tr' ? 'Yazma Merkezi' : 'Typing Center'}
       </h1>
       <p class="mt-6 text-xs text-green-600">
@@ -68,16 +68,29 @@ const modules = [
       {modules.map((mod) => (
         <a
           href={mod.href}
-          class="group relative rounded-lg terminal-border border border-green-900/30 p-8 transition hover:border-green-500/50 bg-green-950/20"
+          class="group relative rounded-lg terminal-border border border-green-900/30 p-8 transition hover:border-amber-500/50 bg-green-950/20"
         >
-          <div class="text-3xl">{mod.icon}</div>
-          <h2 class="mt-4 text-lg font-semibold text-green-400 group-hover:text-green-400 text-glow">
+          <div class="text-green-500">
+            {mod.icon === 'book' && (
+              <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
+            )}
+            {mod.icon === 'clock' && (
+              <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            )}
+            {mod.icon === 'bolt' && (
+              <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" /></svg>
+            )}
+            {mod.icon === 'gamepad' && (
+              <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.39 48.39 0 01-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 01-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 00-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 01-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 00.657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 005.427-.63 48.05 48.05 0 00.582-4.717.532.532 0 00-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.96.401v0a.656.656 0 00.658-.663 48.422 48.422 0 00-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 01-.61-.58v0z" /></svg>
+            )}
+          </div>
+          <h2 class="mt-4 text-lg font-semibold text-amber-400 group-hover:text-amber-400 text-glow-amber">
             {mod.title}
           </h2>
           <p class="mt-2 text-sm text-green-600">
             {mod.description}
           </p>
-          <span class="mt-4 inline-flex items-center text-sm font-medium text-green-400">
+          <span class="mt-4 inline-flex items-center text-sm font-medium text-amber-700 group-hover:text-amber-400">
             {locale === 'tr' ? 'Başla' : 'Start'} →
           </span>
         </a>

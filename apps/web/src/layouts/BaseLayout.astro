@@ -4,6 +4,7 @@ import { getLocaleFromUrl, t } from '@/i18n'
 import VimNavigation from '@/components/react/VimNavigation'
 import KeyboardCheatsheet from '@/components/react/KeyboardCheatsheet'
 import SearchModal from '@/components/react/SearchModal'
+import BootSequence from '@/components/react/BootSequence'
 
 interface Props {
   title?: string
@@ -29,12 +30,26 @@ const siteDescription = description || t(locale, 'site.description')
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:description" content={siteDescription} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://aburakt.com" />
+    <meta property="og:image" content="https://aburakt.com/images/pp/logo.webp" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={siteTitle} />
+    <meta name="twitter:description" content={siteDescription} />
+    <meta name="twitter:image" content="https://aburakt.com/images/pp/logo.webp" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="manifest" href="/manifest.json" />
     <title>{siteTitle}</title>
   </head>
   <body class="min-h-screen bg-black text-green-400">
+    <BootSequence client:load />
     <slot />
     <VimNavigation locale={locale} client:load />
     <KeyboardCheatsheet locale={locale} client:idle />
     <SearchModal locale={locale} client:idle />
+    <script is:inline src="/register-sw.js"></script>
   </body>
 </html>

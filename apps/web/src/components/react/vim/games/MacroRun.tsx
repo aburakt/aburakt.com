@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
 import { vim } from '@replit/codemirror-vim'
+import { saveVimStat } from '../../useAuth'
 
 interface Props {
   locale: string
@@ -132,10 +133,17 @@ export default function MacroRun({ locale }: Props) {
 
   const totalKeystrokes = scores.reduce((a, s) => a + s.keystrokes, 0)
 
+  // Save stat when game ends
+  useEffect(() => {
+    if (state === 'done' && scores.length > 0) {
+      saveVimStat({ game: 'macro-run', score: totalRounds, keystrokes: totalKeystrokes })
+    }
+  }, [state, scores, totalKeystrokes])
+
   return (
-    <div className="rounded-xl border border-zinc-700/50 bg-zinc-800/50 p-6">
-      <h3 className="text-lg font-semibold text-zinc-100">🔄 Macro Run</h3>
-      <p className="mt-1 text-sm text-zinc-400">
+    <div className="rounded-xl border border-green-900/30 bg-green-950/20 p-6">
+      <h3 className="text-lg font-semibold text-green-400">🔄 Macro Run</h3>
+      <p className="mt-1 text-sm text-green-600">
         {tr
           ? 'Vim makrolarını kullanarak tekrarlanan düzenlemeleri yapın. qa ile kaydedin, @a ile tekrarlayın.'
           : 'Use vim macros for repetitive edits. Record with qa, replay with @a.'}
@@ -144,7 +152,7 @@ export default function MacroRun({ locale }: Props) {
       {state === 'idle' && (
         <button
           onClick={startGame}
-          className="mt-4 rounded-lg bg-primary-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-primary-500"
+          className="mt-4 rounded-lg bg-green-600 px-6 py-2 text-sm font-medium text-black transition hover:bg-green-500"
         >
           {tr ? 'Başla' : 'Start'} ({totalRounds} {tr ? 'tur' : 'rounds'})
         </button>
@@ -152,29 +160,30 @@ export default function MacroRun({ locale }: Props) {
 
       {state === 'playing' && (
         <div className="mt-4 space-y-4">
-          <div className="flex items-center justify-between text-xs text-zinc-500">
+          <div className="flex items-center justify-between text-xs text-green-700">
             <span>{tr ? 'Tur' : 'Round'} {Math.min(round + 1, totalRounds)}/{totalRounds}</span>
             <span>{tr ? 'Tuş sayısı' : 'Keystrokes'}: {keystrokes}</span>
           </div>
 
           <div className="rounded-lg bg-green-500/5 border border-green-500/20 p-3">
-            <p className="text-xs text-zinc-500 mb-1">{tr ? 'Hedef' : 'Goal'}:</p>
+            <p className="text-xs text-green-700 mb-1">{tr ? 'Hedef' : 'Goal'}:</p>
             <pre className="font-mono text-xs text-green-400 whitespace-pre">{challenge.goal}</pre>
           </div>
 
-          <div ref={editorRef} className="overflow-hidden rounded-lg border border-zinc-700" />
+          <div ref={editorRef} className="overflow-hidden rounded-lg border border-green-900/30" />
 
           <div className="flex items-center justify-between">
             <button
               onClick={() => setShowHint(!showHint)}
-              className="text-xs text-zinc-500 hover:text-zinc-400"
+              className="text-xs text-green-700 hover:text-green-600"
             >
               {showHint ? (tr ? 'İpucunu gizle' : 'Hide hint') : (tr ? 'İpucu göster' : 'Show hint')}
             </button>
           </div>
           {showHint && (
-            <p className="text-xs text-yellow-400/80">
-              💡 {tr ? challenge.hintTr : challenge.hint}
+            <p className="text-xs text-yellow-400/80 flex items-start gap-1">
+              <svg className="h-3.5 w-3.5 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" /></svg>
+              {tr ? challenge.hintTr : challenge.hint}
             </p>
           )}
         </div>
@@ -182,14 +191,14 @@ export default function MacroRun({ locale }: Props) {
 
       {state === 'done' && (
         <div className="mt-4 space-y-4">
-          <div className="rounded-lg bg-primary-500/10 p-4 text-center">
-            <p className="text-lg font-semibold text-primary-400">
+          <div className="rounded-lg bg-green-500/10 p-4 text-center">
+            <p className="text-lg font-semibold text-green-400">
               {tr ? 'Toplam tuş' : 'Total keystrokes'}: {totalKeystrokes}
             </p>
           </div>
           <div className="space-y-1">
             {scores.map((s, i) => (
-              <div key={i} className="flex justify-between text-xs text-zinc-400">
+              <div key={i} className="flex justify-between text-xs text-green-600">
                 <span>{tr ? 'Tur' : 'Round'} {i + 1}</span>
                 <span>
                   {s.keystrokes} {tr ? 'tuş' : 'keys'} · {Math.round(s.time / 1000)}s
@@ -199,7 +208,7 @@ export default function MacroRun({ locale }: Props) {
           </div>
           <button
             onClick={resetGame}
-            className="rounded-lg bg-primary-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-primary-500"
+            className="rounded-lg bg-green-600 px-6 py-2 text-sm font-medium text-black transition hover:bg-green-500"
           >
             {tr ? 'Tekrar Oyna' : 'Play Again'}
           </button>

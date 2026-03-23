@@ -133,37 +133,37 @@ export default function VimExercises({ locale }: Props) {
                 onClick={() => setCurrentIdx(i)}
                 className={`h-2 flex-1 rounded-full transition ${
                   i === currentIdx
-                    ? 'bg-primary-500'
+                    ? 'bg-green-500'
                     : solved.has(ex.id)
                       ? 'bg-green-500'
-                      : 'bg-zinc-700'
+                      : 'bg-green-900/30'
                 }`}
                 title={`${tr ? 'Görev' : 'Task'} ${i + 1}`}
               />
             ))}
           </div>
         </div>
-        <span className="text-xs text-zinc-400">
+        <span className="text-xs text-green-600">
           {solved.size}/{exercises.length} {tr ? 'tamamlandı' : 'completed'}
         </span>
       </div>
 
       {/* Exercise info */}
-      <div className="rounded-xl border border-zinc-700/50 bg-zinc-800/50 p-6">
+      <div className="rounded-xl border border-green-900/30 bg-green-950/20 p-6">
         <div className="flex items-start justify-between">
           <div>
-            <span className="text-xs text-zinc-500">
+            <span className="text-xs text-green-700">
               {tr ? 'Görev' : 'Task'} {currentIdx + 1}/{exercises.length} · {exercise.category}
             </span>
-            <h2 className="mt-1 text-lg font-semibold text-zinc-100">
+            <h2 className="mt-1 text-lg font-semibold text-green-400">
               {tr ? exercise.titleTr : exercise.title}
             </h2>
-            <p className="mt-2 text-sm text-zinc-400">
+            <p className="mt-2 text-sm text-green-600">
               {tr ? exercise.descriptionTr : exercise.description}
             </p>
-            <p className="mt-1 text-xs text-zinc-500">
+            <p className="mt-1 text-xs text-green-700">
               {tr ? 'Beklenen komut:' : 'Expected command:'}{' '}
-              <kbd className="rounded bg-zinc-700 px-1.5 py-0.5 font-mono text-primary-400">
+              <kbd className="rounded bg-green-900/30 px-1.5 py-0.5 font-mono text-green-400">
                 {exercise.expectedMotion}
               </kbd>
             </p>
@@ -180,34 +180,35 @@ export default function VimExercises({ locale }: Props) {
       <div className="grid gap-4 lg:grid-cols-2">
         <div>
           <div className="mb-2 flex items-center justify-between">
-            <span className="text-xs font-medium text-zinc-400">
+            <span className="text-xs font-medium text-green-600">
               {tr ? 'Editör (vim modu aktif)' : 'Editor (vim mode active)'}
             </span>
-            <span className="text-xs text-zinc-500">
+            <span className="text-xs text-green-700">
               {tr ? 'Deneme' : 'Attempts'}: {attempts}
             </span>
           </div>
           <div
             ref={editorRef}
-            className="overflow-hidden rounded-lg border border-zinc-700"
+            className="overflow-hidden rounded-lg border border-green-900/30"
           />
         </div>
         <div>
-          <span className="mb-2 block text-xs font-medium text-zinc-400">
+          <span className="mb-2 block text-xs font-medium text-green-600">
             {tr ? 'Hedef' : 'Goal'}
           </span>
           <pre
             ref={goalRef}
-            className="h-[200px] overflow-auto rounded-lg border border-zinc-700 bg-zinc-900 p-4 font-mono text-sm text-green-400"
+            className="h-[200px] overflow-auto rounded-lg border border-green-900/30 bg-black p-4 font-mono text-sm text-green-400"
           />
         </div>
       </div>
 
       {/* Hint */}
       {showHint && (
-        <div className="rounded-lg border border-primary-500/30 bg-primary-500/5 p-4">
-          <p className="text-sm text-primary-400">
-            💡 {tr ? exercise.hintTr : exercise.hint}
+        <div className="rounded-lg border border-green-500/30 bg-green-500/5 p-4">
+          <p className="text-sm text-green-400 flex items-start gap-1.5">
+            <svg className="h-4 w-4 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" /></svg>
+            {tr ? exercise.hintTr : exercise.hint}
           </p>
         </div>
       )}
@@ -218,7 +219,7 @@ export default function VimExercises({ locale }: Props) {
           <p className="text-sm font-medium text-green-400">
             🎉 {tr ? 'Harika! Görevi tamamladınız!' : 'Great job! Exercise completed!'}
             {usedHint && (
-              <span className="ml-2 text-zinc-500">
+              <span className="ml-2 text-green-700">
                 ({tr ? 'ipucu kullanıldı' : 'hint used'})
               </span>
             )}
@@ -231,39 +232,39 @@ export default function VimExercises({ locale }: Props) {
         <button
           onClick={prevExercise}
           disabled={currentIdx === 0}
-          className="rounded-lg border border-zinc-700 px-4 py-2 text-sm font-medium text-zinc-300 transition hover:border-zinc-500 disabled:opacity-30"
+          className="rounded-lg border border-green-900/30 px-4 py-2 text-sm font-medium text-green-400 transition hover:border-green-500/50 disabled:opacity-30"
         >
           ← {tr ? 'Önceki' : 'Previous'}
         </button>
         <button
           onClick={checkSolution}
-          className="rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-primary-500"
+          className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-black transition hover:bg-green-500"
         >
           {tr ? 'Kontrol Et' : 'Check'}
         </button>
         <button
           onClick={resetExercise}
-          className="rounded-lg border border-zinc-700 px-4 py-2 text-sm font-medium text-zinc-300 transition hover:border-zinc-500"
+          className="rounded-lg border border-green-900/30 px-4 py-2 text-sm font-medium text-green-400 transition hover:border-green-500/50"
         >
           {tr ? 'Sıfırla' : 'Reset'}
         </button>
         <button
           onClick={() => { setShowHint(true); setUsedHint(true) }}
-          className="rounded-lg border border-zinc-700 px-4 py-2 text-sm font-medium text-zinc-300 transition hover:border-zinc-500"
+          className="rounded-lg border border-green-900/30 px-4 py-2 text-sm font-medium text-green-400 transition hover:border-green-500/50"
         >
           ? {tr ? 'İpucu' : 'Hint'}
         </button>
         <button
           onClick={nextExercise}
           disabled={currentIdx === exercises.length - 1}
-          className="rounded-lg border border-zinc-700 px-4 py-2 text-sm font-medium text-zinc-300 transition hover:border-zinc-500 disabled:opacity-30"
+          className="rounded-lg border border-green-900/30 px-4 py-2 text-sm font-medium text-green-400 transition hover:border-green-500/50 disabled:opacity-30"
         >
           {tr ? 'Sonraki' : 'Next'} →
         </button>
       </div>
 
       {/* Desktop only notice */}
-      <p className="text-center text-xs text-zinc-600 sm:hidden">
+      <p className="text-center text-xs text-green-800 sm:hidden">
         {tr ? 'Vim alıştırmaları masaüstünde daha iyi çalışır.' : 'Vim exercises work best on desktop.'}
       </p>
     </div>

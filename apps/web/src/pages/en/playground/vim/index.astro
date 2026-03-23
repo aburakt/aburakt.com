@@ -34,14 +34,14 @@ const modules = [
 ]
 ---
 
-<PortfolioLayout title={locale === 'tr' ? 'Vim Öğrenme Merkezi' : 'Vim Learning Center'}>
+<PortfolioLayout title={locale === 'tr' ? 'Vim Öğrenme Merkezi' : 'Vim Learning Center'} zone="vim">
   <Container class="mt-16 sm:mt-24" data-section="vim-hub">
     <div class="max-w-2xl">
       <div class="flex items-center gap-2 text-xs text-green-700 mb-4">
         <span class="text-green-500">$</span>
-        <span>./vim --hub</span>
+        <span class="text-cyan-600">./vim --hub</span>
       </div>
-      <h1 class="text-xl font-bold text-green-400 text-glow sm:text-2xl">
+      <h1 class="text-xl font-bold text-cyan-400 text-glow-cyan sm:text-2xl">
         {locale === 'tr' ? 'Vim Öğrenme Merkezi' : 'Vim Learning Center'}
       </h1>
       <p class="mt-6 text-xs text-green-600">
@@ -55,15 +55,15 @@ const modules = [
       {modules.map((mod) => (
         <a
           href={mod.href}
-          class="group relative rounded-lg terminal-border border border-green-900/30 p-8 transition hover:border-green-500/50 bg-green-950/20"
+          class="group relative rounded-lg terminal-border border border-green-900/30 p-8 transition hover:border-cyan-500/50 bg-green-950/20"
         >
-          <h2 class="text-lg font-semibold text-green-400 group-hover:text-green-400 text-glow">
+          <h2 class="text-lg font-semibold text-cyan-400 group-hover:text-cyan-400 text-glow-cyan">
             {mod.title}
           </h2>
           <p class="mt-2 text-sm text-green-600">
             {mod.description}
           </p>
-          <span class="mt-4 inline-flex items-center text-sm font-medium text-green-400">
+          <span class="mt-4 inline-flex items-center text-sm font-medium text-cyan-700 group-hover:text-cyan-400">
             {locale === 'tr' ? 'Başla' : 'Start'} →
           </span>
         </a>

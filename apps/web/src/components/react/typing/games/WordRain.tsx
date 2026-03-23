@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { saveTypingStat } from '../../useAuth'
 
 interface Props {
   locale: string
@@ -47,6 +48,7 @@ export default function WordRain({ locale }: Props) {
   const frameRef = useRef<number>()
   const lastSpawnRef = useRef(0)
   const idRef = useRef(0)
+  const startTimeRef = useRef(0)
   const maxMissed = 5
 
   const spawnWord = useCallback(() => {
@@ -130,6 +132,14 @@ export default function WordRain({ locale }: Props) {
     }
   }
 
+  // Save stat when game ends
+  useEffect(() => {
+    if (state === 'done') {
+      const elapsed = Math.round((Date.now() - startTimeRef.current) / 1000)
+      saveTypingStat({ mode: 'game', wpm: score, accuracy: 100, duration_s: elapsed, layout: 'en' })
+    }
+  }, [state, score])
+
   function startGame() {
     setState('playing')
     setWords([])
@@ -140,13 +150,14 @@ export default function WordRain({ locale }: Props) {
     setMaxCombo(0)
     setLevel(1)
     idRef.current = 0
+    startTimeRef.current = Date.now()
     setTimeout(() => inputRef.current?.focus(), 50)
   }
 
   return (
-    <div className="rounded-xl border border-zinc-700/50 bg-zinc-800/50 p-6">
-      <h3 className="text-lg font-semibold text-zinc-100">🌧️ Word Rain</h3>
-      <p className="mt-1 text-sm text-zinc-400">
+    <div className="rounded-xl border border-green-900/30 bg-green-950/20 p-6">
+      <h3 className="text-lg font-semibold text-green-400">🌧️ Word Rain</h3>
+      <p className="mt-1 text-sm text-green-600">
         {tr
           ? 'Düşen kelimeleri yere ulaşmadan önce yazın. 5 kelime kaçırırsanız oyun biter.'
           : 'Type falling words before they hit the ground. Miss 5 and the game is over.'}
@@ -155,7 +166,7 @@ export default function WordRain({ locale }: Props) {
       {state === 'idle' && (
         <button
           onClick={startGame}
-          className="mt-4 rounded-lg bg-primary-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-primary-500"
+          className="mt-4 rounded-lg bg-green-600 px-6 py-2 text-sm font-medium text-black transition hover:bg-green-500"
         >
           {tr ? 'Başla' : 'Start'}
         </button>
@@ -163,18 +174,18 @@ export default function WordRain({ locale }: Props) {
 
       {state === 'playing' && (
         <div className="mt-4 space-y-2">
-          <div className="flex items-center justify-between text-xs text-zinc-500">
-            <span>{tr ? 'Skor' : 'Score'}: <span className="text-primary-400">{score}</span></span>
-            <span>{tr ? 'Kombo' : 'Combo'}: <span className="text-yellow-400">{combo}</span></span>
+          <div className="flex items-center justify-between text-xs text-green-700">
+            <span>{tr ? 'Skor' : 'Score'}: <span className="text-green-400">{score}</span></span>
+            <span>{tr ? 'Kombo' : 'Combo'}: <span className="text-amber-400">{combo}</span></span>
             <span>{tr ? 'Seviye' : 'Level'}: {level}</span>
             <span className="text-red-400">{'❤'.repeat(maxMissed - missed)}{'🖤'.repeat(missed)}</span>
           </div>
 
-          <div className="relative h-64 overflow-hidden rounded-lg border border-zinc-700 bg-zinc-900">
+          <div className="relative h-64 overflow-hidden rounded-lg border border-green-900/30 bg-black">
             {words.map((w) => (
               <div
                 key={w.id}
-                className="absolute font-mono text-sm font-medium text-zinc-200 transition-none"
+                className="absolute font-mono text-sm font-medium text-green-400 transition-none"
                 style={{
                   left: `${w.x}%`,
                   top: `${w.y}%`,
@@ -184,7 +195,7 @@ export default function WordRain({ locale }: Props) {
                 {w.word.split('').map((char, i) => {
                   const isTyped = input.length > 0 && w.word.startsWith(input.toLowerCase()) && i < input.length
                   return (
-                    <span key={i} className={isTyped ? 'text-primary-400' : ''}>
+                    <span key={i} className={isTyped ? 'text-green-300' : ''}>
                       {char}
                     </span>
                   )
@@ -200,7 +211,7 @@ export default function WordRain({ locale }: Props) {
             value={input}
             onChange={handleInput}
             onKeyDown={handleKeyDown}
-            className="w-full rounded-lg border border-zinc-600 bg-zinc-800 px-4 py-2 font-mono text-zinc-100 outline-none focus:border-primary-500"
+            className="w-full rounded-lg border border-green-900/30 bg-black px-4 py-2 font-mono text-green-400 outline-none focus:border-green-500"
             placeholder={tr ? 'Kelimeyi yazın...' : 'Type the word...'}
             autoComplete="off"
             autoCorrect="off"
@@ -212,17 +223,17 @@ export default function WordRain({ locale }: Props) {
 
       {state === 'done' && (
         <div className="mt-4 space-y-4 text-center">
-          <div className="rounded-lg bg-primary-500/10 p-4">
-            <p className="text-lg font-semibold text-primary-400">
+          <div className="rounded-lg bg-green-500/10 p-4">
+            <p className="text-lg font-semibold text-green-400">
               {tr ? 'Skor' : 'Score'}: {score}
             </p>
-            <p className="mt-1 text-sm text-zinc-500">
+            <p className="mt-1 text-sm text-green-700">
               {tr ? 'En yüksek kombo' : 'Max combo'}: {maxCombo} · {tr ? 'Seviye' : 'Level'}: {level}
             </p>
           </div>
           <button
             onClick={startGame}
-            className="rounded-lg bg-primary-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-primary-500"
+            className="rounded-lg bg-green-600 px-6 py-2 text-sm font-medium text-black transition hover:bg-green-500"
           >
             {tr ? 'Tekrar Oyna' : 'Play Again'}
           </button>

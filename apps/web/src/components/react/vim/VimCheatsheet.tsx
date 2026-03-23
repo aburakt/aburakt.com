@@ -65,7 +65,7 @@ export default function VimCheatsheet({ locale }: Props) {
       {/* Search */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
         <div className="relative flex-1">
-          <svg className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
           <input
@@ -73,10 +73,10 @@ export default function VimCheatsheet({ locale }: Props) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={tr ? 'Komut veya açıklama ara...' : 'Search commands or descriptions...'}
-            className="w-full rounded-lg border border-zinc-700 bg-zinc-800 py-2 pl-10 pr-4 text-sm text-zinc-100 placeholder-zinc-500 outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
+            className="w-full rounded-lg border border-green-900/30 bg-green-950/20 py-2 pl-10 pr-4 text-sm text-green-400 placeholder-green-700 outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
           />
         </div>
-        <div className="text-xs text-zinc-500">
+        <div className="text-xs text-green-700">
           {filtered.length} {tr ? 'sonuç' : 'results'}
         </div>
       </div>
@@ -87,8 +87,8 @@ export default function VimCheatsheet({ locale }: Props) {
           onClick={() => setActiveCategory('all')}
           className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
             activeCategory === 'all'
-              ? 'border-primary-500 bg-primary-500/10 text-primary-400'
-              : 'border-zinc-700 text-zinc-400 hover:border-zinc-500'
+              ? 'border-green-500 bg-green-500/10 text-green-400'
+              : 'border-green-900/30 text-green-600 hover:border-green-500/50'
           }`}
         >
           {tr ? 'Tümü' : 'All'}
@@ -99,8 +99,8 @@ export default function VimCheatsheet({ locale }: Props) {
             onClick={() => setActiveCategory(cat === activeCategory ? 'all' : cat)}
             className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
               activeCategory === cat
-                ? 'border-primary-500 bg-primary-500/10 text-primary-400'
-                : 'border-zinc-700 text-zinc-400 hover:border-zinc-500'
+                ? 'border-green-500 bg-green-500/10 text-green-400'
+                : 'border-green-900/30 text-green-600 hover:border-green-500/50'
             }`}
           >
             {cat}
@@ -115,8 +115,8 @@ export default function VimCheatsheet({ locale }: Props) {
             onClick={() => setActiveLevel(lvl)}
             className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
               activeLevel === lvl
-                ? 'border-primary-500 bg-primary-500/10 text-primary-400'
-                : 'border-zinc-700 text-zinc-400 hover:border-zinc-500'
+                ? 'border-green-500 bg-green-500/10 text-green-400'
+                : 'border-green-900/30 text-green-600 hover:border-green-500/50'
             }`}
           >
             {lvl === 'all' ? (tr ? 'Tüm Seviyeler' : 'All Levels') : levelLabels[lvl][locale as 'en' | 'tr']}
@@ -127,30 +127,31 @@ export default function VimCheatsheet({ locale }: Props) {
       {/* Results */}
       {Array.from(grouped.entries()).map(([category, entries]) => (
         <div key={category}>
-          <h2 className="mb-4 text-lg font-semibold text-zinc-100">{category}</h2>
+          <h2 className="mb-4 text-lg font-semibold text-green-400">{category}</h2>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {entries.map((entry) => (
               <div
                 key={entry.key + entry.category}
-                className="rounded-xl border border-zinc-700/50 bg-zinc-800/50 p-4 transition hover:border-zinc-600"
+                className="rounded-xl border border-green-900/30 bg-green-950/20 p-4 transition hover:border-green-500/50"
               >
                 <div className="flex items-start justify-between gap-2">
-                  <kbd className="rounded bg-zinc-700 px-2 py-0.5 font-mono text-sm text-primary-400">
+                  <kbd className="rounded bg-green-900/30 px-2 py-0.5 font-mono text-sm text-green-400">
                     {entry.key}
                   </kbd>
                   <span className={`rounded-full border px-2 py-0.5 text-[10px] font-medium ${levelColors[entry.level]}`}>
                     {levelLabels[entry.level][locale as 'en' | 'tr']}
                   </span>
                 </div>
-                <p className="mt-2 text-sm text-zinc-300">
+                <p className="mt-2 text-sm text-green-400">
                   {tr ? entry.descriptionTr : entry.description}
                 </p>
                 {entry.example && (
-                  <p className="mt-1 font-mono text-xs text-zinc-500">{entry.example}</p>
+                  <p className="mt-1 font-mono text-xs text-green-700">{entry.example}</p>
                 )}
                 {(entry.why || entry.whyTr) && (
-                  <p className="mt-1 text-xs text-primary-400/70">
-                    💡 {tr ? entry.whyTr : entry.why}
+                  <p className="mt-1 text-xs text-green-400/70 flex items-start gap-1">
+                    <svg className="h-3.5 w-3.5 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" /></svg>
+                    {tr ? entry.whyTr : entry.why}
                   </p>
                 )}
               </div>
@@ -160,7 +161,7 @@ export default function VimCheatsheet({ locale }: Props) {
       ))}
 
       {filtered.length === 0 && (
-        <div className="py-12 text-center text-zinc-500">
+        <div className="py-12 text-center text-green-700">
           {tr ? 'Sonuç bulunamadı. Farklı bir arama deneyin.' : 'No results found. Try a different search.'}
         </div>
       )}

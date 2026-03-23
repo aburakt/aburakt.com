@@ -99,11 +99,11 @@ export default function SearchModal({ locale }: Props) {
       onClick={() => setOpen(false)}
     >
       <div
-        className="mx-4 w-full max-w-lg rounded-xl border border-zinc-700 bg-zinc-900 shadow-2xl"
+        className="mx-4 w-full max-w-lg rounded-xl border border-green-900/30 bg-black shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center border-b border-zinc-700 px-4">
-          <svg className="h-4 w-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <div className="flex items-center border-b border-green-900/30 px-4">
+          <svg className="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
           <input
@@ -116,13 +116,13 @@ export default function SearchModal({ locale }: Props) {
             }}
             onKeyDown={handleKeyDown}
             placeholder={locale === 'tr' ? 'Ara...' : 'Search...'}
-            className="w-full bg-transparent px-3 py-3 text-sm text-zinc-100 placeholder-zinc-500 outline-none"
+            className="w-full bg-transparent px-3 py-3 text-sm text-green-400 placeholder-green-700 outline-none"
           />
-          <kbd className="rounded bg-zinc-800 px-1.5 py-0.5 text-xs text-zinc-500">Esc</kbd>
+          <kbd className="rounded bg-green-950/20 px-1.5 py-0.5 text-xs text-green-700">Esc</kbd>
         </div>
         <div className="max-h-64 overflow-y-auto p-2">
           {results.length === 0 ? (
-            <p className="px-3 py-4 text-center text-sm text-zinc-500">
+            <p className="px-3 py-4 text-center text-sm text-green-700">
               {locale === 'tr' ? 'Sonuç bulunamadı' : 'No results found'}
             </p>
           ) : (
@@ -134,13 +134,13 @@ export default function SearchModal({ locale }: Props) {
                 rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
                 className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm transition ${
                   i === selectedIndex
-                    ? 'bg-primary-500/10 text-primary-400'
-                    : 'text-zinc-300 hover:bg-zinc-800'
+                    ? 'bg-green-500/10 text-green-400'
+                    : 'text-green-400 hover:bg-green-950/20'
                 }`}
                 onMouseEnter={() => setSelectedIndex(i)}
               >
                 <span>{item.title}</span>
-                <span className="text-xs text-zinc-500">{item.category}</span>
+                <span className="text-xs text-green-700">{item.category}</span>
               </a>
             ))
           )}

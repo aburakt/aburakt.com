@@ -150,6 +150,12 @@ export default function VimNavigation({ locale }: Props) {
         keyBuffer.current = ''
         return
       }
+      if (buf === 'gl') {
+        e.preventDefault()
+        window.location.href = locale === 'en' ? '/' : '/en/'
+        keyBuffer.current = ''
+        return
+      }
     },
     [enabled, mode, locale, getSections]
   )
@@ -172,7 +178,7 @@ export default function VimNavigation({ locale }: Props) {
     <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2 no-print">
       <button
         onClick={toggleVimNav}
-        className="rounded bg-zinc-800/80 px-2 py-1 font-mono text-xs text-primary-400 shadow-lg backdrop-blur transition hover:bg-zinc-700/80 dark:bg-zinc-800/90 dark:text-primary-400"
+        className="rounded bg-green-950/30 px-2 py-1 font-mono text-xs text-green-400 shadow-lg backdrop-blur transition hover:bg-green-900/30 dark:bg-green-950/30 dark:text-green-400"
         title={enabled ? 'Disable vim navigation' : 'Enable vim navigation'}
       >
         {enabled

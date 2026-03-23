@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { saveTypingStat } from '../../useAuth'
 
 interface Props {
   locale: string
@@ -99,11 +100,20 @@ export default function TypeSprint({ locale }: Props) {
   }
 
   const wpm = Math.round((wordsTyped / (DURATION - timeLeft || 1)) * 60)
+  const accuracy = wordsTyped > 0 ? Math.round((wordsTyped / (wordsTyped + errors)) * 100) : 0
+
+  // Save stat when game ends
+  useEffect(() => {
+    if (state === 'done') {
+      const layout = tr ? 'tr' : 'en'
+      saveTypingStat({ mode: 'game', wpm, accuracy, duration_s: DURATION, layout })
+    }
+  }, [state])
 
   return (
-    <div className="rounded-xl border border-zinc-700/50 bg-zinc-800/50 p-6">
-      <h3 className="text-lg font-semibold text-zinc-100">🏃 Type Sprint</h3>
-      <p className="mt-1 text-sm text-zinc-400">
+    <div className="rounded-xl border border-green-900/30 bg-green-950/20 p-6">
+      <h3 className="text-lg font-semibold text-green-400">🏃 Type Sprint</h3>
+      <p className="mt-1 text-sm text-green-600">
         {tr
           ? `${DURATION} saniyede mümkün olduğunca çok kelime yazın. Boşluk ile onaylayın.`
           : `Type as many words as you can in ${DURATION} seconds. Press space to submit.`}
@@ -112,7 +122,7 @@ export default function TypeSprint({ locale }: Props) {
       {state === 'idle' && (
         <button
           onClick={startGame}
-          className="mt-4 rounded-lg bg-primary-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-primary-500"
+          className="mt-4 rounded-lg bg-green-600 px-6 py-2 text-sm font-medium text-black transition hover:bg-green-500"
         >
           {tr ? 'Başla' : 'Start'}
         </button>
@@ -121,27 +131,27 @@ export default function TypeSprint({ locale }: Props) {
       {state === 'playing' && (
         <div className="mt-4 space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-2xl font-bold text-primary-400">{timeLeft}s</span>
-            <span className="text-sm text-zinc-500">
+            <span className="text-2xl font-bold text-green-400">{timeLeft}s</span>
+            <span className="text-sm text-green-700">
               {wordsTyped} {tr ? 'kelime' : 'words'} · {errors} {tr ? 'hata' : 'errors'}
             </span>
           </div>
 
-          <div className="h-1 overflow-hidden rounded-full bg-zinc-700">
+          <div className="h-1 overflow-hidden rounded-full bg-green-900/30">
             <div
-              className="h-full bg-primary-500 transition-all"
+              className="h-full bg-green-500 transition-all"
               style={{ width: `${(timeLeft / DURATION) * 100}%` }}
             />
           </div>
 
           <div className="flex items-center justify-center gap-3 py-6">
-            <span className="font-mono text-sm text-zinc-600">
+            <span className="font-mono text-sm text-green-800">
               {wordQueue.length > 0 ? wordQueue[wordQueue.length - 1] : ''}
             </span>
-            <div className="rounded-lg bg-zinc-900 px-6 py-4 text-center">
-              <p className="font-mono text-2xl font-bold text-zinc-100">
+            <div className="rounded-lg bg-black px-6 py-4 text-center">
+              <p className="font-mono text-2xl font-bold text-green-400">
                 {currentWord.split('').map((char, i) => {
-                  let cls = 'text-zinc-100'
+                  let cls = 'text-green-400'
                   if (i < input.length) {
                     cls = input[i] === char ? 'text-green-400' : 'text-red-400'
                   }
@@ -149,7 +159,7 @@ export default function TypeSprint({ locale }: Props) {
                 })}
               </p>
             </div>
-            <span className="font-mono text-sm text-zinc-600">
+            <span className="font-mono text-sm text-green-800">
               {wordQueue.length > 1 ? wordQueue[0] : ''}
             </span>
           </div>
@@ -159,7 +169,7 @@ export default function TypeSprint({ locale }: Props) {
             type="text"
             value={input}
             onChange={handleInput}
-            className="w-full rounded-lg border border-zinc-600 bg-zinc-800 px-4 py-2 text-center font-mono text-lg text-zinc-100 outline-none focus:border-primary-500"
+            className="w-full rounded-lg border border-green-900/30 bg-black px-4 py-2 text-center font-mono text-lg text-green-400 outline-none focus:border-green-500"
             autoComplete="off"
             autoCorrect="off"
             autoCapitalize="off"
@@ -170,29 +180,29 @@ export default function TypeSprint({ locale }: Props) {
 
       {state === 'done' && (
         <div className="mt-4 space-y-4 text-center">
-          <div className="rounded-lg bg-primary-500/10 p-6">
-            <p className="text-4xl font-bold text-primary-400">{wordsTyped}</p>
-            <p className="text-sm text-zinc-500">{tr ? 'kelime' : 'words'}</p>
+          <div className="rounded-lg bg-green-500/10 p-6">
+            <p className="text-4xl font-bold text-green-400">{wordsTyped}</p>
+            <p className="text-sm text-green-700">{tr ? 'kelime' : 'words'}</p>
             <div className="mt-4 flex justify-center gap-6">
               <div>
                 <p className="text-xl font-semibold text-green-400">{wpm}</p>
-                <p className="text-xs text-zinc-500">WPM</p>
+                <p className="text-xs text-green-700">WPM</p>
               </div>
               <div>
                 <p className="text-xl font-semibold text-red-400">{errors}</p>
-                <p className="text-xs text-zinc-500">{tr ? 'Hata' : 'Errors'}</p>
+                <p className="text-xs text-green-700">{tr ? 'Hata' : 'Errors'}</p>
               </div>
               <div>
-                <p className="text-xl font-semibold text-blue-400">
+                <p className="text-xl font-semibold text-cyan-400">
                   {wordsTyped > 0 ? Math.round((wordsTyped / (wordsTyped + errors)) * 100) : 0}%
                 </p>
-                <p className="text-xs text-zinc-500">{tr ? 'Doğruluk' : 'Accuracy'}</p>
+                <p className="text-xs text-green-700">{tr ? 'Doğruluk' : 'Accuracy'}</p>
               </div>
             </div>
           </div>
           <button
             onClick={startGame}
-            className="rounded-lg bg-primary-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-primary-500"
+            className="rounded-lg bg-green-600 px-6 py-2 text-sm font-medium text-black transition hover:bg-green-500"
           >
             {tr ? 'Tekrar Oyna' : 'Play Again'}
           </button>

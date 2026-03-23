@@ -98,20 +98,20 @@ export default function TypingEngine({ text, layout, onComplete, showKeyboard = 
       className="outline-none"
     >
       {showStats && startTime && !isComplete && (
-        <div className="mb-4 flex gap-6 text-xs text-zinc-500">
-          <span>WPM: <span className="font-mono text-zinc-300">{liveWpm}</span></span>
+        <div className="mb-4 flex gap-6 text-xs text-green-700">
+          <span>WPM: <span className="font-mono text-green-400">{liveWpm}</span></span>
           <span>Errors: <span className="font-mono text-red-400">{errors}</span></span>
-          <span>Progress: <span className="font-mono text-zinc-300">{Math.round((pos / text.length) * 100)}%</span></span>
+          <span>Progress: <span className="font-mono text-green-400">{Math.round((pos / text.length) * 100)}%</span></span>
         </div>
       )}
 
-      <div className="rounded-lg border border-zinc-700 bg-zinc-900 p-6 font-mono text-lg leading-relaxed tracking-wide">
+      <div className="rounded-lg border border-green-900/30 bg-black p-6 font-mono text-lg leading-relaxed tracking-wide">
         {text.split('').map((char, i) => {
-          let cls = 'text-zinc-600'
+          let cls = 'text-green-800'
           if (i < pos) {
             cls = typed[i] === char ? 'text-green-400' : 'text-red-400 underline'
           } else if (i === pos) {
-            cls = 'bg-primary-500/30 text-zinc-100 border-b-2 border-primary-400'
+            cls = 'bg-green-500/30 text-green-400 border-b-2 border-green-500'
           }
           return (
             <span key={i} className={cls}>
@@ -123,21 +123,21 @@ export default function TypingEngine({ text, layout, onComplete, showKeyboard = 
 
       {isComplete && (
         <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
-          <div className="rounded-lg bg-primary-500/10 p-3 text-center">
-            <p className="text-2xl font-bold text-primary-400">{stats.wpm}</p>
-            <p className="text-xs text-zinc-500">WPM</p>
+          <div className="rounded-lg bg-green-500/10 p-3 text-center">
+            <p className="text-2xl font-bold text-green-400">{stats.wpm}</p>
+            <p className="text-xs text-green-700">WPM</p>
           </div>
           <div className="rounded-lg bg-green-500/10 p-3 text-center">
             <p className="text-2xl font-bold text-green-400">{stats.accuracy}%</p>
-            <p className="text-xs text-zinc-500">Accuracy</p>
+            <p className="text-xs text-green-700">Accuracy</p>
           </div>
-          <div className="rounded-lg bg-blue-500/10 p-3 text-center">
-            <p className="text-2xl font-bold text-blue-400">{stats.time}s</p>
-            <p className="text-xs text-zinc-500">Time</p>
+          <div className="rounded-lg bg-cyan-500/10 p-3 text-center">
+            <p className="text-2xl font-bold text-cyan-400">{stats.time}s</p>
+            <p className="text-xs text-green-700">Time</p>
           </div>
           <div className="rounded-lg bg-red-500/10 p-3 text-center">
             <p className="text-2xl font-bold text-red-400">{stats.incorrect}</p>
-            <p className="text-xs text-zinc-500">Errors</p>
+            <p className="text-xs text-green-700">Errors</p>
           </div>
         </div>
       )}
