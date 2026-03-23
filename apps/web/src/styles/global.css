@@ -142,18 +142,32 @@ body::after {
   animation: blink 1s infinite;
 }
 
-/* ── Glitch hover ── */
-@keyframes glitch {
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(-2px, -2px); }
-  60% { transform: translate(2px, 2px); }
-  80% { transform: translate(2px, -2px); }
-  100% { transform: translate(0); }
+/* ── Terminal hover ── */
+.hover-glitch {
+  position: relative;
+  transition: text-shadow 0.2s ease, padding-left 0.2s ease;
+}
+
+.hover-glitch::before {
+  content: '>';
+  position: absolute;
+  left: 0.35rem;
+  opacity: 0;
+  color: currentColor;
+  transition: opacity 0.2s ease;
+  font-family: monospace;
+  font-size: 0.65em;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .hover-glitch:hover {
-  animation: glitch 0.3s ease-in-out;
+  padding-left: 1.25rem;
+  text-shadow: 0 0 8px currentColor;
+}
+
+.hover-glitch:hover::before {
+  opacity: 0.7;
 }
 
 /* ── Terminal border (default green, zone-aware via data-zone) ── */
