@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { saveTypingStat } from '../../useAuth'
 
 interface Props {
   locale: string
@@ -41,6 +42,7 @@ export default function Survival({ locale }: Props) {
   const inputRef = useRef<HTMLInputElement>(null)
   const timerRef = useRef<ReturnType<typeof setInterval>>()
   const startTimeRef = useRef(0)
+  const gameStartRef = useRef(0)
 
   const getWordForLevel = useCallback((lvl: number) => {
     // As score increases, pick longer words
@@ -69,11 +71,20 @@ export default function Survival({ locale }: Props) {
     startTimeRef.current = Date.now()
   }, [getWordForLevel])
 
+  // Save stat when game ends
+  useEffect(() => {
+    if (state === 'done') {
+      const elapsed = Math.round((Date.now() - gameStartRef.current) / 1000)
+      saveTypingStat({ mode: 'game', wpm: score, accuracy: 100, duration_s: elapsed, layout: 'en' })
+    }
+  }, [state, score])
+
   function startGame() {
     setScore(0)
     setLives(3)
     setStreak(0)
     setState('playing')
+    gameStartRef.current = Date.now()
     nextRound(0)
     setTimeout(() => inputRef.current?.focus(), 50)
   }
@@ -135,9 +146,9 @@ export default function Survival({ locale }: Props) {
   const timeColor = timePercent > 50 ? 'bg-green-500' : timePercent > 25 ? 'bg-yellow-500' : 'bg-red-500'
 
   return (
-    <div className="rounded-xl border border-zinc-700/50 bg-zinc-800/50 p-6">
-      <h3 className="text-lg font-semibold text-zinc-100">💀 Survival</h3>
-      <p className="mt-1 text-sm text-zinc-400">
+    <div className="rounded-xl border border-green-900/30 bg-green-950/20 p-6">
+      <h3 className="text-lg font-semibold text-green-400">💀 Survival</h3>
+      <p className="mt-1 text-sm text-green-600">
         {tr
           ? 'Her kelimeyi süre dolmadan yazın. Zorluk giderek artar. 3 can hakkınız var.'
           : 'Type each word before time runs out. Difficulty increases. You have 3 lives.'}
@@ -146,7 +157,7 @@ export default function Survival({ locale }: Props) {
       {state === 'idle' && (
         <button
           onClick={startGame}
-          className="mt-4 rounded-lg bg-primary-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-primary-500"
+          className="mt-4 rounded-lg bg-green-600 px-6 py-2 text-sm font-medium text-black transition hover:bg-green-500"
         >
           {tr ? 'Başla' : 'Start'}
         </button>
@@ -154,23 +165,23 @@ export default function Survival({ locale }: Props) {
 
       {state === 'playing' && (
         <div className="mt-4 space-y-4">
-          <div className="flex items-center justify-between text-xs text-zinc-500">
-            <span>{tr ? 'Skor' : 'Score'}: <span className="text-primary-400 font-bold">{score}</span></span>
-            <span>{tr ? 'Seri' : 'Streak'}: <span className="text-yellow-400">{streak}</span></span>
+          <div className="flex items-center justify-between text-xs text-green-700">
+            <span>{tr ? 'Skor' : 'Score'}: <span className="text-green-400 font-bold">{score}</span></span>
+            <span>{tr ? 'Seri' : 'Streak'}: <span className="text-amber-400">{streak}</span></span>
             <span className="text-lg">{'❤️'.repeat(lives)}</span>
           </div>
 
-          <div className="h-2 overflow-hidden rounded-full bg-zinc-700">
+          <div className="h-2 overflow-hidden rounded-full bg-green-900/30">
             <div
               className={`h-full transition-all duration-100 ${timeColor}`}
               style={{ width: `${timePercent}%` }}
             />
           </div>
 
-          <div className="rounded-lg bg-zinc-900 px-6 py-8 text-center">
-            <p className="font-mono text-3xl font-bold text-zinc-100">
+          <div className="rounded-lg bg-black px-6 py-8 text-center">
+            <p className="font-mono text-3xl font-bold text-green-400">
               {currentWord.split('').map((char, i) => {
-                let cls = 'text-zinc-100'
+                let cls = 'text-green-400'
                 if (i < input.length) {
                   cls = input[i] === char ? 'text-green-400' : 'text-red-400'
                 }
@@ -184,7 +195,7 @@ export default function Survival({ locale }: Props) {
             type="text"
             value={input}
             onChange={handleInput}
-            className="w-full rounded-lg border border-zinc-600 bg-zinc-800 px-4 py-2 text-center font-mono text-lg text-zinc-100 outline-none focus:border-primary-500"
+            className="w-full rounded-lg border border-green-900/30 bg-black px-4 py-2 text-center font-mono text-lg text-green-400 outline-none focus:border-green-500"
             autoComplete="off"
             autoCorrect="off"
             autoCapitalize="off"
@@ -195,13 +206,13 @@ export default function Survival({ locale }: Props) {
 
       {state === 'done' && (
         <div className="mt-4 space-y-4 text-center">
-          <div className="rounded-lg bg-primary-500/10 p-6">
-            <p className="text-4xl font-bold text-primary-400">{score}</p>
-            <p className="text-sm text-zinc-500">{tr ? 'kelime' : 'words'}</p>
+          <div className="rounded-lg bg-green-500/10 p-6">
+            <p className="text-4xl font-bold text-green-400">{score}</p>
+            <p className="text-sm text-green-700">{tr ? 'kelime' : 'words'}</p>
           </div>
           <button
             onClick={startGame}
-            className="rounded-lg bg-primary-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-primary-500"
+            className="rounded-lg bg-green-600 px-6 py-2 text-sm font-medium text-black transition hover:bg-green-500"
           >
             {tr ? 'Tekrar Oyna' : 'Play Again'}
           </button>

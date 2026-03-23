@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
 import { vim } from '@replit/codemirror-vim'
+import { saveVimStat } from '../../useAuth'
 
 interface Props {
   locale: string
@@ -122,12 +123,20 @@ export default function CIGame({ locale }: Props) {
       ? Math.round(scores.reduce((a, s) => a + s.time / s.keystrokes, 0) / scores.length)
       : 0
 
+  // Save stat when game ends
+  useEffect(() => {
+    if (state === 'done' && scores.length > 0) {
+      const totalKs = scores.reduce((a, s) => a + s.keystrokes, 0)
+      saveVimStat({ game: 'ci-game', score: avgScore, keystrokes: totalKs })
+    }
+  }, [state, scores, avgScore])
+
   return (
-    <div className="rounded-xl border border-zinc-700/50 bg-zinc-800/50 p-6">
-      <h3 className="text-lg font-semibold text-zinc-100">
+    <div className="rounded-xl border border-green-900/30 bg-green-950/20 p-6">
+      <h3 className="text-lg font-semibold text-green-400">
         ✂️ CI Game
       </h3>
-      <p className="mt-1 text-sm text-zinc-400">
+      <p className="mt-1 text-sm text-green-600">
         {tr
           ? 'ci{char} kullanarak içeriği mümkün olduğunca hızlı değiştirin.'
           : 'Change inner content using ci{char} as fast as possible.'}
@@ -136,7 +145,7 @@ export default function CIGame({ locale }: Props) {
       {state === 'idle' && (
         <button
           onClick={startGame}
-          className="mt-4 rounded-lg bg-primary-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-primary-500"
+          className="mt-4 rounded-lg bg-green-600 px-6 py-2 text-sm font-medium text-black transition hover:bg-green-500"
         >
           {tr ? 'Başla' : 'Start'} ({totalRounds} {tr ? 'tur' : 'rounds'})
         </button>
@@ -144,30 +153,30 @@ export default function CIGame({ locale }: Props) {
 
       {state === 'playing' && (
         <div className="mt-4 space-y-4">
-          <div className="flex items-center justify-between text-xs text-zinc-500">
+          <div className="flex items-center justify-between text-xs text-green-700">
             <span>{tr ? 'Tur' : 'Round'} {Math.min(round + 1, totalRounds)}/{totalRounds}</span>
             <span>{tr ? 'Tuş sayısı' : 'Keystrokes'}: {keystrokes}</span>
           </div>
-          <div className="rounded-lg bg-primary-500/5 border border-primary-500/20 p-3">
-            <p className="text-sm text-primary-400">{tr ? challenge.instructionTr : challenge.instruction}</p>
-            <p className="mt-1 font-mono text-xs text-zinc-500">
+          <div className="rounded-lg bg-green-500/5 border border-green-500/20 p-3">
+            <p className="text-sm text-green-400">{tr ? challenge.instructionTr : challenge.instruction}</p>
+            <p className="mt-1 font-mono text-xs text-green-700">
               {tr ? 'Hedef' : 'Goal'}: <span className="text-green-400">{getGoal(challenge)}</span>
             </p>
           </div>
-          <div ref={editorRef} className="overflow-hidden rounded-lg border border-zinc-700" />
+          <div ref={editorRef} className="overflow-hidden rounded-lg border border-green-900/30" />
         </div>
       )}
 
       {state === 'done' && (
         <div className="mt-4 space-y-4">
-          <div className="rounded-lg bg-primary-500/10 p-4 text-center">
-            <p className="text-lg font-semibold text-primary-400">
+          <div className="rounded-lg bg-green-500/10 p-4 text-center">
+            <p className="text-lg font-semibold text-green-400">
               {tr ? 'Ortalama Skor' : 'Average Score'}: {avgScore}ms/{tr ? 'tuş' : 'keystroke'}
             </p>
           </div>
           <div className="space-y-1">
             {scores.map((s, i) => (
-              <div key={i} className="flex justify-between text-xs text-zinc-400">
+              <div key={i} className="flex justify-between text-xs text-green-600">
                 <span>{tr ? 'Tur' : 'Round'} {i + 1}</span>
                 <span>{s.time}ms · {s.keystrokes} {tr ? 'tuş' : 'keys'}</span>
               </div>
@@ -175,7 +184,7 @@ export default function CIGame({ locale }: Props) {
           </div>
           <button
             onClick={resetGame}
-            className="rounded-lg bg-primary-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-primary-500"
+            className="rounded-lg bg-green-600 px-6 py-2 text-sm font-medium text-black transition hover:bg-green-500"
           >
             {tr ? 'Tekrar Oyna' : 'Play Again'}
           </button>

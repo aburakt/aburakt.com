@@ -1,0 +1,62 @@
+---
+import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
+---
+
+<PortfolioLayout title="404 — Not Found">
+  <section class="flex min-h-[70vh] items-center justify-center px-4">
+    <div class="w-full max-w-2xl rounded-lg border border-green-900/30 bg-black p-6 font-mono shadow-lg shadow-green-900/10">
+      <!-- Terminal title bar -->
+      <div class="mb-4 flex items-center gap-2 border-b border-green-900/30 pb-3">
+        <span class="h-3 w-3 rounded-full bg-red-500"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-500"></span>
+        <span class="h-3 w-3 rounded-full bg-green-500"></span>
+        <span class="ml-2 text-xs text-green-700">bash — 80x24</span>
+      </div>
+
+      <!-- ASCII art -->
+      <pre class="mb-6 text-green-600 text-xs sm:text-sm leading-tight select-none">
+ _  _    ___  _  _
+| || |  / _ \| || |
+| || |_| | | | || |_
+|__   _| | | |__   _|
+   | | | |_| |  | |
+   |_|  \___/   |_|
+      </pre>
+
+      <!-- Error output -->
+      <div class="space-y-2 text-sm sm:text-base">
+        <p class="text-green-400">
+          <span class="text-green-700">guest@aburakt.com</span><span class="text-green-600">:</span><span class="text-green-400">~</span><span class="text-green-600">$</span> cd /requested-path
+        </p>
+        <p class="text-red-400">
+          bash: cd: /requested-path: No such file or directory
+        </p>
+        <p class="mt-4 text-green-400">
+          <span class="text-green-700">guest@aburakt.com</span><span class="text-green-600">:</span><span class="text-green-400">~</span><span class="text-green-600">$</span> <span class="text-green-600">echo</span> "404 — NOT FOUND"
+        </p>
+        <p class="text-green-400 text-lg font-bold">
+          404 — NOT FOUND
+        </p>
+        <p class="mt-4 text-green-700">
+          The page you're looking for doesn't exist or has been moved.
+        </p>
+      </div>
+
+      <!-- Link back home -->
+      <div class="mt-8 text-sm sm:text-base">
+        <p class="text-green-400">
+          <span class="text-green-700">guest@aburakt.com</span><span class="text-green-600">:</span><span class="text-green-400">~</span><span class="text-green-600">$</span>
+          <a
+            href="/"
+            class="ml-1 text-green-400 underline decoration-green-700 underline-offset-4 transition-colors hover:text-green-300 hover:decoration-green-500"
+          >
+            cd ~/
+          </a>
+        </p>
+        <p class="mt-2 animate-pulse text-green-400">
+          <span class="text-green-700">guest@aburakt.com</span><span class="text-green-600">:</span><span class="text-green-400">~</span><span class="text-green-600">$</span> <span class="inline-block w-2 bg-green-400">&nbsp;</span>
+        </p>
+      </div>
+    </div>
+  </section>
+</PortfolioLayout>

@@ -7,7 +7,7 @@ const locale = getLocaleFromUrl(Astro.url)
 const navItems = [
   { href: getLocalePath(locale, '/'), label: '~/', cmd: 'home' },
   { href: getLocalePath(locale, '/about'), label: '/about', cmd: 'about' },
-  { href: getLocalePath(locale, '/cv'), label: '/cv', cmd: 'cv' },
+  { href: getLocalePath(locale, '/articles'), label: '/articles', cmd: 'blog' },
   { href: getLocalePath(locale, '/playground'), label: '/playground', cmd: 'play' },
   { href: getLocalePath(locale, '/dashboard'), label: '/dashboard', cmd: 'dash' },
 ]
@@ -52,6 +52,7 @@ const navItems = [
         <a
           href={t(locale, 'lang.switchTo')}
           class="rounded border border-green-900/30 px-2 py-1 text-xs text-green-600 transition hover:border-green-500/50 hover:text-green-400"
+          title={`gl — ${t(locale, 'lang.switch')}`}
         >
           {t(locale, 'lang.switch')}
         </a>

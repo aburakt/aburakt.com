@@ -3,6 +3,7 @@ import { lessons } from './lessonData'
 import TypingEngine from './TypingEngine'
 import type { TypingStats } from './TypingEngine'
 import type { Layout } from './keyboardLayouts'
+import { saveTypingStat } from '../useAuth'
 
 interface Props {
   locale: string
@@ -28,6 +29,7 @@ export default function TypingLessons({ locale }: Props) {
       next.set(lesson.id, [...existing, stats])
       return next
     })
+    saveTypingStat({ mode: 'lesson', wpm: stats.wpm, accuracy: stats.accuracy, duration_s: stats.time, layout })
   }
 
   function nextText() {
@@ -63,26 +65,26 @@ export default function TypingLessons({ locale }: Props) {
               <button
                 key={l.id}
                 onClick={() => setSelectedLesson(l.id)}
-                className="group rounded-xl border border-zinc-700/50 bg-zinc-800/50 p-5 text-left transition hover:border-primary-500/50"
+                className="group rounded-xl border border-green-900/30 bg-green-950/20 p-5 text-left transition hover:border-green-500/50"
               >
                 <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-zinc-100 group-hover:text-primary-400">
+                  <h3 className="font-semibold text-green-400 group-hover:text-green-300">
                     {tr ? l.titleTr : l.title}
                   </h3>
                   {done && <span className="text-green-400">✓</span>}
                 </div>
-                <p className="mt-1 text-sm text-zinc-500">
+                <p className="mt-1 text-sm text-green-700">
                   {tr ? l.descriptionTr : l.description}
                 </p>
                 {l.keys.length > 0 && (
                   <div className="mt-3 flex gap-1">
                     {l.keys.slice(0, 8).map((k) => (
-                      <span key={k} className="rounded bg-zinc-700 px-2 py-0.5 font-mono text-xs text-zinc-300">
+                      <span key={k} className="rounded bg-green-900/30 px-2 py-0.5 font-mono text-xs text-green-400">
                         {k}
                       </span>
                     ))}
                     {l.keys.length > 8 && (
-                      <span className="text-xs text-zinc-500">+{l.keys.length - 8}</span>
+                      <span className="text-xs text-green-700">+{l.keys.length - 8}</span>
                     )}
                   </div>
                 )}
@@ -97,22 +99,22 @@ export default function TypingLessons({ locale }: Props) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <button onClick={backToList} className="text-sm text-primary-500 hover:text-primary-400">
+        <button onClick={backToList} className="text-sm text-green-400 hover:text-green-300">
           ← {tr ? 'Dersler' : 'Lessons'}
         </button>
-        <span className="text-xs text-zinc-500">
+        <span className="text-xs text-green-700">
           {textIndex + 1} / {texts.length}
         </span>
       </div>
 
       <div>
-        <h2 className="text-xl font-semibold text-zinc-100">{tr ? lesson.titleTr : lesson.title}</h2>
-        <p className="mt-1 text-sm text-zinc-500">{tr ? lesson.descriptionTr : lesson.description}</p>
+        <h2 className="text-xl font-semibold text-green-400">{tr ? lesson.titleTr : lesson.title}</h2>
+        <p className="mt-1 text-sm text-green-700">{tr ? lesson.descriptionTr : lesson.description}</p>
       </div>
 
-      <div className="h-1 overflow-hidden rounded-full bg-zinc-700">
+      <div className="h-1 overflow-hidden rounded-full bg-green-900/30">
         <div
-          className="h-full bg-primary-500 transition-all"
+          className="h-full bg-green-500 transition-all"
           style={{ width: `${(Math.min(lessonStats.length, texts.length) / texts.length) * 100}%` }}
         />
       </div>
@@ -130,7 +132,7 @@ export default function TypingLessons({ locale }: Props) {
         <div className="flex justify-center">
           <button
             onClick={nextText}
-            className="rounded-lg bg-primary-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-primary-500"
+            className="rounded-lg bg-green-600 px-6 py-2 text-sm font-medium text-black transition hover:bg-green-500"
           >
             {tr ? 'Sonraki Metin' : 'Next Text'} →
           </button>
@@ -143,7 +145,7 @@ export default function TypingLessons({ locale }: Props) {
             <p className="text-lg font-semibold text-green-400">
               {tr ? 'Ders Tamamlandı!' : 'Lesson Complete!'}
             </p>
-            <p className="mt-1 text-sm text-zinc-500">
+            <p className="mt-1 text-sm text-green-700">
               {tr ? 'Ortalama' : 'Average'} WPM: {Math.round(lessonStats.reduce((a, s) => a + s.wpm, 0) / lessonStats.length)}
               {' · '}
               {tr ? 'Doğruluk' : 'Accuracy'}: {Math.round(lessonStats.reduce((a, s) => a + s.accuracy, 0) / lessonStats.length)}%
@@ -152,13 +154,13 @@ export default function TypingLessons({ locale }: Props) {
           <div className="flex justify-center gap-3">
             <button
               onClick={resetLesson}
-              className="rounded-lg border border-zinc-600 px-4 py-2 text-sm text-zinc-300 transition hover:border-zinc-500"
+              className="rounded-lg border border-green-900/30 px-4 py-2 text-sm text-green-400 transition hover:border-green-500/50"
             >
               {tr ? 'Tekrarla' : 'Retry'}
             </button>
             <button
               onClick={backToList}
-              className="rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-primary-500"
+              className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-black transition hover:bg-green-500"
             >
               {tr ? 'Diğer Dersler' : 'Other Lessons'}
             </button>

@@ -36,7 +36,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={cycle}
-      className="flex h-8 w-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-200"
+      className="flex h-8 w-8 items-center justify-center rounded-full text-green-700 transition hover:bg-green-950/30 hover:text-green-400 dark:text-green-600 dark:hover:bg-green-950/30 dark:hover:text-green-400"
       aria-label="Toggle theme"
       title={theme}
     >
