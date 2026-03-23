@@ -8,6 +8,7 @@
     "about": "About",
     "cv": "CV",
     "playground": "Playground",
+    "lab": "Lab",
     "dashboard": "Dashboard"
   },
   "hero": {
@@ -53,6 +54,18 @@
       "description": "Improve your typing speed with tests, lessons, and games."
     }
   },
+  "lab": {
+    "title": "Lab",
+    "description": "Sharpen your Vim and typing skills.",
+    "vim": {
+      "title": "Vim Learning Center",
+      "description": "Learn vim motions, practice with exercises, and play games."
+    },
+    "typing": {
+      "title": "Typing Center",
+      "description": "Improve your typing speed with tests, lessons, and games."
+    }
+  },
   "theme": {
     "dark": "Dark",
     "light": "Light",
@@ -76,6 +89,7 @@
     "goGithub": "Go to GitHub",
     "goCv": "Go to CV",
     "goPlayground": "Go to Playground",
+    "goLab": "Go to Lab",
     "showHelp": "Show this help",
     "close": "Close"
   },

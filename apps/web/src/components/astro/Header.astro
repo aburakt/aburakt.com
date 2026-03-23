@@ -9,9 +9,9 @@ const basePath = locale === 'en' ? path.replace(/^\/en(\/|$)/, '/') : path
 const switchLocalePath = locale === 'en' ? (basePath || '/') : `/en${basePath === '/' ? '/' : basePath}`
 
 // Detect zone from URL
-const currentZone = path.includes('/vim') ? 'vim'
-  : path.includes('/typing') ? 'typing'
-  : path.includes('/dashboard') ? 'dashboard'
+const currentZone = path.includes('/lab/vim') ? 'vim'
+  : path.includes('/lab/typing') ? 'typing'
+  : path.includes('/lab') ? 'dashboard'
   : null
 
 // Zone-specific active colors
@@ -24,8 +24,7 @@ const zoneActiveClass: Record<string, string> = {
 const navItems = [
   { href: getLocalePath(locale, '/'), label: '~/' },
   { href: getLocalePath(locale, '/about'), label: '/about' },
-  { href: getLocalePath(locale, '/playground'), label: '/playground' },
-  { href: getLocalePath(locale, '/dashboard'), label: '/dashboard' },
+  { href: getLocalePath(locale, '/lab'), label: '/lab' },
 ]
 ---
 
@@ -71,6 +70,14 @@ const navItems = [
 
       <!-- Right side -->
       <div class="flex items-center gap-3">
+        <button
+          onclick="document.dispatchEvent(new CustomEvent('vim:search'))"
+          class="rounded border border-green-900/30 px-2 py-1 text-xs text-green-600 transition hover:border-green-500/50 hover:text-green-400"
+          title="Search (/ or :)"
+          aria-label="Search"
+        >
+          >_
+        </button>
         <a
           href={switchLocalePath}
           class="rounded border border-green-900/30 px-2 py-1 text-xs text-green-600 transition hover:border-green-500/50 hover:text-green-400"

@@ -1,0 +1,33 @@
+---
+import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
+import Container from '@/components/astro/Container.astro'
+import TypingLessons from '@/components/react/typing/TypingLessons'
+import { getLocaleFromUrl } from '@/i18n'
+
+const locale = getLocaleFromUrl(Astro.url)
+const prefix = locale === 'en' ? '/en' : ''
+---
+
+<PortfolioLayout title={locale === 'tr' ? 'Yazma Dersleri' : 'Typing Lessons'} zone="typing">
+  <Container class="mt-16 sm:mt-24" data-section="typing-lessons">
+    <div class="mb-12 max-w-2xl">
+      <a href={`${prefix}/lab/typing`} class="text-xs text-amber-500 hover:text-amber-400">
+        ← {locale === 'tr' ? 'typing/' : 'typing/'}
+      </a>
+      <div class="flex items-center gap-2 text-xs text-green-700 mt-4 mb-4">
+        <span class="text-green-500">$</span>
+        <span class="text-amber-600">./typing-lessons --start</span>
+      </div>
+      <h1 class="text-xl font-bold text-amber-400 text-glow-amber sm:text-2xl">
+        {locale === 'tr' ? 'Yazma Dersleri' : 'Typing Lessons'}
+      </h1>
+      <p class="mt-3 text-xs text-green-600">
+        {locale === 'tr'
+          ? 'Ana sıradan başlayarak tüm klavyeyi adım adım öğrenin. Her ders parmak konumlarını gösterir.'
+          : 'Learn the full keyboard step by step. Each lesson shows finger positions on the visual keyboard.'}
+      </p>
+    </div>
+
+    <TypingLessons locale={locale} client:only="react" />
+  </Container>
+</PortfolioLayout>
