@@ -14,15 +14,14 @@ const currentZone = path.includes('/vim') ? 'vim'
 const zoneActiveClass: Record<string, string> = {
   vim: 'bg-cyan-500/10 text-cyan-400 text-glow-cyan',
   typing: 'bg-amber-500/10 text-amber-400 text-glow-amber',
-  dashboard: 'bg-purple-500/10 text-purple-400 text-glow-purple',
+  dashboard: 'bg-cyan-500/10 text-cyan-400 text-glow-cyan',
 }
 
 const navItems = [
-  { href: getLocalePath(locale, '/'), label: '~/', zone: null },
-  { href: getLocalePath(locale, '/about'), label: '/about', zone: null },
-  { href: getLocalePath(locale, '/articles'), label: '/articles', zone: null },
-  { href: getLocalePath(locale, '/playground'), label: '/playground', zone: 'playground' },
-  { href: getLocalePath(locale, '/dashboard'), label: '/dashboard', zone: 'dashboard' },
+  { href: getLocalePath(locale, '/'), label: '~/' },
+  { href: getLocalePath(locale, '/about'), label: '/about' },
+  { href: getLocalePath(locale, '/playground'), label: '/playground' },
+  { href: getLocalePath(locale, '/dashboard'), label: '/dashboard' },
 ]
 ---
 
@@ -44,14 +43,10 @@ const navItems = [
         {navItems.map((item) => {
           const isActive = path === item.href ||
             (item.href !== getLocalePath(locale, '/') && path.startsWith(item.href))
-          const isPlayground = item.zone === 'playground'
 
-          // Zone-aware active color
           let activeClass = 'bg-green-500/10 text-green-400 text-glow'
           if (isActive && currentZone && zoneActiveClass[currentZone]) {
             activeClass = zoneActiveClass[currentZone]
-          } else if (isActive && item.zone === 'dashboard') {
-            activeClass = zoneActiveClass.dashboard
           }
 
           return (
@@ -65,9 +60,6 @@ const navItems = [
               ]}
             >
               {item.label}
-              {isPlayground && !isActive && (
-                <span class="ml-1 inline-block h-1.5 w-1.5 rounded-full bg-cyan-400/70 pulse-dot" />
-              )}
             </a>
           )
         })}
@@ -89,7 +81,6 @@ const navItems = [
     <nav class="flex gap-1 overflow-x-auto pb-3 md:hidden">
       {navItems.map((item) => {
         const isActive = path === item.href || (item.href !== getLocalePath(locale, '/') && path.startsWith(item.href))
-        const isPlayground = item.zone === 'playground'
 
         let activeClass = 'bg-green-500/10 text-green-400'
         if (isActive && currentZone && zoneActiveClass[currentZone]) {
@@ -105,9 +96,6 @@ const navItems = [
             ]}
           >
             {item.label}
-            {isPlayground && !isActive && (
-              <span class="ml-1 inline-block h-1.5 w-1.5 rounded-full bg-cyan-400/70 pulse-dot" />
-            )}
           </a>
         )
       })}
