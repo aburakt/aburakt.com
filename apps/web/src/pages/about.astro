@@ -1,0 +1,71 @@
+---
+import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
+import Container from '@/components/astro/Container.astro'
+import { t } from '@/i18n'
+
+const locale = 'tr'
+---
+
+<PortfolioLayout title={t(locale, 'nav.about')}>
+  <Container class="mt-16 sm:mt-24" data-section="about">
+    <div class="flex items-center gap-2 text-xs text-green-700 mb-8">
+      <span class="text-green-500">$</span>
+      <span>cat ~/about.md</span>
+    </div>
+
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_280px]">
+      <div>
+        <h1 class="text-xl font-bold text-green-400 text-glow sm:text-2xl leading-tight">
+          {t(locale, 'about.title')}
+        </h1>
+
+        <div class="mt-8 space-y-6 text-sm leading-relaxed text-green-600">
+          <p><span class="text-green-700">## </span>{t(locale, 'about.p1')}</p>
+          <p>{t(locale, 'about.p2')}</p>
+          <p>{t(locale, 'about.p3')}</p>
+          <p>{t(locale, 'about.p4')}</p>
+          <p>{t(locale, 'about.p5')}</p>
+          <p class="border-t border-green-900/30 pt-6">
+            <span class="text-green-700">> </span>
+            {t(locale, 'about.cvLink').split('CV')[0]}
+            <a href="/cv" class="text-green-400 hover:text-glow transition underline underline-offset-4 decoration-green-700 hover:decoration-green-400">CV</a>
+            {t(locale, 'about.cvLink').split('CV')[1] || ''}
+          </p>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <!-- Photo -->
+        <div class="terminal-border overflow-hidden rounded-lg">
+          <div class="flex items-center gap-2 border-b border-green-900/30 bg-green-950/30 px-3 py-2">
+            <span class="h-2 w-2 rounded-full bg-red-500/60"></span>
+            <span class="h-2 w-2 rounded-full bg-yellow-500/60"></span>
+            <span class="h-2 w-2 rounded-full bg-green-500/60"></span>
+            <span class="ml-1 text-xs text-green-700">avatar.webp</span>
+          </div>
+          <img
+            src="/images/pp/logo.webp"
+            alt="Ahmet Burak Tekin"
+            class="aspect-square w-full object-cover grayscale hover:grayscale-0 transition duration-500"
+          />
+        </div>
+
+        <!-- Links -->
+        <div class="terminal-border rounded-lg p-4">
+          <p class="text-xs text-green-700 mb-3"># links</p>
+          <div class="space-y-2 text-xs">
+            <a href="https://github.com/aburakt" class="flex items-center gap-2 text-green-600 transition hover:text-green-400">
+              <span class="text-green-700">></span> github.com/aburakt
+            </a>
+            <a href="https://www.linkedin.com/in/aburakt" class="flex items-center gap-2 text-green-600 transition hover:text-green-400">
+              <span class="text-green-700">></span> linkedin.com/in/aburakt
+            </a>
+            <a href="mailto:info@aburakt.com" class="flex items-center gap-2 text-green-600 transition hover:text-green-400">
+              <span class="text-green-700">></span> info@aburakt.com
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+</PortfolioLayout>

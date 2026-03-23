@@ -1,0 +1,217 @@
+---
+import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
+import Container from '@/components/astro/Container.astro'
+import { t } from '@/i18n'
+
+const locale = 'en'
+---
+
+<PortfolioLayout>
+  <!-- Hero -->
+  <Container class="mt-16 sm:mt-24" data-section="hero">
+    <div class="max-w-3xl">
+      <pre class="text-xs text-green-700 leading-tight mb-6 hidden sm:block">
+{`  ___  ____  __  __  ____    __    _  _  ____
+ / __)(  _ \\(  )(  )(  _ \\  /__\\  ( )/ )(_  _)
+( (__  )   / )(__)(  )   / /(__)\\  )  (   )(
+ \\___)(_)\\_)(______)(_)\\_)(__)(__)(_)\\_) (__)`}
+      </pre>
+
+      <div class="flex items-center gap-2 text-xs text-green-700 mb-4">
+        <span class="text-green-500">$</span>
+        <span>cat /home/aburakt/README.md</span>
+      </div>
+
+      <h1 class="text-2xl font-bold text-green-400 text-glow sm:text-3xl leading-tight">
+        {t(locale, 'hero.title')}
+      </h1>
+
+      <p class="mt-6 text-sm leading-relaxed text-green-600">
+        {t(locale, 'hero.description')}
+      </p>
+
+      <div class="mt-8 flex gap-4">
+        <a href="https://github.com/aburakt" class="group flex items-center gap-2 rounded border border-green-900/30 px-3 py-2 text-xs text-green-600 transition hover:border-green-500/50 hover:text-green-400 hover-glitch">
+          <span class="text-green-700">></span> github
+        </a>
+        <a href="https://www.linkedin.com/in/aburakt" class="group flex items-center gap-2 rounded border border-green-900/30 px-3 py-2 text-xs text-green-600 transition hover:border-green-500/50 hover:text-green-400 hover-glitch">
+          <span class="text-green-700">></span> linkedin
+        </a>
+        <a href="mailto:info@aburakt.com" class="group flex items-center gap-2 rounded border border-green-900/30 px-3 py-2 text-xs text-green-600 transition hover:border-green-500/50 hover:text-green-400 hover-glitch">
+          <span class="text-green-700">></span> email
+        </a>
+      </div>
+    </div>
+  </Container>
+
+  <!-- System Info -->
+  <Container class="mt-20" data-section="system">
+    <div class="terminal-border rounded-lg bg-black/50 p-6">
+      <div class="flex items-center gap-2 border-b border-green-900/30 pb-3 mb-4">
+        <span class="h-2.5 w-2.5 rounded-full bg-red-500/60"></span>
+        <span class="h-2.5 w-2.5 rounded-full bg-yellow-500/60"></span>
+        <span class="h-2.5 w-2.5 rounded-full bg-green-500/60"></span>
+        <span class="ml-2 text-xs text-green-700">aburakt@cloud ~ system-info</span>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 text-xs">
+        <div>
+          <span class="text-green-700">ROLE</span>
+          <p class="mt-1 text-green-400">Software Developer</p>
+          <p class="text-green-600">Front-end Team Lead</p>
+        </div>
+        <div>
+          <span class="text-green-700">ORG</span>
+          <p class="mt-1 text-green-400">Ministry of Interior</p>
+          <p class="text-green-600">Turkiye</p>
+        </div>
+        <div>
+          <span class="text-green-700">STACK</span>
+          <p class="mt-1 text-green-400">React + TypeScript</p>
+          <p class="text-green-600">Astro, Hono, Cloudflare</p>
+        </div>
+        <div>
+          <span class="text-green-700">UPTIME</span>
+          <p class="mt-1 text-green-400">Dec 2022 — present</p>
+          <p class="text-green-600">~{Math.floor((Date.now() - new Date('2022-12-01').getTime()) / (1000 * 60 * 60 * 24))} days</p>
+        </div>
+        <div>
+          <span class="text-green-700">TEAM</span>
+          <p class="mt-1 text-green-400">4 developers</p>
+          <p class="text-green-600">mentoring & leading</p>
+        </div>
+        <div>
+          <span class="text-green-700">SCOPE</span>
+          <p class="mt-1 text-green-400">81 provinces</p>
+          <p class="text-green-600">nationwide platform</p>
+        </div>
+      </div>
+    </div>
+  </Container>
+
+  <!-- Projects -->
+  <Container class="mt-20" data-section="projects">
+    <div class="flex items-center gap-2 text-xs text-green-700 mb-6">
+      <span class="text-green-500">$</span>
+      <span>ls -la ~/projects/</span>
+    </div>
+
+    <div class="space-y-3">
+      {[
+        {
+          name: 'authorization-platform',
+          desc: 'Nationwide permission requests, approvals, and reporting system',
+          perms: 'drwxr-xr-x',
+          size: '2.4G',
+        },
+        {
+          name: 'secure-access-gateway',
+          desc: 'Organization-wide JWT/OAuth authentication layer',
+          perms: 'drwxr-xr-x',
+          size: '1.8G',
+        },
+        {
+          name: 'analytics-hub',
+          desc: 'High-availability dashboards serving 81 provinces',
+          perms: 'drwxr-xr-x',
+          size: '3.1G',
+        },
+        {
+          name: 'data-insights-workspace',
+          desc: 'Interactive querying and visualization workflows',
+          perms: 'drwxr-xr-x',
+          size: '1.2G',
+        },
+        {
+          name: 'visitor-facility-suite',
+          desc: 'Visitor management, accommodation & procurement tools',
+          perms: 'drwxr-xr-x',
+          size: '890M',
+        },
+      ].map((project) => (
+        <div class="group rounded border border-green-900/20 bg-green-950/20 p-4 transition hover:border-green-500/30 hover:bg-green-950/40">
+          <div class="flex items-start justify-between gap-4">
+            <div class="flex-1">
+              <div class="flex items-center gap-3 text-xs">
+                <span class="text-green-700">{project.perms}</span>
+                <span class="text-green-600">{project.size}</span>
+                <span class="font-semibold text-green-400 group-hover:text-glow">{project.name}/</span>
+              </div>
+              <p class="mt-2 text-xs text-green-600 pl-4">
+                # {project.desc}
+              </p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Container>
+
+  <!-- Work Experience -->
+  <Container class="mt-20" data-section="work">
+    <div class="flex items-center gap-2 text-xs text-green-700 mb-6">
+      <span class="text-green-500">$</span>
+      <span>git log --oneline --graph career</span>
+    </div>
+
+    <div class="space-y-4">
+      {[
+        { hash: 'a1b2c3d', company: 'Ministry of Interior', role: 'Software Developer · Front-end Team Lead', date: 'Dec 2022 — present', active: true },
+        { hash: 'e4f5g6h', company: 'EBS Computer Systems & IT', role: 'Web Developer', date: 'Mar 2019 — Jan 2022', active: false },
+        { hash: 'i7j8k9l', company: 'EGO General Directorate', role: 'Summer Intern', date: 'Jul 2016 — Aug 2016', active: false },
+        { hash: 'm0n1o2p', company: 'PRO-DAY Software & IT', role: 'Summer Intern', date: 'Jul 2015 — Aug 2015', active: false },
+      ].map((role, i) => (
+        <div class="flex items-start gap-3 text-xs">
+          <div class="flex flex-col items-center">
+            <span class={`font-bold ${role.active ? 'text-green-400' : 'text-green-700'}`}>*</span>
+            {i < 3 && <span class="h-8 w-px bg-green-900/30"></span>}
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-amber-400">{role.hash}</span>
+              <span class={role.active ? 'text-green-400 text-glow' : 'text-green-500'}>{role.company}</span>
+            </div>
+            <p class="text-green-600">{role.role}</p>
+            <p class="text-green-800">{role.date}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Container>
+
+  <!-- Skills -->
+  <Container class="mt-20" data-section="skills">
+    <div class="flex items-center gap-2 text-xs text-green-700 mb-6">
+      <span class="text-green-500">$</span>
+      <span>cat ~/.skills | sort</span>
+    </div>
+
+    <div class="flex flex-wrap gap-2">
+      {['React', 'TypeScript', 'Tailwind CSS', 'Astro', 'Hono', 'Vite', 'Cloudflare Workers', 'D1 / SQLite', 'JWT / OAuth', 'Node.js', 'Git', 'CI/CD', 'Java Spring Boot', 'Team Leadership', 'Mentoring'].map((skill) => (
+        <span class="rounded border border-green-900/30 bg-green-950/30 px-3 py-1 text-xs text-green-500 transition hover:border-green-500/50 hover:text-green-400">
+          {skill}
+        </span>
+      ))}
+    </div>
+  </Container>
+
+  <!-- Contact -->
+  <Container class="mt-20 mb-8" data-section="contact">
+    <div class="terminal-border rounded-lg bg-black/50 p-6">
+      <div class="flex items-center gap-2 text-xs text-green-700 mb-4">
+        <span class="text-green-500">$</span>
+        <span>cat /etc/contact.conf</span>
+      </div>
+
+      <div class="space-y-2 text-xs">
+        <p><span class="text-green-700">EMAIL</span>=<a href="mailto:info@aburakt.com" class="text-green-400 hover:text-glow transition">"info@aburakt.com"</a></p>
+        <p><span class="text-green-700">GITHUB</span>=<a href="https://github.com/aburakt" class="text-green-400 hover:text-glow transition">"github.com/aburakt"</a></p>
+        <p><span class="text-green-700">LINKEDIN</span>=<a href="https://www.linkedin.com/in/aburakt" class="text-green-400 hover:text-glow transition">"linkedin.com/in/aburakt"</a></p>
+      </div>
+
+      <p class="mt-4 text-xs text-green-600">
+        # {t(locale, 'contact.description')}
+      </p>
+    </div>
+  </Container>
+</PortfolioLayout>

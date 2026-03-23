@@ -1,0 +1,66 @@
+---
+import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
+import Container from '@/components/astro/Container.astro'
+import { getLocaleFromUrl, t } from '@/i18n'
+
+const locale = getLocaleFromUrl(Astro.url)
+const prefix = locale === 'en' ? '/en' : ''
+---
+
+<PortfolioLayout title={t(locale, 'playground.title')}>
+  <Container class="mt-16 sm:mt-24" data-section="playground">
+    <div class="flex items-center gap-2 text-xs text-green-700 mb-8">
+      <span class="text-green-500">$</span>
+      <span>ls ~/playground/</span>
+    </div>
+
+    <h1 class="text-xl font-bold text-green-400 text-glow sm:text-2xl">
+      {t(locale, 'playground.title')}
+    </h1>
+    <p class="mt-3 text-xs text-green-600">
+      {t(locale, 'playground.description')}
+    </p>
+
+    <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <!-- Vim -->
+      <a
+        href={`${prefix}/playground/vim`}
+        class="group terminal-border rounded-lg bg-black/50 p-6 transition hover:border-green-500/50"
+      >
+        <div class="flex items-center gap-2 text-xs text-green-700 mb-4">
+          <span class="text-amber-400">drwxr-xr-x</span>
+          <span class="text-green-400 group-hover:text-glow font-semibold">vim/</span>
+        </div>
+        <h2 class="text-sm font-semibold text-green-400 group-hover:text-glow">
+          {t(locale, 'playground.vim.title')}
+        </h2>
+        <p class="mt-2 text-xs text-green-600">
+          {t(locale, 'playground.vim.description')}
+        </p>
+        <div class="mt-4 text-xs text-green-700 group-hover:text-green-500 transition">
+          > cd vim/ <span class="cursor-blink"></span>
+        </div>
+      </a>
+
+      <!-- Typing -->
+      <a
+        href={`${prefix}/playground/typing`}
+        class="group terminal-border rounded-lg bg-black/50 p-6 transition hover:border-green-500/50"
+      >
+        <div class="flex items-center gap-2 text-xs text-green-700 mb-4">
+          <span class="text-amber-400">drwxr-xr-x</span>
+          <span class="text-green-400 group-hover:text-glow font-semibold">typing/</span>
+        </div>
+        <h2 class="text-sm font-semibold text-green-400 group-hover:text-glow">
+          {t(locale, 'playground.typing.title')}
+        </h2>
+        <p class="mt-2 text-xs text-green-600">
+          {t(locale, 'playground.typing.description')}
+        </p>
+        <div class="mt-4 text-xs text-green-700 group-hover:text-green-500 transition">
+          > cd typing/ <span class="cursor-blink"></span>
+        </div>
+      </a>
+    </div>
+  </Container>
+</PortfolioLayout>

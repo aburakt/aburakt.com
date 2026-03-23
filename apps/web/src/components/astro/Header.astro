@@ -1,0 +1,81 @@
+---
+import { getLocaleFromUrl, t, getLocalePath } from '@/i18n'
+import ThemeToggle from '@/components/react/ThemeToggle'
+
+const locale = getLocaleFromUrl(Astro.url)
+
+const navItems = [
+  { href: getLocalePath(locale, '/'), label: '~/', cmd: 'home' },
+  { href: getLocalePath(locale, '/about'), label: '/about', cmd: 'about' },
+  { href: getLocalePath(locale, '/cv'), label: '/cv', cmd: 'cv' },
+  { href: getLocalePath(locale, '/playground'), label: '/playground', cmd: 'play' },
+  { href: getLocalePath(locale, '/dashboard'), label: '/dashboard', cmd: 'dash' },
+]
+---
+
+<header class="relative z-50 flex-none no-print border-b border-green-900/30" data-section="header">
+  <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between py-4">
+      <!-- Logo -->
+      <a
+        href={getLocalePath(locale, '/')}
+        class="group flex items-center gap-2 text-glow"
+      >
+        <span class="text-green-500">$</span>
+        <span class="font-bold text-green-400 transition group-hover:text-green-300">aburakt</span>
+        <span class="cursor-blink text-green-600"></span>
+      </a>
+
+      <!-- Nav -->
+      <nav class="hidden items-center gap-1 md:flex">
+        {navItems.map((item) => {
+          const isActive = Astro.url.pathname === item.href ||
+            (item.href !== getLocalePath(locale, '/') && Astro.url.pathname.startsWith(item.href))
+          return (
+            <a
+              href={item.href}
+              class:list={[
+                'rounded px-3 py-1.5 text-xs transition hover-glitch',
+                isActive
+                  ? 'bg-green-500/10 text-green-400 text-glow'
+                  : 'text-green-600 hover:bg-green-500/5 hover:text-green-400',
+              ]}
+            >
+              {item.label}
+            </a>
+          )
+        })}
+      </nav>
+
+      <!-- Right side -->
+      <div class="flex items-center gap-3">
+        <a
+          href={t(locale, 'lang.switchTo')}
+          class="rounded border border-green-900/30 px-2 py-1 text-xs text-green-600 transition hover:border-green-500/50 hover:text-green-400"
+        >
+          {t(locale, 'lang.switch')}
+        </a>
+      </div>
+    </div>
+
+    <!-- Mobile nav -->
+    <nav class="flex gap-1 overflow-x-auto pb-3 md:hidden">
+      {navItems.map((item) => {
+        const isActive = Astro.url.pathname === item.href
+        return (
+          <a
+            href={item.href}
+            class:list={[
+              'whitespace-nowrap rounded px-2 py-1 text-xs transition',
+              isActive
+                ? 'bg-green-500/10 text-green-400'
+                : 'text-green-600 hover:text-green-400',
+            ]}
+          >
+            {item.label}
+          </a>
+        )
+      })}
+    </nav>
+  </div>
+</header>

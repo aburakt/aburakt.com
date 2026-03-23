@@ -1,0 +1,93 @@
+{
+  "site": {
+    "title": "Ahmet Burak Tekin",
+    "description": "Kamu sektörüne güvenilir dijital servisler sunan front-end geliştirici."
+  },
+  "nav": {
+    "home": "Ana Sayfa",
+    "about": "Hakkımda",
+    "cv": "CV",
+    "playground": "Playground",
+    "dashboard": "Panel"
+  },
+  "hero": {
+    "title": "Güçlü dijital platformlar inşa eden front-end geliştirici.",
+    "description": "Ben Ahmet Burak Tekin, Türkiye İçişleri Bakanlığı'nda front-end ekibini yönetiyorum. Binlerce kamu görevlisinin her gün kullandığı ülke çapında yetkilendirme, analitik ve operasyonel iş akışlarını yöneten React ve TypeScript uygulamaları geliştiriyor, dört kişilik bir geliştirici ekibine mentorluk yaparken kurum genelinde modernizasyonu yönlendiriyorum."
+  },
+  "sections": {
+    "projects": "Projeler",
+    "work": "Deneyim",
+    "skills": "Yetenekler",
+    "contact": "İletişim"
+  },
+  "contact": {
+    "title": "Birlikte inşa edelim",
+    "description": "Teslim edilecek bir front-end platformunuz veya mentorluk ihtiyacı olan bir ekibiniz mi var? Kamu sektörü için güvenilir sistemler oluşturalım.",
+    "email": "E-posta gönder",
+    "linkedin": "LinkedIn'de bağlan"
+  },
+  "cv": {
+    "title": "Ahmet Burak Tekin · CV",
+    "description": "En güncel PDF'yi indirin veya aşağıdaki gömülü önizlemeye göz atın.",
+    "download": "PDF İndir",
+    "contactMe": "Bana ulaşın"
+  },
+  "about": {
+    "title": "Ben Ahmet Burak Tekin, Türkiye'nin kamu sektörüne güvenilir dijital hizmetler sunan bir front-end geliştiriciyim.",
+    "p1": "Ankara merkezli olarak, kritik devlet hizmetlerini destekleyen React ve TypeScript uygulamaları geliştirme konusunda uzmanlaşıyorum. İçişleri Bakanlığı'nın yetkilendirme yönetim sisteminin front-end tasarımını yönettim; her ilde izinlerin ve onayların senkronize kalmasını sağlayan iş akışlarını oluşturdum.",
+    "p2": "Günlük çalışmam, dört kişilik bir geliştirici ekibine mentorluk yaparken Java Spring Boot ekipleriyle yakın iş birliği içinde güvenli, iyi test edilmiş entegrasyonlar sunmayı içeriyor. JWT ve OAuth üzerine kurulu kurumun kimlik doğrulama ağ geçidini yönetiyor ve 81 ildeki paydaşlar için ülke çapında bir analitik platformunun sorunsuz çalışmasını sağlıyorum.",
+    "p3": "Yetkilendirme ve analitik ötesinde, yeni dahili araçlar geliştiriyorum — müdürlükler arası raporlamayı mümkün kılan veri sorgulama uygulamalarından özel fotoğraf işleme iş akışlarına ve ziyaretçi yönetimi panellerine kadar. Her proje, milyonların her gün güvendiği kurumlara modern front-end uygulamalarını yerleştirmek için bir fırsat.",
+    "p4": "Kariyerimin önceki döneminde EBS Bilgisayar Sistemleri'nde duyarlı arayüzler, WordPress siteleri ve karmaşık muhasebe iş akışlarına hizmet eden SQL raporları oluşturdum. Kamu ve özel kuruluşlardaki stajlarım, büyük ölçekli projelere yaklaşımımı şekillendiren kurumsal yazılım teslimi konusunda bana doğrudan deneyim kazandırdı.",
+    "p5": "JCI Ankara ve JCI Europe ile topluluk çalışmaları aracılığıyla merakımı canlı tutuyorum; büyüme, dijital platformlar ve erişim ekiplerinde görev aldım — en son Genel Sekreter ve Kalkınma Konseyi Görevlisi olarak. Geri vermek, öğrenmeye devam etmemi sağlıyor ve tasarladığım çözümlerin gerçek insan ihtiyaçlarına dayalı kalmasını garantiliyor.",
+    "cvLink": "Tüm hikayeyi görmek için CV'mi buradan inceleyebilirsiniz."
+  },
+  "playground": {
+    "title": "Playground",
+    "description": "Vim ve klavye becerilerinizi geliştirin.",
+    "vim": {
+      "title": "Vim Öğrenme Merkezi",
+      "description": "Vim hareketlerini öğrenin, alıştırmalar yapın ve oyunlarla pratik yapın."
+    },
+    "typing": {
+      "title": "Yazma Merkezi",
+      "description": "Hız testi, dersler ve oyunlarla yazma hızınızı geliştirin."
+    }
+  },
+  "theme": {
+    "dark": "Karanlık",
+    "light": "Aydınlık",
+    "system": "Sistem"
+  },
+  "vim": {
+    "normal": "-- NORMAL --",
+    "insert": "-- INSERT --"
+  },
+  "cheatsheet": {
+    "title": "Klavye Kısayolları",
+    "navigation": "Navigasyon",
+    "scrollDown": "Aşağı kaydır",
+    "scrollUp": "Yukarı kaydır",
+    "goTop": "Sayfa başı",
+    "goBottom": "Sayfa sonu",
+    "firstSection": "İlk bölüm",
+    "middleSection": "Orta bölüm",
+    "lastSection": "Son bölüm",
+    "search": "Ara",
+    "goGithub": "GitHub'a git",
+    "goCv": "CV'ye git",
+    "goPlayground": "Playground'a git",
+    "showHelp": "Bu yardımı göster",
+    "close": "Kapat"
+  },
+  "common": {
+    "present": "Devam ediyor",
+    "viewCv": "CV'yi Görüntüle"
+  },
+  "footer": {
+    "rights": "Tüm hakları saklıdır."
+  },
+  "lang": {
+    "switch": "English",
+    "switchTo": "/en/"
+  }
+}
