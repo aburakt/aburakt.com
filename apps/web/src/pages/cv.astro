@@ -1,0 +1,60 @@
+---
+import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
+import Container from '@/components/astro/Container.astro'
+import { t } from '@/i18n'
+
+const locale = 'tr'
+const CV_FILE = 'Ahmet_Burak_Tekin_CV.v2025-09.pdf'
+const CV_PATH = `/cv/${CV_FILE}`
+---
+
+<PortfolioLayout title="CV">
+  <Container class="mt-16 sm:mt-24" data-section="cv">
+    <div class="flex items-center gap-2 text-xs text-green-700 mb-8">
+      <span class="text-green-500">$</span>
+      <span>xdg-open ~/cv/latest.pdf</span>
+    </div>
+
+    <div class="text-center">
+      <h1 class="text-xl font-bold text-green-400 text-glow sm:text-2xl">
+        {t(locale, 'cv.title')}
+      </h1>
+      <p class="mt-3 text-xs text-green-600">
+        {t(locale, 'cv.description')}
+      </p>
+
+      <div class="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a
+          href={CV_PATH}
+          target="_blank"
+          rel="noreferrer"
+          class="inline-flex items-center gap-2 rounded border border-green-500/30 bg-green-500/10 px-4 py-2 text-xs text-green-400 transition hover:bg-green-500/20 hover:text-glow"
+        >
+          <span>></span> {t(locale, 'cv.download')}
+        </a>
+        <a
+          href="mailto:info@aburakt.com"
+          class="inline-flex items-center gap-2 rounded border border-green-900/30 px-4 py-2 text-xs text-green-600 transition hover:border-green-500/50 hover:text-green-400"
+        >
+          <span>></span> {t(locale, 'cv.contactMe')}
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-10 terminal-border overflow-hidden rounded-lg">
+      <div class="flex items-center gap-2 border-b border-green-900/30 bg-green-950/30 px-3 py-2">
+        <span class="h-2 w-2 rounded-full bg-red-500/60"></span>
+        <span class="h-2 w-2 rounded-full bg-yellow-500/60"></span>
+        <span class="h-2 w-2 rounded-full bg-green-500/60"></span>
+        <span class="ml-1 text-xs text-green-700">{CV_FILE}</span>
+      </div>
+      <div class="aspect-[1/1.414] w-full bg-black">
+        <iframe
+          src={`${CV_PATH}#view=FitH`}
+          title="Ahmet Burak Tekin CV"
+          class="h-full w-full"
+        />
+      </div>
+    </div>
+  </Container>
+</PortfolioLayout>

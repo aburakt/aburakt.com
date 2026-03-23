@@ -1,0 +1,19 @@
+---
+import { getLocaleFromUrl, t } from '@/i18n'
+
+const locale = getLocaleFromUrl(Astro.url)
+const year = new Date().getFullYear()
+---
+
+<footer class="mt-24 flex-none border-t border-green-900/30 no-print" data-section="footer">
+  <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col items-center justify-between gap-4 py-8 sm:flex-row">
+      <p class="text-xs text-green-700">
+        <span class="text-green-600">/*</span> &copy; {year} aburakt <span class="text-green-600">*/</span>
+      </p>
+      <p class="text-xs text-green-800">
+        <span class="text-green-600">//</span> astro + hono + cloudflare workers
+      </p>
+    </div>
+  </div>
+</footer>

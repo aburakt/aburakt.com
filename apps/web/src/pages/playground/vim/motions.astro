@@ -1,0 +1,31 @@
+---
+import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
+import Container from '@/components/astro/Container.astro'
+import VimCheatsheet from '@/components/react/vim/VimCheatsheet'
+import { getLocaleFromUrl } from '@/i18n'
+
+const locale = getLocaleFromUrl(Astro.url)
+---
+
+<PortfolioLayout title={locale === 'tr' ? 'Vim Hareketleri & Cheatsheet' : 'Vim Motions & Cheatsheet'}>
+  <Container class="mt-16 sm:mt-24" data-section="vim-motions">
+    <div class="mb-12 max-w-2xl">
+      <a href={locale === 'tr' ? '/playground/vim' : '/en/playground/vim'} class="text-xs text-green-500 hover:text-green-400">
+        ← {locale === 'tr' ? 'vim/' : 'vim/'}
+      </a>
+      <div class="flex items-center gap-2 text-xs text-green-700 mt-4 mb-4">
+        <span class="text-green-500">$</span>
+        <span>./vim-motions --cheatsheet</span>
+      </div>
+      <h1 class="text-xl font-bold text-green-400 text-glow sm:text-2xl">
+        {locale === 'tr' ? 'Vim Hareketleri & Cheatsheet' : 'Vim Motions & Cheatsheet'}
+      </h1>
+      <p class="mt-3 text-xs text-green-600">
+        {locale === 'tr'
+          ? 'Tüm vim komutlarını kategorilere göre keşfedin. Fuzzy arama ile hızlıca bulun.'
+          : 'Explore all vim commands by category. Find quickly with fuzzy search.'}
+      </p>
+    </div>
+    <VimCheatsheet locale={locale} client:load />
+  </Container>
+</PortfolioLayout>
