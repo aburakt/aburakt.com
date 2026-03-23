@@ -2,8 +2,13 @@
 import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
 import Container from '@/components/astro/Container.astro'
 import { t } from '@/i18n'
+import { getCollection } from 'astro:content'
 
 const locale = 'tr'
+
+const articles = (await getCollection('articles')).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+)
 ---
 
 <PortfolioLayout>
@@ -143,6 +148,31 @@ const locale = 'tr'
             </div>
           </div>
         </div>
+      ))}
+    </div>
+  </Container>
+
+  <!-- Articles -->
+  <Container class="mt-20" data-section="articles">
+    <div class="flex items-center gap-2 text-xs text-green-700 mb-6">
+      <span class="text-green-500">$</span>
+      <span>ls -lt ~/articles/</span>
+    </div>
+
+    <div class="space-y-3">
+      {articles.map((article) => (
+        <a
+          href={`/articles/${article.id}`}
+          class="group block rounded border border-green-900/20 bg-green-950/20 p-4 transition hover:border-green-500/30 hover:bg-green-950/40"
+        >
+          <div class="flex items-center gap-3 text-xs">
+            <span class="text-amber-400">{article.data.date}</span>
+            <span class="font-semibold text-green-400 group-hover:text-glow">{article.data.title}</span>
+          </div>
+          <p class="mt-1 text-xs text-green-600 pl-4">
+            # {article.data.description}
+          </p>
+        </a>
       ))}
     </div>
   </Container>
