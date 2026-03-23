@@ -11,13 +11,17 @@ const prefix = locale === 'en' ? '/en' : ''
 <PortfolioLayout title={locale === 'tr' ? 'Yazma Testi' : 'Typing Test'}>
   <Container class="mt-16 sm:mt-24" data-section="typing-test">
     <div class="mb-12 max-w-2xl">
-      <a href={`${prefix}/playground/typing`} class="text-sm text-primary-500 hover:text-primary-400">
-        ← {locale === 'tr' ? 'Yazma Merkezi' : 'Typing Center'}
+      <a href={`${prefix}/playground/typing`} class="text-xs text-green-500 hover:text-green-400">
+        ← {locale === 'tr' ? 'typing/' : 'typing/'}
       </a>
-      <h1 class="mt-4 text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
+      <div class="flex items-center gap-2 text-xs text-green-700 mt-4 mb-4">
+        <span class="text-green-500">$</span>
+        <span>./typing-test --run</span>
+      </div>
+      <h1 class="text-xl font-bold text-green-400 text-glow sm:text-2xl">
         {locale === 'tr' ? 'Yazma Testi' : 'Typing Test'}
       </h1>
-      <p class="mt-4 text-base text-zinc-600 dark:text-zinc-400">
+      <p class="mt-3 text-xs text-green-600">
         {locale === 'tr'
           ? 'WPM hızınızı ve doğruluğunuzu ölçün. Farklı süreler seçebilirsiniz.'
           : 'Measure your WPM speed and accuracy. Choose different durations.'}

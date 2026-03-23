@@ -45,15 +45,19 @@ const modules = [
 <PortfolioLayout title={locale === 'tr' ? 'Yazma Merkezi' : 'Typing Center'}>
   <Container class="mt-16 sm:mt-24" data-section="typing-hub">
     <div class="mb-4">
-      <a href={`${prefix}/playground`} class="text-sm text-primary-500 hover:text-primary-400">
-        ← {locale === 'tr' ? 'Playground' : 'Playground'}
+      <a href={`${prefix}/playground`} class="text-xs text-green-500 hover:text-green-400">
+        ← {locale === 'tr' ? 'playground/' : 'playground/'}
       </a>
     </div>
     <div class="max-w-2xl">
-      <h1 class="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
+      <div class="flex items-center gap-2 text-xs text-green-700 mb-4">
+        <span class="text-green-500">$</span>
+        <span>./typing --hub</span>
+      </div>
+      <h1 class="text-xl font-bold text-green-400 text-glow sm:text-2xl">
         {locale === 'tr' ? 'Yazma Merkezi' : 'Typing Center'}
       </h1>
-      <p class="mt-6 text-base text-zinc-600 dark:text-zinc-400">
+      <p class="mt-6 text-xs text-green-600">
         {locale === 'tr'
           ? 'Yazma hızınızı artırın, derslerle öğrenin ve oyunlarla pratik yapın.'
           : 'Improve your typing speed with lessons, tests, and games.'}
@@ -64,16 +68,16 @@ const modules = [
       {modules.map((mod) => (
         <a
           href={mod.href}
-          class="group relative rounded-2xl border border-zinc-100 p-8 transition hover:border-primary-500/50 dark:border-zinc-700/40 dark:hover:border-primary-400/50"
+          class="group relative rounded-lg terminal-border border border-green-900/30 p-8 transition hover:border-green-500/50 bg-green-950/20"
         >
           <div class="text-3xl">{mod.icon}</div>
-          <h2 class="mt-4 text-lg font-semibold text-zinc-800 group-hover:text-primary-500 dark:text-zinc-100 dark:group-hover:text-primary-400">
+          <h2 class="mt-4 text-lg font-semibold text-green-400 group-hover:text-green-400 text-glow">
             {mod.title}
           </h2>
-          <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+          <p class="mt-2 text-sm text-green-600">
             {mod.description}
           </p>
-          <span class="mt-4 inline-flex items-center text-sm font-medium text-primary-500 dark:text-primary-400">
+          <span class="mt-4 inline-flex items-center text-sm font-medium text-green-400">
             {locale === 'tr' ? 'Başla' : 'Start'} →
           </span>
         </a>

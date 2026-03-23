@@ -5,23 +5,15 @@ const locale = getLocaleFromUrl(Astro.url)
 const year = new Date().getFullYear()
 ---
 
-<footer class="mt-32 flex-none no-print" data-section="footer">
-  <div class="sm:px-8">
-    <div class="mx-auto w-full max-w-7xl lg:px-8">
-      <div class="relative px-4 sm:px-8 lg:px-12">
-        <div class="mx-auto max-w-2xl lg:max-w-5xl">
-          <div class="border-t border-zinc-100 pb-16 pt-10 dark:border-zinc-700/40">
-            <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
-              <p class="text-sm text-zinc-500 dark:text-zinc-400">
-                &copy; {year} Ahmet Burak Tekin. {t(locale, 'footer.rights')}
-              </p>
-              <p class="text-xs text-zinc-400 dark:text-zinc-500">
-                Astro + Hono + Cloudflare
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+<footer class="mt-24 flex-none border-t border-green-900/30 no-print" data-section="footer">
+  <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col items-center justify-between gap-4 py-8 sm:flex-row">
+      <p class="text-xs text-green-700">
+        <span class="text-green-600">/*</span> &copy; {year} aburakt <span class="text-green-600">*/</span>
+      </p>
+      <p class="text-xs text-green-800">
+        <span class="text-green-600">//</span> astro + hono + cloudflare workers
+      </p>
     </div>
   </div>
 </footer>

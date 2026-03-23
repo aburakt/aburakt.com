@@ -1,7 +1,7 @@
 ---
 import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
 import Container from '@/components/astro/Container.astro'
-import { getLocaleFromUrl, t, getLocalePath } from '@/i18n'
+import { getLocaleFromUrl, t } from '@/i18n'
 
 const locale = getLocaleFromUrl(Astro.url)
 const prefix = locale === 'en' ? '/en' : ''
@@ -9,56 +9,57 @@ const prefix = locale === 'en' ? '/en' : ''
 
 <PortfolioLayout title={t(locale, 'playground.title')}>
   <Container class="mt-16 sm:mt-24" data-section="playground">
-    <div class="max-w-2xl">
-      <h1 class="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-        {t(locale, 'playground.title')}
-      </h1>
-      <p class="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-        {t(locale, 'playground.description')}
-      </p>
+    <div class="flex items-center gap-2 text-xs text-green-700 mb-8">
+      <span class="text-green-500">$</span>
+      <span>ls ~/playground/</span>
     </div>
 
-    <div class="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2">
-      <!-- Vim Card -->
+    <h1 class="text-xl font-bold text-green-400 text-glow sm:text-2xl">
+      {t(locale, 'playground.title')}
+    </h1>
+    <p class="mt-3 text-xs text-green-600">
+      {t(locale, 'playground.description')}
+    </p>
+
+    <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <!-- Vim -->
       <a
         href={`${prefix}/playground/vim`}
-        class="group relative rounded-2xl border border-zinc-100 p-8 transition hover:border-primary-500/50 dark:border-zinc-700/40 dark:hover:border-primary-400/50"
+        class="group terminal-border rounded-lg bg-black/50 p-6 transition hover:border-green-500/50"
       >
-        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-primary-500/10 text-primary-500 dark:text-primary-400">
-          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-          </svg>
+        <div class="flex items-center gap-2 text-xs text-green-700 mb-4">
+          <span class="text-amber-400">drwxr-xr-x</span>
+          <span class="text-green-400 group-hover:text-glow font-semibold">vim/</span>
         </div>
-        <h2 class="mt-6 text-lg font-semibold text-zinc-800 group-hover:text-primary-500 dark:text-zinc-100 dark:group-hover:text-primary-400">
+        <h2 class="text-sm font-semibold text-green-400 group-hover:text-glow">
           {t(locale, 'playground.vim.title')}
         </h2>
-        <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+        <p class="mt-2 text-xs text-green-600">
           {t(locale, 'playground.vim.description')}
         </p>
-        <span class="mt-4 inline-flex items-center text-sm font-medium text-primary-500 dark:text-primary-400">
-          {locale === 'tr' ? 'Keşfet' : 'Explore'} →
-        </span>
+        <div class="mt-4 text-xs text-green-700 group-hover:text-green-500 transition">
+          > cd vim/ <span class="cursor-blink"></span>
+        </div>
       </a>
 
-      <!-- Typing Card -->
+      <!-- Typing -->
       <a
         href={`${prefix}/playground/typing`}
-        class="group relative rounded-2xl border border-zinc-100 p-8 transition hover:border-primary-500/50 dark:border-zinc-700/40 dark:hover:border-primary-400/50"
+        class="group terminal-border rounded-lg bg-black/50 p-6 transition hover:border-green-500/50"
       >
-        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-primary-500/10 text-primary-500 dark:text-primary-400">
-          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8h18M3 16h18M8 8v8m8-8v8" />
-          </svg>
+        <div class="flex items-center gap-2 text-xs text-green-700 mb-4">
+          <span class="text-amber-400">drwxr-xr-x</span>
+          <span class="text-green-400 group-hover:text-glow font-semibold">typing/</span>
         </div>
-        <h2 class="mt-6 text-lg font-semibold text-zinc-800 group-hover:text-primary-500 dark:text-zinc-100 dark:group-hover:text-primary-400">
+        <h2 class="text-sm font-semibold text-green-400 group-hover:text-glow">
           {t(locale, 'playground.typing.title')}
         </h2>
-        <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+        <p class="mt-2 text-xs text-green-600">
           {t(locale, 'playground.typing.description')}
         </p>
-        <span class="mt-4 inline-flex items-center text-sm font-medium text-primary-500 dark:text-primary-400">
-          {locale === 'tr' ? 'Keşfet' : 'Explore'} →
-        </span>
+        <div class="mt-4 text-xs text-green-700 group-hover:text-green-500 transition">
+          > cd typing/ <span class="cursor-blink"></span>
+        </div>
       </a>
     </div>
   </Container>

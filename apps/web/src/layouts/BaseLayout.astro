@@ -25,27 +25,12 @@ const siteDescription = description || t(locale, 'site.description')
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={siteDescription} />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <title>{siteTitle}</title>
-    <!-- Prevent flash of wrong theme -->
-    <script is:inline>
-      (function () {
-        const theme = localStorage.getItem('theme')
-        if (theme === 'light') {
-          document.documentElement.classList.remove('dark')
-        } else if (theme === 'dark' || !theme) {
-          document.documentElement.classList.add('dark')
-        } else {
-          // system
-          if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.classList.add('dark')
-          } else {
-            document.documentElement.classList.remove('dark')
-          }
-        }
-      })()
-    </script>
   </head>
-  <body class="min-h-screen bg-white text-zinc-900 antialiased dark:bg-zinc-900 dark:text-zinc-100">
+  <body class="min-h-screen bg-black text-green-400">
     <slot />
     <VimNavigation locale={locale} client:load />
     <KeyboardCheatsheet locale={locale} client:idle />
