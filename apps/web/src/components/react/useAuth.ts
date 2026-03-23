@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 
-const API_BASE = import.meta.env.PUBLIC_API_URL ?? 'https://api.aburakt.com'
+const API_BASE = import.meta.env.PUBLIC_API_URL ?? 'https://aburakt-api.aburakt.workers.dev'
 
 interface AuthState {
   authenticated: boolean

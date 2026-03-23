@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from './useAuth'
 
-const API_BASE = import.meta.env.PUBLIC_API_URL ?? 'https://api.aburakt.com'
+const API_BASE = import.meta.env.PUBLIC_API_URL ?? 'https://aburakt-api.aburakt.workers.dev'
 
 interface TypingSummary {
   totalTests: number
