@@ -56,9 +56,6 @@ importers:
       astro:
         specifier: ^5.7.0
         version: 5.18.1(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(typescript@5.9.3)(yaml@2.8.2)
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
       fuse.js:
         specifier: ^7.1.0
         version: 7.1.0
@@ -78,12 +75,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.1.0
         version: 19.2.3(@types/react@19.2.14)
-      typescript:
-        specifier: ^5.8.3
-        version: 5.9.3
-
-  packages/shared:
-    devDependencies:
       typescript:
         specifier: ^5.8.3
         version: 5.9.3
