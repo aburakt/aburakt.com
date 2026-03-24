@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { findKey, type Layout } from './keyboardLayouts'
 import Keyboard from './Keyboard'
 import { saveTypingStat } from '../useAuth'
+import { useVimSuspend } from '../useVimSuspend'
 
 interface Props {
   locale: string
@@ -69,6 +70,7 @@ export default function TypingTest({ locale }: Props) {
   const layout: Layout = tr ? 'tr' : 'en'
   const [duration, setDuration] = useState(30)
   const [state, setState] = useState<'config' | 'playing' | 'done'>('config')
+  useVimSuspend(state === 'playing')
   const [text, setText] = useState('')
   const [typed, setTyped] = useState('')
   const [errors, setErrors] = useState(0)
@@ -278,6 +280,7 @@ export default function TypingTest({ locale }: Props) {
       ref={containerRef}
       tabIndex={0}
       onKeyDown={handleKeyDown}
+      data-vim-insert
       className="space-y-4 outline-none"
     >
       <div className="flex items-center justify-between">

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { saveTypingStat } from '../../useAuth'
+import { useVimSuspend } from '../../useVimSuspend'
 
 interface Props {
   locale: string
@@ -32,6 +33,7 @@ export default function Survival({ locale }: Props) {
   const pool = tr ? trWords : enWords
 
   const [state, setState] = useState<'idle' | 'playing' | 'done'>('idle')
+  useVimSuspend(state === 'playing')
   const [currentWord, setCurrentWord] = useState('')
   const [input, setInput] = useState('')
   const [score, setScore] = useState(0)

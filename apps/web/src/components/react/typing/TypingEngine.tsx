@@ -95,6 +95,7 @@ export default function TypingEngine({ text, layout, onComplete, showKeyboard = 
       ref={containerRef}
       tabIndex={0}
       onKeyDown={handleKeyDown}
+      data-vim-insert
       className="outline-none"
     >
       {showStats && startTime && !isComplete && (

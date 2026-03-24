@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { saveTypingStat } from '../../useAuth'
+import { useVimSuspend } from '../../useVimSuspend'
 
 interface Props {
   locale: string
@@ -30,6 +31,7 @@ export default function TypeSprint({ locale }: Props) {
   const pool = tr ? trWords : enWords
 
   const [state, setState] = useState<'idle' | 'playing' | 'done'>('idle')
+  useVimSuspend(state === 'playing')
   const [currentWord, setCurrentWord] = useState('')
   const [input, setInput] = useState('')
   const [wordsTyped, setWordsTyped] = useState(0)

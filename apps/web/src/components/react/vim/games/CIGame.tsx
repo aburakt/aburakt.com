@@ -3,6 +3,7 @@ import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
 import { vim } from '@replit/codemirror-vim'
 import { saveVimStat } from '../../useAuth'
+import { useVimSuspend } from '../../useVimSuspend'
 
 interface Props {
   locale: string
@@ -37,6 +38,7 @@ const editorTheme = EditorView.theme({
 
 export default function CIGame({ locale }: Props) {
   const [state, setState] = useState<'idle' | 'playing' | 'done'>('idle')
+  useVimSuspend(state === 'playing')
   const [round, setRound] = useState(0)
   const [scores, setScores] = useState<Array<{ time: number; keystrokes: number }>>([])
   const [startTime, setStartTime] = useState(0)

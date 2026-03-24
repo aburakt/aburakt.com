@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import Keyboard from './Keyboard'
 import { findKey, type Layout } from './keyboardLayouts'
 import { saveTypingStat } from '../useAuth'
+import { useVimSuspend } from '../useVimSuspend'
 
 interface Props {
   locale: string
@@ -48,6 +49,7 @@ export default function SpeedChallenge({ locale }: Props) {
   const pool = tr ? trWords : enWords
 
   const [state, setState] = useState<'idle' | 'playing' | 'done'>('idle')
+  useVimSuspend(state === 'playing')
   const [text, setText] = useState('')
   const [typed, setTyped] = useState('')
   const [errors, setErrors] = useState(0)
@@ -161,6 +163,7 @@ export default function SpeedChallenge({ locale }: Props) {
           ref={containerRef}
           tabIndex={0}
           onKeyDown={handleKeyDown}
+          data-vim-insert
           className="outline-none"
         >
           <div className="mb-4 flex items-center justify-between text-xs text-green-700">
