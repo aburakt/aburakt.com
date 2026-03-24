@@ -3,6 +3,7 @@ import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
 import { vim } from '@replit/codemirror-vim'
 import { saveVimStat } from '../../useAuth'
+import { useVimSuspend } from '../../useVimSuspend'
 
 interface Props {
   locale: string
@@ -45,6 +46,7 @@ const editorTheme = EditorView.theme({
 
 export default function RelativeJump({ locale }: Props) {
   const [state, setState] = useState<'idle' | 'playing' | 'done'>('idle')
+  useVimSuspend(state === 'playing')
   const [targetLine, setTargetLine] = useState(0)
   const [currentLine, setCurrentLine] = useState(0)
   const [round, setRound] = useState(0)

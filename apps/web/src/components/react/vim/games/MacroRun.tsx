@@ -3,6 +3,7 @@ import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
 import { vim } from '@replit/codemirror-vim'
 import { saveVimStat } from '../../useAuth'
+import { useVimSuspend } from '../../useVimSuspend'
 
 interface Props {
   locale: string
@@ -52,6 +53,7 @@ const editorTheme = EditorView.theme({
 
 export default function MacroRun({ locale }: Props) {
   const [state, setState] = useState<'idle' | 'playing' | 'done'>('idle')
+  useVimSuspend(state === 'playing')
   const [round, setRound] = useState(0)
   const [challenge, setChallenge] = useState<Challenge>(challenges[0])
   const [keystrokes, setKeystrokes] = useState(0)

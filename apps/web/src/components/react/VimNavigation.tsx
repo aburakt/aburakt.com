@@ -10,6 +10,7 @@ export default function VimNavigation({ locale }: Props) {
   const [mode, setMode] = useState<VimMode>('normal')
   const [enabled, setEnabled] = useState(true)
   const [showIndicator, setShowIndicator] = useState(true)
+  const suspended = useRef(false)
   const keyBuffer = useRef('')
   const keyTimeout = useRef<ReturnType<typeof setTimeout>>()
   const leaderActive = useRef(false)
@@ -24,20 +25,35 @@ export default function VimNavigation({ locale }: Props) {
     }
   }, [])
 
+  // Allow interactive components to suspend/resume vim navigation
+  useEffect(() => {
+    const onSuspend = () => { suspended.current = true; setMode('insert') }
+    const onResume = () => { suspended.current = false; setMode('normal') }
+    document.addEventListener('vim:suspend', onSuspend)
+    document.addEventListener('vim:resume', onResume)
+    return () => {
+      document.removeEventListener('vim:suspend', onSuspend)
+      document.removeEventListener('vim:resume', onResume)
+    }
+  }, [])
+
   // Track focus for insert mode
   useEffect(() => {
     function onFocus(e: FocusEvent) {
+      if (suspended.current) return
       const target = e.target as HTMLElement
       if (
         target.tagName === 'INPUT' ||
         target.tagName === 'TEXTAREA' ||
-        target.isContentEditable
+        target.isContentEditable ||
+        target.dataset.vimInsert !== undefined
       ) {
         setMode('insert')
       }
     }
 
     function onBlur() {
+      if (suspended.current) return
       setMode('normal')
     }
 
@@ -55,7 +71,7 @@ export default function VimNavigation({ locale }: Props) {
 
   const handleKey = useCallback(
     (e: KeyboardEvent) => {
-      if (!enabled) return
+      if (!enabled || suspended.current) return
       if (mode === 'insert') return
 
       // Don't interfere with modifier keys
