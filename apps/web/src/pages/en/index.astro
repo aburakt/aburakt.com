@@ -138,10 +138,10 @@ const articles = (await getCollection('articles')).sort(
           size: '2.4G',
         },
         {
-          name: 'secure-access-gateway',
-          desc: 'Organization-wide JWT/OAuth authentication layer',
+          name: 'ai-chat-workspace',
+          desc: 'Self-hosted generative-AI chat platform with RBAC, RAG, and on-prem LLM integration',
           perms: 'drwxr-xr-x',
-          size: '1.8G',
+          size: '3.4G',
         },
         {
           name: 'analytics-hub',
@@ -150,10 +150,46 @@ const articles = (await getCollection('articles')).sort(
           size: '3.1G',
         },
         {
-          name: 'data-insights-workspace',
-          desc: 'Interactive querying and visualization workflows',
+          name: 'secure-access-gateway',
+          desc: 'Organization-wide JWT/OAuth authentication layer',
+          perms: 'drwxr-xr-x',
+          size: '1.8G',
+        },
+        {
+          name: 'meeting-bridge',
+          desc: 'Customized enterprise video-conferencing with LDAP login, scheduling, and reminders',
+          perms: 'drwxr-xr-x',
+          size: '2.1G',
+        },
+        {
+          name: 'data-query-workspace',
+          desc: 'Schema-driven data querying with auto-generated forms, reporting, and visualization',
           perms: 'drwxr-xr-x',
           size: '1.2G',
+        },
+        {
+          name: 'workforce-scheduler',
+          desc: 'Personnel attendance, timesheet, and duty-roster management with PDF export',
+          perms: 'drwxr-xr-x',
+          size: '760M',
+        },
+        {
+          name: 'transcription-studio',
+          desc: 'Audio transcription and Turkish-translation workflow for archival recordings',
+          perms: 'drwxr-xr-x',
+          size: '1.5G',
+        },
+        {
+          name: 'knowledge-base',
+          desc: 'Self-hosted Q&A knowledge platform with Turkish localization',
+          perms: 'drwxr-xr-x',
+          size: '640M',
+        },
+        {
+          name: 'teledermatology-app',
+          desc: 'Freelance cross-platform tele-dermatology platform (iOS, Android, web)',
+          perms: 'drwxr-xr-x',
+          size: '980M',
         },
         {
           name: 'visitor-facility-suite',
@@ -245,17 +281,17 @@ const articles = (await getCollection('articles')).sort(
     </div>
 
     <div class="flex flex-wrap gap-2">
-      {['React', 'TypeScript', 'Tailwind CSS', 'Astro', 'Hono'].map((skill) => (
+      {['React', 'React Native', 'TypeScript', 'Next.js', 'SvelteKit', 'Tailwind CSS', 'Astro'].map((skill) => (
         <span class="rounded border border-cyan-900/30 bg-green-950/30 px-3 py-1 text-xs text-cyan-500 transition hover:border-cyan-500/50 hover:text-cyan-400">
           {skill}
         </span>
       ))}
-      {['Vite', 'Cloudflare Workers', 'D1 / SQLite', 'JWT / OAuth', 'Node.js'].map((skill) => (
+      {['TanStack', 'tRPC', 'Vite', 'Node.js', 'Fastify', 'Hono', 'Cloudflare Workers'].map((skill) => (
         <span class="rounded border border-amber-900/30 bg-green-950/30 px-3 py-1 text-xs text-amber-500 transition hover:border-amber-500/50 hover:text-amber-400">
           {skill}
         </span>
       ))}
-      {['Git', 'CI/CD', 'Java Spring Boot', 'Team Leadership', 'Mentoring'].map((skill) => (
+      {['PostgreSQL / Prisma', 'D1 / SQLite', 'JWT / OAuth', 'Open WebUI', 'Java Spring Boot', 'Git / CI/CD', 'Team Leadership', 'Mentoring'].map((skill) => (
         <span class="rounded border border-green-900/30 bg-green-950/30 px-3 py-1 text-xs text-green-500 transition hover:border-green-500/50 hover:text-green-400">
           {skill}
         </span>
