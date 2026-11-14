@@ -1,4 +1,5 @@
 ---
+import { articleSlug } from '@/lib/articles'
 import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
 import Container from '@/components/astro/Container.astro'
 import { t } from '@/i18n'
@@ -226,7 +227,7 @@ const articles = (await getCollection('articles')).sort(
     <div class="space-y-3">
       {articles.map((article) => (
         <a
-          href={`/en/articles/${article.id}`}
+          href={`/en/articles/${articleSlug(article.id)}`}
           class="group block rounded border border-green-900/20 bg-green-950/20 p-4 transition hover:border-green-500/30 hover:bg-green-950/40"
         >
           <div class="flex items-center gap-3 text-xs">
