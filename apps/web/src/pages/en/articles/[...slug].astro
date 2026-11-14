@@ -1,4 +1,5 @@
 ---
+import { articleSlug } from '@/lib/articles'
 import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
 import Container from '@/components/astro/Container.astro'
 import { getCollection, render } from 'astro:content'
@@ -6,7 +7,7 @@ import { getCollection, render } from 'astro:content'
 export async function getStaticPaths() {
   const articles = await getCollection('articles')
   return articles.map((article) => ({
-    params: { slug: article.id },
+    params: { slug: articleSlug(article.id) },
     props: { article },
   }))
 }
@@ -25,7 +26,7 @@ const { Content } = await render(article)
 
     <div class="flex items-center gap-2 text-xs text-green-700 mb-6">
       <span class="text-green-500">$</span>
-      <span class="text-cyan-600">cat ~/articles/{article.id}.md</span>
+      <span class="text-cyan-600">cat ~/articles/{articleSlug(article.id)}.md</span>
     </div>
 
     <article class="max-w-2xl">

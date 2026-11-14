@@ -1,4 +1,5 @@
 ---
+import { articleSlug } from '@/lib/articles'
 import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
 import Container from '@/components/astro/Container.astro'
 import { getCollection } from 'astro:content'
@@ -25,7 +26,7 @@ const articles = (await getCollection('articles')).sort(
     <div class="mt-12 space-y-4">
       {articles.map((article) => (
         <a
-          href={`/articles/${article.id}`}
+          href={`/en/articles/${articleSlug(article.id)}`}
           class="group block rounded-lg border border-green-900/30 bg-green-950/20 p-5 transition hover:border-green-500/50 hover:bg-green-950/40"
         >
           <div class="flex items-center gap-3 text-xs text-green-700">
@@ -40,7 +41,7 @@ const articles = (await getCollection('articles')).sort(
             {article.data.description}
           </p>
           <div class="mt-3 text-xs text-green-700 group-hover:text-green-500 transition">
-            > cat {article.id}.md
+            > cat {articleSlug(article.id)}.md
           </div>
         </a>
       ))}
