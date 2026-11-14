@@ -11,10 +11,14 @@ import OnboardingHint from '@/components/react/OnboardingHint'
 interface Props {
   title?: string
   description?: string
+  type?: 'website' | 'article'
 }
 
 const locale = getLocaleFromUrl(Astro.url)
-const { title, description } = Astro.props
+const { title, description, type = 'website' } = Astro.props
+// Each page's own address: link previews (LinkedIn, X, Slack) follow og:url for the card's target.
+const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`
+const pageUrl = new URL(path, 'https://aburakt.com').href
 const siteTitle = title
   ? `${title} — ${t(locale, 'site.title')}`
   : t(locale, 'site.title')
@@ -34,8 +38,9 @@ const siteDescription = description || t(locale, 'site.description')
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <meta property="og:title" content={siteTitle} />
     <meta property="og:description" content={siteDescription} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://aburakt.com" />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={pageUrl} />
+    <link rel="canonical" href={pageUrl} />
     <meta property="og:image" content="https://aburakt.com/images/pp/logo.webp" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={siteTitle} />

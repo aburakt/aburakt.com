@@ -7,12 +7,13 @@ interface Props {
   title?: string
   description?: string
   zone?: string
+  type?: 'website' | 'article'
 }
 
-const { title, description, zone } = Astro.props
+const { title, description, zone, type } = Astro.props
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} type={type}>
   <div class="relative flex min-h-screen w-full flex-col">
     <Header />
     <main class="flex-auto" data-zone={zone}>
