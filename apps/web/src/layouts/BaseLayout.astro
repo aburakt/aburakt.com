@@ -19,10 +19,40 @@ const { title, description, type = 'website' } = Astro.props
 // Each page's own address: link previews (LinkedIn, X, Slack) follow og:url for the card's target.
 const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`
 const pageUrl = new URL(path, 'https://aburakt.com').href
-const siteTitle = title
-  ? `${title} — ${t(locale, 'site.title')}`
-  : t(locale, 'site.title')
-const siteDescription = description || t(locale, 'site.description')
+const siteName = t(locale, 'site.title')
+const siteTitle = title ? `${title} | ${siteName}` : siteName
+const isHome = path === '/' || path === '/en/'
+// Without its own description a page gets its title in front, so search results do not repeat the home text.
+const siteDescription =
+  description || (title && !isHome ? `${title}: ${t(locale, 'site.description')}` : t(locale, 'site.description'))
+const home = new URL(locale === 'en' ? '/en/' : '/', 'https://aburakt.com').href
+// Home only: WebSite gives Google the site name, Person ties the site to its author.
+const siteLd = isHome
+  ? {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebSite',
+          '@id': 'https://aburakt.com/#website',
+          url: home,
+          name: siteName,
+          alternateName: 'aburakt',
+          description: t(locale, 'site.description'),
+          inLanguage: locale === 'en' ? 'en-US' : 'tr-TR',
+          publisher: { '@id': 'https://aburakt.com/#person' },
+        },
+        {
+          '@type': 'Person',
+          '@id': 'https://aburakt.com/#person',
+          name: siteName,
+          url: 'https://aburakt.com/',
+          image: 'https://aburakt.com/images/pp/logo.webp',
+          jobTitle: locale === 'en' ? 'Front-end developer' : 'Front-end geliştirici',
+          sameAs: ['https://github.com/aburakt', 'https://www.linkedin.com/in/aburakt'],
+        },
+      ],
+    }
+  : undefined
 ---
 
 <!doctype html>
@@ -39,6 +69,8 @@ const siteDescription = description || t(locale, 'site.description')
     <meta property="og:title" content={siteTitle} />
     <meta property="og:description" content={siteDescription} />
     <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content={locale === 'en' ? 'en_US' : 'tr_TR'} />
     <meta property="og:url" content={pageUrl} />
     <link rel="canonical" href={pageUrl} />
     <meta property="og:image" content="https://aburakt.com/images/pp/logo.webp" />
@@ -50,6 +82,7 @@ const siteDescription = description || t(locale, 'site.description')
     <meta name="color-scheme" content="dark" />
     <link rel="manifest" href="/manifest.json" />
     <title>{siteTitle}</title>
+    {siteLd && <script type="application/ld+json" set:html={JSON.stringify(siteLd).replace(/</g, '\\u003c')} />}
   </head>
   <body class="min-h-screen bg-black text-green-400">
     <BootSequence client:load />

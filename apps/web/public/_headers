@@ -1,0 +1,6 @@
+# Preview addresses (pages.dev) are not indexed; the real address is aburakt.com
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex
