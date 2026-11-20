@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/check": "^0.9.8",
     "@astrojs/react": "^4.2.0",
+    "@astrojs/sitemap": "^3.7.6",
     "@codemirror/commands": "^6.10.3",
     "@codemirror/lang-javascript": "^6.2.5",
     "@codemirror/language": "^6.12.2",
@@ -20,7 +21,7 @@
     "@replit/codemirror-vim": "^6.3.0",
     "@tailwindcss/vite": "^4.1.0",
     "astro": "^5.7.0",
-"fuse.js": "^7.1.0",
+    "fuse.js": "^7.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "tailwindcss": "^4.1.0"
