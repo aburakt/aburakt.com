@@ -1,4 +1,5 @@
 export type Locale = "tr" | "en";
+export type Group = "app" | "site" | "tool";
 
 export interface ProjectText {
   /** Short line under the name on cards and in meta descriptions (max ~155 chars). */
@@ -16,7 +17,9 @@ export interface Project {
   name: string;
   /** Client or product owner shown on the detail page. */
   client: string;
-  kind: "platform" | "product" | "client";
+  kind: "platform" | "product" | "client" | "tool";
+  /** Portfolio section: web applications, websites, open-source tools. */
+  group: Group;
   year: string;
   url?: string;
   stack: string[];
@@ -24,19 +27,22 @@ export interface Project {
   platform?: boolean;
   /** Screenshot base name under /images/portfolio/ (desktop `<image>.webp`, mobile `<image>-m.webp`). */
   image: string;
-  /** false: no phone screenshot (generated diagram instead of a site). */
+  /** false: no phone screenshot. */
   mobile?: boolean;
+  /** Extra screens for wide-scope projects (desktop WebP base names + captions). Sample data only, no real user data. */
+  gallery?: { image: string; tr: string; en: string }[];
   tr: ProjectText;
   en: ProjectText;
 }
 
 /** Freelance work (2025 – present). Ministry projects stay on the home page and are not listed here. */
-export const PROJECTS: Project[] = [
+const ALL: Project[] = [
   {
     slug: "astro-pb-platform",
     name: "Astro + PocketBase platform",
     client: "aburakt.com",
     kind: "platform",
+    group: "site",
     year: "2026",
     stack: [
       "Astro",
@@ -50,7 +56,6 @@ export const PROJECTS: Project[] = [
       "n8n",
     ],
     image: "astro-pb-platform",
-    mobile: false,
     tr: {
       summary:
         "Bütün müşteri sitelerinin üzerinde çalıştığı ortak platform: sürümlü çekirdek, haftalık güncelleme PR’ları, kalite kapıları ve geri alınabilen dağıtım.",
@@ -99,6 +104,7 @@ export const PROJECTS: Project[] = [
     name: "RLA Act",
     client: "Rising Leaders Academy",
     kind: "product",
+    group: "app",
     year: "2026",
     stack: [
       "Go",
@@ -112,7 +118,18 @@ export const PROJECTS: Project[] = [
       "Hetzner",
     ],
     image: "rla-act",
-    mobile: false,
+    gallery: [
+      {
+        image: "rla-act-admin",
+        tr: "Yönetici paneli: değerlendirme, sertifika ve hibe özeti",
+        en: "Admin dashboard: reviews, certificates and grants",
+      },
+      {
+        image: "rla-act-student",
+        tr: "Öğrenci paneli: puan, gönüllülük saati ve sertifika yolu",
+        en: "Student dashboard: points, volunteer hours and certificate path",
+      },
+    ],
     tr: {
       summary:
         "Öğrencilerin görev tamamlayıp kanıt yüklediği, mentorların değerlendirdiği, puan, sertifika ve hibe başvurusunun yönetildiği gençlik liderlik platformu.",
@@ -157,6 +174,7 @@ export const PROJECTS: Project[] = [
     name: "kacadolar.com",
     client: "kacadolar.com",
     kind: "product",
+    group: "app",
     year: "2026",
     url: "https://kacadolar.com",
     stack: [
@@ -170,6 +188,15 @@ export const PROJECTS: Project[] = [
       "Telegram Bot API",
     ],
     image: "kacadolar",
+    gallery: [
+      { image: "kacadolar-trip", tr: "İl il yolculuk maliyeti hesaplayıcı", en: "City-to-city trip cost calculator" },
+      { image: "kacadolar-compare", tr: "Araç karşılaştırma", en: "Car comparison" },
+      {
+        image: "kacadolar-operators",
+        tr: "Şarj operatörleri ve güncel tarifeler",
+        en: "Charging operators and current tariffs",
+      },
+    ],
     tr: {
       summary:
         "Türkiye’de satılan her elektrikli otomobil için katalog ve şarj maliyeti hesaplayıcı: günlük tarife takibi, istasyon haritası, yolculuk maliyeti.",
@@ -214,6 +241,7 @@ export const PROJECTS: Project[] = [
     name: "EBS Bilgisayar",
     client: "EBS Bilgisayar",
     kind: "client",
+    group: "site",
     year: "2026",
     url: "https://www.ebsbilgisayar.com",
     stack: ["Astro", "PocketBase", "TypeScript", "Cloudflare Pages"],
@@ -261,6 +289,7 @@ export const PROJECTS: Project[] = [
     name: "Arolat Motors",
     client: "Arolat Motors",
     kind: "client",
+    group: "site",
     year: "2026",
     url: "https://www.arolatmotors.com",
     stack: ["Astro", "PocketBase", "TypeScript", "Cloudflare Pages"],
@@ -308,6 +337,7 @@ export const PROJECTS: Project[] = [
     name: "Yücel Plast",
     client: "Yücel Plast",
     kind: "client",
+    group: "site",
     year: "2026",
     url: "https://www.yucelplast.com",
     stack: ["Astro", "PocketBase", "TypeScript", "Cloudflare Pages"],
@@ -342,6 +372,7 @@ export const PROJECTS: Project[] = [
     name: "Merve Kaderli Ceramic Studio",
     client: "Merve Kaderli",
     kind: "client",
+    group: "site",
     year: "2026",
     url: "https://www.mervekaderli.com",
     stack: ["Astro", "PocketBase", "TypeScript", "Shopier", "Cloudflare Pages"],
@@ -373,6 +404,7 @@ export const PROJECTS: Project[] = [
     name: "Fibro Teknoloji",
     client: "Fibro Teknoloji",
     kind: "client",
+    group: "site",
     year: "2025",
     url: "https://www.fibroteknoloji.com",
     stack: ["Astro", "PocketBase", "TypeScript", "Tailwind CSS", "Cloudflare Pages"],
@@ -403,6 +435,7 @@ export const PROJECTS: Project[] = [
     name: "ASTOP",
     client: "Ankara Sivil Toplum Kuruluşları Platformu",
     kind: "client",
+    group: "site",
     year: "2026",
     url: "https://www.astop.org.tr",
     stack: ["Astro", "PocketBase", "TypeScript", "Cloudflare Pages"],
@@ -433,6 +466,7 @@ export const PROJECTS: Project[] = [
     name: "JCI Ankara",
     client: "JCI Ankara",
     kind: "client",
+    group: "site",
     year: "2026",
     url: "https://jciankara.com",
     stack: ["Astro", "PocketBase", "TypeScript", "Python", "Cloudflare Pages"],
@@ -465,6 +499,7 @@ export const PROJECTS: Project[] = [
     name: "Expertup",
     client: "Expertup",
     kind: "client",
+    group: "site",
     year: "2026",
     url: "https://expertup.com.tr",
     stack: ["Astro", "PocketBase", "TypeScript", "Cloudflare Pages"],
@@ -497,6 +532,7 @@ export const PROJECTS: Project[] = [
     name: "Design for Change Türkiye",
     client: "DFC Türkiye",
     kind: "client",
+    group: "site",
     year: "2026",
     url: "https://dfcturkiye.org",
     stack: ["Astro", "PocketBase", "TypeScript", "Cloudflare Pages"],
@@ -525,6 +561,7 @@ export const PROJECTS: Project[] = [
     name: "YİBDER",
     client: "Yarın İçin Bugün Derneği",
     kind: "client",
+    group: "site",
     year: "2026",
     url: "https://yibder.org",
     stack: ["Astro", "PocketBase", "TypeScript", "Cloudflare Pages"],
@@ -547,6 +584,7 @@ export const PROJECTS: Project[] = [
     name: "Rising Leaders Academy",
     client: "Rising Leaders Academy",
     kind: "client",
+    group: "site",
     year: "2026",
     url: "https://rlaglobal.com.tr",
     stack: ["Astro", "PocketBase", "TypeScript", "Tailwind CSS", "Cloudflare Pages"],
@@ -572,7 +610,188 @@ export const PROJECTS: Project[] = [
       features: ["Program overview", "Link to the platform", "Content managed in the panel"],
     },
   },
+  {
+    slug: "dermacep",
+    name: "DermaCep",
+    client: "DermaCep",
+    kind: "product",
+    group: "app",
+    year: "2025",
+    url: "https://dermacep.com",
+    stack: [
+      "React",
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Fastify",
+      "Prisma",
+      "PostgreSQL",
+      "tRPC",
+      "Supabase",
+      "Jitsi",
+      "Astro",
+    ],
+    image: "dermacep",
+    gallery: [
+      {
+        image: "dermacep-login",
+        tr: "Web uygulaması: hasta girişi ve süreç özeti",
+        en: "Web app: patient sign-in and process overview",
+      },
+      {
+        image: "dermacep-doctor",
+        tr: "Hekim başvurusu: ÇKYS doğrulaması ve yönetici onayı",
+        en: "Physician application: ÇKYS registry check and admin approval",
+      },
+    ],
+    tr: {
+      summary:
+        "Sağlık Bakanlığı onaylı tele-dermatoloji platformu: hasta cildini fotoğraflar, uzman dermatolog değerlendirir, gerekirse e-reçete yazar. iOS, Android ve web.",
+      challenge:
+        "Dermatoloğa ulaşmak haftalar sürebiliyor. Hastanın fotoğrafla başvurup uzman değerlendirmesi alabileceği, ama sağlık mevzuatına (USBS, KVKK) ve bilgi güvenliği standartlarına uyan bir platform gerekiyordu.",
+      build: [
+        "Tek kod tabanından iOS ve Android (Expo, React Native) ve React web istemcisi.",
+        "Fastify, Prisma ve PostgreSQL üzerinde tRPC ile uçtan uca tip güvenli back-end.",
+        "Jitsi ile görüntülü görüşme, fotoğraf yükleme, Supabase ile gerçek zamanlı mesajlaşma, Face ID ve Touch ID, ödeme ve randevu.",
+        "ICD-10 kodlu değerlendirme ve e-reçete desteği; KVKK uyumlu denetim kaydı.",
+        "Uyum paketini (USBS, KVKK) hazırladım; Sağlık Bakanlığı onayı alındı, ISO/IEC 27001 ve SPICE (ISO/IEC 15504) Seviye 2 denetimleri geçildi.",
+        "Tanıtım sitesi Astro ile, içerik Payload CMS’ten.",
+      ],
+      features: [
+        "Vücut haritasında bölge seçimi ve fotoğrafla vaka oluşturma",
+        "Hekim başvurusu: ÇKYS hekim kaydı doğrulaması ve yönetici onayı",
+        "Görüntülü görüşme ve mesajlaşma",
+        "e-Reçete ve tedavi takibi",
+      ],
+    },
+    en: {
+      summary:
+        "Ministry of Health approved tele-dermatology platform: patients photograph their skin, a dermatologist reviews and writes an e-prescription when needed. iOS, Android and web.",
+      challenge:
+        "Seeing a dermatologist can take weeks. Patients needed to apply with photos and get a specialist review on a platform that meets health regulations (USBS, KVKK) and information security standards.",
+      build: [
+        "iOS and Android from one codebase (Expo, React Native) plus a React web client.",
+        "End-to-end type-safe back-end with tRPC on Fastify, Prisma and PostgreSQL.",
+        "Jitsi video calls, photo uploads, real-time messaging with Supabase, Face ID and Touch ID, payments and scheduling.",
+        "ICD-10 coded assessments and e-prescription support; KVKK compliant audit logging.",
+        "Prepared the compliance package (USBS, KVKK); the platform received Ministry of Health approval and passed ISO/IEC 27001 and SPICE (ISO/IEC 15504) Level 2 audits.",
+        "Marketing site built with Astro, content from Payload CMS.",
+      ],
+      features: [
+        "Pick areas on a body map and open a case with photos",
+        "Physician application with ÇKYS registry check and admin approval",
+        "Video calls and messaging",
+        "e-Prescriptions and treatment tracking",
+      ],
+    },
+  },
+  {
+    slug: "redline",
+    name: "redline",
+    client: "Open source",
+    kind: "tool",
+    group: "tool",
+    year: "2026",
+    url: "https://github.com/aburakt/redline",
+    stack: ["POSIX sh", "PowerShell", "Claude Code", "Codex", "Cursor", "Gemini CLI", "Copilot CLI"],
+    image: "redline",
+    tr: {
+      summary:
+        "AI kodlama ajanlarına çalıştıkları makineyi gösteren hook’lar: bellek, disk ve ağır süreçler hakkında tek satır bilgi, gerekirse komuttan önce uyarı.",
+      challenge:
+        "16 GB MacBook Air sürekli donuyordu: bir ajanın bir gün önce açtığı iOS simülatörü 8,7 GB tutuyordu, swap doluydu, 5 günde 9 bellek yetersizliği kapanması vardı. Ajanlar makinenin durumunu göremiyordu.",
+      build: [
+        "Skill yerine hook: Claude Code, Codex, Cursor, Gemini CLI ve Copilot CLI oturum başında ve her kabuk komutundan önce redline’ı çalıştırıyor.",
+        "Sorun yoksa hiçbir şey yazmıyor; bellek ya da disk kritikse yalnız sıradaki komutu nedeniyle birlikte durduruyor, hiçbir süreci öldürmüyor.",
+        "Bağımlılık yok: bir POSIX sh ve bir PowerShell betiği. Aynı test paketi macOS, Linux ve Windows CI’da iki betiğe de koşuyor.",
+        "Bozulursa sessizce çıkıyor (fail open); güvenlik aracı hiçbir zaman engelin kendisi olmuyor.",
+      ],
+      features: [
+        "Oturum başında tek satır makine özeti",
+        "Ağır ya da takılan komutlardan önce öneri",
+        "Kritik bellek ve diskte komut durdurma",
+        "MIT lisansı",
+      ],
+    },
+    en: {
+      summary:
+        "Hooks that show AI coding agents the machine they run on: one line on memory, disk and heavy processes, and advice before a risky command.",
+      challenge:
+        "A 16 GB MacBook Air kept freezing: an iOS Simulator an agent had booted a day earlier held 8.7 GB, swap was full, and there were 9 out-of-memory kills in 5 days. The agents could not see the machine.",
+      build: [
+        "Hooks instead of a skill: Claude Code, Codex, Cursor, Gemini CLI and Copilot CLI run redline at session start and before each shell command.",
+        "Silent when nothing is wrong; when memory or disk is critical it stops only the next command, with the reason, and never kills a process.",
+        "Zero dependencies: one POSIX sh script and one PowerShell script. The same test suite runs both on macOS, Linux and Windows CI.",
+        "Fails open: if it breaks it exits quietly, so the safety tool never becomes the blocker.",
+      ],
+      features: [
+        "One-line machine summary at session start",
+        "Advice before heavy or blocking commands",
+        "Command stop on critical memory or disk",
+        "MIT license",
+      ],
+    },
+  },
+  {
+    slug: "gobag-nvim",
+    name: "gobag.nvim",
+    client: "Open source",
+    kind: "tool",
+    group: "tool",
+    year: "2026",
+    url: "https://github.com/aburakt/gobag.nvim",
+    stack: ["Lua", "Neovim", "zig cc", "Tree-sitter", "npm", "Shell", "PowerShell"],
+    image: "gobag",
+    tr: {
+      summary:
+        "Neovim kurulumunu internetsiz makinelere taşıyan eklenti: config, eklentiler, Tree-sitter parser’ları, araçlar ve LSP sunucularıyla çapraz platform kurulum paketi.",
+      challenge:
+        "Kurum içi ağda ya da internete kapalı makinelerde Neovim kurmak paket yöneticisi olmadan neredeyse imkânsız. Kendi kurulumumu bu makinelere tek dosyayla taşımam gerekiyordu.",
+      build: [
+        "İnternete bağlı makinede canlı config’i okuyup hedef işletim sistemi için arşiv üretiyor; hedefte git, internet ya da npm registry gerekmiyor.",
+        "Tree-sitter parser’ları `zig cc` ile hedefe çapraz derleniyor (.so, .dll, .dylib), statik bağlı.",
+        "ripgrep, fzf, lazygit, lua-language-server gibi araçların doğru hedef binary’si GitHub sürümlerinden iniyor; npm LSP sunucuları `npm pack` ile çevrimdışı paketleniyor.",
+        "Yapılandırılmış LSP sunucularını kodu çalıştırmadan, config’i tarayarak buluyor (vim.lsp, mason, lspconfig).",
+        "Hedefe göre `install.sh` ya da `install.ps1` üretiyor.",
+      ],
+      features: [
+        "6 hedef: Linux, macOS, Windows (x64 ve arm64)",
+        ":BundleDoctor ile ön kontrol",
+        "vim.pack, lazy.nvim ve packpath desteği",
+        "Otomatik LSP algılama",
+      ],
+    },
+    en: {
+      summary:
+        "Neovim plugin that carries your setup to offline machines: a cross-platform installer bundle with config, plugins, Tree-sitter parsers, tools and LSP servers.",
+      challenge:
+        "On intranet or air-gapped machines, installing Neovim without a package manager is close to impossible. I needed to carry my own setup to those machines in one file.",
+      build: [
+        "Reads the live config on a connected machine and builds an archive for the target OS; the target needs no git, internet or npm registry.",
+        "Tree-sitter parsers are cross-compiled with `zig cc` (.so, .dll, .dylib), statically linked.",
+        "Downloads the right target binary of tools such as ripgrep, fzf, lazygit and lua-language-server from GitHub releases; npm LSP servers are packed offline with `npm pack`.",
+        "Finds configured LSP servers by scanning the config without running code (vim.lsp, mason, lspconfig).",
+        "Generates `install.sh` or `install.ps1` for the target.",
+      ],
+      features: [
+        "6 targets: Linux, macOS, Windows (x64 and arm64)",
+        "Preflight with :BundleDoctor",
+        "vim.pack, lazy.nvim and packpath support",
+        "Automatic LSP detection",
+      ],
+    },
+  },
 ];
+
+export const GROUPS: Group[] = ["app", "site", "tool"];
+
+/** Grouped order: web apps, websites (platform first), open-source tools. */
+export const PROJECTS: Project[] = GROUPS.flatMap((g) => ALL.filter((p) => p.group === g));
+
+export const GROUP_LABEL: Record<Locale, Record<Group, string>> = {
+  tr: { app: "Web uygulamaları", site: "Web siteleri", tool: "Açık kaynak araçlar" },
+  en: { app: "Web applications", site: "Websites", tool: "Open-source tools" },
+};
 
 export function projectPath(locale: Locale, slug?: string): string {
   const base = locale === "en" ? "/en/portfolio/" : "/portfolio/";
@@ -580,6 +799,6 @@ export function projectPath(locale: Locale, slug?: string): string {
 }
 
 export const KIND_LABEL: Record<Locale, Record<Project["kind"], string>> = {
-  tr: { platform: "Platform", product: "Ürün", client: "Müşteri sitesi" },
-  en: { platform: "Platform", product: "Product", client: "Client site" },
+  tr: { platform: "Platform", product: "Ürün", client: "Müşteri sitesi", tool: "Açık kaynak" },
+  en: { platform: "Platform", product: "Product", client: "Client site", tool: "Open source" },
 };

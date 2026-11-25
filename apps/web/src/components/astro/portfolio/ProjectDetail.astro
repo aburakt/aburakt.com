@@ -55,7 +55,7 @@ const label = p.url ? p.url.replace(/^https:\/\//, "") : `~/${p.slug}`;
   </dl>
 
   <div class:list={['mt-10 grid gap-6', hasMobile ? 'grid-cols-1 md:grid-cols-[1fr_200px] items-start' : 'grid-cols-1']}>
-    <Shot src={imageUrl(p)} alt={`${p.name}: ${hasMobile ? ui.desktop : ui.diagram}`} label={label} width={1200} height={750} eager />
+    <Shot src={imageUrl(p)} alt={`${p.name}: ${ui.desktop}`} label={label} width={1200} height={750} eager vt={`shot-${p.slug}`} />
     {
       hasMobile && (
         <Shot
@@ -69,6 +69,23 @@ const label = p.url ? p.url.replace(/^https:\/\//, "") : `~/${p.slug}`;
       )
     }
   </div>
+
+  {
+    p.gallery && p.gallery.length > 0 && (
+      <section aria-labelledby="screens" class="mt-12">
+        <h2 id="screens" class="text-base font-semibold text-amber-400">## {ui.gallery}</h2>
+        <p class="mt-2 text-xs text-green-600"># {ui.galleryNote}</p>
+        <ul class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2" role="list">
+          {p.gallery.map((g) => (
+            <li>
+              <Shot src={`/images/portfolio/${g.image}.webp`} alt={`${p.name}: ${g[locale]}`} label={g.image} width={1200} height={750} />
+              <p class="mt-2 text-xs text-green-500">{g[locale]}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
 
   <div class="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-[1fr_260px]">
     <div class="space-y-10 text-sm leading-relaxed">

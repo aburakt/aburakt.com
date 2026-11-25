@@ -1,5 +1,5 @@
 import { getCollection } from "astro:content";
-import { PROJECTS, projectPath } from "@/data/portfolio";
+import { GROUP_LABEL, GROUPS, PROJECTS, projectPath } from "@/data/portfolio";
 import en from "@/i18n/en.json";
 import { articleSlug } from "@/lib/articles";
 import { projectMarkdown } from "@/lib/portfolio";
@@ -10,7 +10,7 @@ const CV = `${SITE}/cv/Ahmet_Burak_Tekin_CV.v2026-11.pdf`;
 const header = [
   "# Ahmet Burak Tekin",
   "",
-  "> Full-stack developer in Ankara, Türkiye. Software Developer (Front-end Team Lead) at the Ministry of Interior since Dec 2022, leading a team of 4 front-end developers. Freelance full-stack developer since 2025: a shared Astro + PocketBase platform behind 17 client websites (11 in production), the RLA Act youth leadership platform (Go + PocketBase + React) and kacadolar.com. Main stack: React, TypeScript, Node.js, Go, PostgreSQL, PocketBase, Astro.",
+  "> Full-stack developer in Ankara, Türkiye. Software Developer (Front-end Team Lead) at the Ministry of Interior since Dec 2022, leading a team of 4 front-end developers. Freelance full-stack developer since 2025: web applications (the RLA Act youth leadership platform on Go + PocketBase + React, the DermaCep telemedicine platform, kacadolar.com), a shared Astro + PocketBase platform behind 17 client websites (11 in production), and open-source tools (redline, gobag.nvim). Main stack: React, TypeScript, Node.js, Go, PostgreSQL, PocketBase, Astro.",
   "",
   "The site is bilingual: Turkish pages have no prefix, English pages live under /en/. Contact: info@aburakt.com, https://www.linkedin.com/in/aburakt, https://github.com/aburakt.",
   "",
@@ -34,8 +34,14 @@ export async function llmsTxt(): Promise<string> {
     "",
     "## Portfolio",
     "",
-    ...PROJECTS.map((p) => `- [${p.name}](${SITE}${projectPath("en", p.slug).replace(/\/$/, "")}.md): ${p.en.summary}`),
-    "",
+    ...GROUPS.flatMap((g) => [
+      `### ${GROUP_LABEL.en[g]}`,
+      "",
+      ...PROJECTS.filter((p) => p.group === g).map(
+        (p) => `- [${p.name}](${SITE}${projectPath("en", p.slug).replace(/\/$/, "")}.md): ${p.en.summary}`,
+      ),
+      "",
+    ]),
     "## Articles",
     "",
     ...(await articleLines()),

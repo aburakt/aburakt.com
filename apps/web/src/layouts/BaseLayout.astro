@@ -105,6 +105,16 @@ const siteLd = isHome
     <meta name="color-scheme" content="dark" />
     <link rel="manifest" href="/manifest.json" />
     <title>{siteTitle}</title>
+    <script is:inline>
+      // First visit: cover the page before first paint so the boot screen comes before the site, not after it.
+      try {
+        if (!localStorage.getItem('boot_seen') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          var h = document.documentElement
+          h.classList.add('booting')
+          setTimeout(function () { h.classList.remove('booting') }, 4000)
+        }
+      } catch (e) {}
+    </script>
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />}
     {siteLd && <script type="application/ld+json" set:html={JSON.stringify(siteLd).replace(/</g, '\\u003c')} />}
   </head>

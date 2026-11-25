@@ -6,9 +6,9 @@ export const UI = {
   tr: {
     title: "Portfolyo",
     description:
-      "Ahmet Burak Tekin’in serbest çalışma projeleri: Astro + PocketBase müşteri siteleri, RLA Act platformu ve kacadolar.com. Ekran görüntüleri ve geliştirme detaylarıyla.",
+      "Ahmet Burak Tekin’in serbest çalışma projeleri: RLA Act, DermaCep ve kacadolar.com web uygulamaları, Astro + PocketBase müşteri siteleri, redline ve gobag.nvim. Ekran görüntüleri ve geliştirme detaylarıyla.",
     intro:
-      "2025’ten beri serbest çalışan full-stack geliştirici olarak kurduğum ve işlettiğim projeler. Müşteri sitelerinin hepsi aynı ortak platformda; her biri erişilebilirlik, performans ve güvenlik kontrollerinden geçmeden yayına çıkmıyor.",
+      "2025’ten beri serbest çalışan full-stack geliştirici olarak kurduğum ve işlettiğim işler: web uygulamaları, müşteri web siteleri ve açık kaynak araçlar. Müşteri sitelerinin hepsi aynı ortak platformda; her biri erişilebilirlik, performans ve güvenlik kontrollerinden geçmeden yayına çıkmıyor.",
     stats: (live: number, total: number) => `${total} proje · ${live} canlı adres`,
     open: "detaylar",
     client: "Müşteri",
@@ -24,7 +24,8 @@ export const UI = {
     platformLink: "Platformun detayları",
     desktop: "masaüstü görünümü",
     mobile: "telefon görünümü",
-    diagram: "mimari özeti",
+    gallery: "Ek ekranlar",
+    galleryNote: "Görüntüler örnek veriyle alındı; gerçek kullanıcı verisi yok.",
     prev: "Önceki",
     next: "Sonraki",
     back: "Bütün projeler",
@@ -34,9 +35,9 @@ export const UI = {
   en: {
     title: "Portfolio",
     description:
-      "Freelance projects by Ahmet Burak Tekin: Astro + PocketBase client sites, the RLA Act platform and kacadolar.com, with screenshots and development notes.",
+      "Freelance work by Ahmet Burak Tekin: the RLA Act, DermaCep and kacadolar.com web apps, Astro + PocketBase client sites, redline and gobag.nvim, with screenshots and development notes.",
     intro:
-      "Projects I have built and run as a freelance full-stack developer since 2025. All client sites share one platform, and none goes live without passing accessibility, performance and security checks.",
+      "Work I have built and run as a freelance full-stack developer since 2025: web applications, client websites and open-source tools. All client sites share one platform, and none goes live without passing accessibility, performance and security checks.",
     stats: (live: number, total: number) => `${total} projects · ${live} live sites`,
     open: "details",
     client: "Client",
@@ -52,7 +53,8 @@ export const UI = {
     platformLink: "Platform details",
     desktop: "desktop view",
     mobile: "phone view",
-    diagram: "architecture summary",
+    gallery: "More screens",
+    galleryNote: "Screens were captured with sample data; no real user data.",
     prev: "Previous",
     next: "Next",
     back: "All projects",
@@ -166,6 +168,9 @@ export function projectMarkdown(p: Project, locale: Locale): string {
     ...t.features.map((f) => `- ${f}`),
     "",
   ];
+  if (p.gallery?.length) {
+    lines.push(`## ${ui.gallery}`, "", ...p.gallery.map((g) => `- ${g[locale]}`), "", ui.galleryNote, "");
+  }
   if (p.platform) lines.push(ui.platformNote, "");
   return lines.join("\n");
 }
