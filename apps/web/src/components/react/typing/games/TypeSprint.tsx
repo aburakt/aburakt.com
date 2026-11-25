@@ -39,7 +39,7 @@ export default function TypeSprint({ locale }: Props) {
   const [timeLeft, setTimeLeft] = useState(DURATION)
   const [wordQueue, setWordQueue] = useState<string[]>([])
   const inputRef = useRef<HTMLInputElement>(null)
-  const timerRef = useRef<ReturnType<typeof setInterval>>()
+  const timerRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined)
 
   function generateQueue(): string[] {
     const shuffled = [...pool].sort(() => Math.random() - 0.5)

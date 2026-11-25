@@ -12,9 +12,9 @@ export default function VimNavigation({ locale }: Props) {
   const [showIndicator, setShowIndicator] = useState(true)
   const suspended = useRef(false)
   const keyBuffer = useRef('')
-  const keyTimeout = useRef<ReturnType<typeof setTimeout>>()
+  const keyTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const leaderActive = useRef(false)
-  const leaderTimeout = useRef<ReturnType<typeof setTimeout>>()
+  const leaderTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   // Load preferences
   useEffect(() => {

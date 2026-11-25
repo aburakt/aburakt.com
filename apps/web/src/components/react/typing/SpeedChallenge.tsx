@@ -57,7 +57,7 @@ export default function SpeedChallenge({ locale }: Props) {
   const [wpmHistory, setWpmHistory] = useState<number[]>([])
   const [bestWpm, setBestWpm] = useState(0)
   const containerRef = useRef<HTMLDivElement>(null)
-  const intervalRef = useRef<ReturnType<typeof setInterval>>()
+  const intervalRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined)
 
   const pos = typed.length
   const currentChar = pos < text.length ? text[pos] : undefined

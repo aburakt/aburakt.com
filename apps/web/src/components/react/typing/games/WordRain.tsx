@@ -47,7 +47,7 @@ export default function WordRain({ locale }: Props) {
   const [maxCombo, setMaxCombo] = useState(0)
   const [level, setLevel] = useState(1)
   const inputRef = useRef<HTMLInputElement>(null)
-  const frameRef = useRef<number>()
+  const frameRef = useRef<number | undefined>(undefined)
   const lastSpawnRef = useRef(0)
   const idRef = useRef(0)
   const startTimeRef = useRef(0)

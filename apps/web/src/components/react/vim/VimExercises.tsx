@@ -48,7 +48,7 @@ export default function VimExercises({ locale }: Props) {
   const [usedHint, setUsedHint] = useState(false)
   const editorRef = useRef<HTMLDivElement>(null)
   const viewRef = useRef<EditorView | null>(null)
-  const goalRef = useRef<HTMLDivElement>(null)
+  const goalRef = useRef<HTMLPreElement>(null)
 
   const tr = locale === 'tr'
   const exercise = exercises[currentIdx]

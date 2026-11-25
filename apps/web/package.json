@@ -10,8 +10,8 @@
     "typecheck": "astro check && tsc --noEmit"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.8",
-    "@astrojs/react": "^4.2.0",
+    "@astrojs/check": "^0.9.12",
+    "@astrojs/react": "^7.1.9",
     "@astrojs/sitemap": "^3.7.6",
     "@codemirror/commands": "^6.10.3",
     "@codemirror/lang-javascript": "^6.2.5",
@@ -20,7 +20,7 @@
     "@codemirror/view": "^6.40.0",
     "@replit/codemirror-vim": "^6.3.0",
     "@tailwindcss/vite": "^4.1.0",
-    "astro": "^5.7.0",
+    "astro": "^7.4.13",
     "fuse.js": "^7.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
