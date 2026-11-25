@@ -1,16 +1,17 @@
 {
   "site": {
     "title": "Ahmet Burak Tekin",
-    "description": "Kamu sektörüne güvenilir dijital servisler sunan front-end geliştirici."
+    "description": "Ankara'da React, TypeScript, Node.js ve Go ile web platformları geliştiren full-stack geliştirici."
   },
   "nav": {
     "home": "Ana Sayfa",
     "about": "Hakkımda",
+    "portfolio": "Portfolyo",
     "cv": "CV",
     "lab": "Lab"
   },
   "hero": {
-    "title": "Güçlü dijital platformlar inşa eden front-end geliştirici.",
+    "title": "Güçlü dijital platformlar inşa eden full-stack geliştirici.",
     "description": "Ben Ahmet Burak Tekin, Türkiye İçişleri Bakanlığı'nda front-end ekibini yönetiyorum. Binlerce kamu görevlisinin her gün kullandığı ülke çapında yetkilendirme, analitik ve operasyonel iş akışlarını yöneten React ve TypeScript uygulamaları geliştiriyor, dört kişilik bir geliştirici ekibine mentorluk yaparken kurum genelinde modernizasyonu yönlendiriyorum."
   },
   "sections": {

@@ -20,6 +20,7 @@ function getSearchItems(locale: string): SearchItem[] {
     // Navigation
     { title: tr ? 'Ana Sayfa' : 'Home', href: `${prefix}/`, category: tr ? 'Sayfalar' : 'Pages', badge: 'nav' },
     { title: tr ? 'Hakkımda' : 'About', href: `${prefix}/about`, category: tr ? 'Sayfalar' : 'Pages', badge: 'nav' },
+    { title: tr ? 'Portfolyo' : 'Portfolio', href: `${prefix}/portfolio`, category: tr ? 'Sayfalar' : 'Pages', badge: 'nav' },
     { title: 'CV', href: `${prefix}/cv`, category: tr ? 'Sayfalar' : 'Pages', badge: 'nav' },
     { title: 'Lab', href: `${prefix}/lab`, category: tr ? 'Sayfalar' : 'Pages', badge: 'nav' },
     { title: tr ? 'İstatistikler' : 'Stats', href: `${prefix}/lab/stats`, category: tr ? 'Sayfalar' : 'Pages', badge: 'nav' },

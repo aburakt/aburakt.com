@@ -1,4 +1,19 @@
+# Search engines and AI answer engines are welcome to read and cite this site.
 User-agent: *
+Allow: /
+Disallow: /dashboard/
+Disallow: /en/dashboard/
+
+# AI answer and search bots (explicit allow)
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
 Allow: /
 
 Sitemap: https://aburakt.com/sitemap-index.xml
+# LLM summary: https://aburakt.com/llms.txt

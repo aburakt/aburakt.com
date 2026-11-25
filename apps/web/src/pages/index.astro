@@ -4,7 +4,6 @@ import PortfolioLayout from '@/layouts/PortfolioLayout.astro'
 import Container from '@/components/astro/Container.astro'
 import { t } from '@/i18n'
 import { getCollection } from 'astro:content'
-import { FREELANCE } from '@/data/freelance'
 
 const locale = 'tr'
 
@@ -218,31 +217,14 @@ const articles = (await getCollection('articles')).sort(
     </div>
   </Container>
 
-  <!-- Freelance -->
-  <Container class="mt-20" data-section="freelance">
-    <div class="flex items-center gap-2 text-xs text-green-700 mb-6">
+  <!-- Portfolio link -->
+  <Container class="mt-12" data-section="portfolio-link">
+    <a href="/portfolio/" class="group flex flex-wrap items-center gap-2 rounded border border-cyan-900/40 bg-cyan-950/10 p-4 text-xs transition hover:border-cyan-500/50">
       <span class="text-green-500">$</span>
-      <span>ls -la ~/freelance/</span>
-    </div>
-
-    <div class="space-y-3">
-      {FREELANCE.map((project) => (
-        <div class="group rounded border border-green-900/20 bg-green-950/20 p-4 transition hover:border-green-500/30 hover:bg-green-950/40">
-          <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
-            <span class="text-amber-400">drwxr-xr-x</span>
-            {project.url ? (
-              <a href={project.url} target="_blank" rel="noreferrer" class="font-semibold text-cyan-400 hover:text-glow">{project.name}/</a>
-            ) : (
-              <span class="font-semibold text-cyan-400 group-hover:text-glow">{project.name}/</span>
-            )}
-            <span class="text-green-700">{project.stack}</span>
-          </div>
-          <p class="mt-2 text-xs text-green-600 pl-4">
-            # {project.desc}
-          </p>
-        </div>
-      ))}
-    </div>
+      <span class="font-semibold text-cyan-400 group-hover:text-glow-cyan">cd ~/portfolio/</span>
+      <span class="text-green-600"># Serbest çalışma projeleri, ekran görüntüleri ve geliştirme detaylarıyla</span>
+      <span aria-hidden="true" class="ml-auto text-cyan-500">-&gt;</span>
+    </a>
   </Container>
 
   <!-- Articles -->

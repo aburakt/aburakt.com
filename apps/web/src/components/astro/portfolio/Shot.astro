@@ -1,0 +1,33 @@
+---
+// Screenshot in a terminal-style window frame.
+interface Props {
+  src: string;
+  alt: string;
+  label: string;
+  width: number;
+  height: number;
+  eager?: boolean;
+  class?: string;
+}
+
+const { src, alt, label, width, height, eager = false, class: className } = Astro.props;
+---
+
+<figure class:list={['terminal-border overflow-hidden rounded-lg bg-black', className]}>
+  <div class="flex items-center gap-2 border-b border-green-900/30 bg-green-950/30 px-3 py-2" aria-hidden="true">
+    <span class="h-2 w-2 rounded-full bg-red-500/60"></span>
+    <span class="h-2 w-2 rounded-full bg-yellow-500/60"></span>
+    <span class="h-2 w-2 rounded-full bg-green-500/60"></span>
+    <span class="ml-1 truncate text-xs text-green-600">{label}</span>
+  </div>
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={eager ? 'eager' : 'lazy'}
+    decoding="async"
+    fetchpriority={eager ? 'high' : undefined}
+    class="block h-auto w-full"
+  />
+</figure>

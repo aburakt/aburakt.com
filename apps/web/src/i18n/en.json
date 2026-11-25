@@ -1,16 +1,17 @@
 {
   "site": {
     "title": "Ahmet Burak Tekin",
-    "description": "Front-end developer building resilient digital platforms for the public sector."
+    "description": "Full-stack developer in Ankara building web platforms with React, TypeScript, Node.js and Go."
   },
   "nav": {
     "home": "Home",
     "about": "About",
+    "portfolio": "Portfolio",
     "cv": "CV",
     "lab": "Lab"
   },
   "hero": {
-    "title": "Front-end developer building resilient digital platforms.",
+    "title": "Full-stack developer building resilient digital platforms.",
     "description": "I'm Ahmet Burak Tekin, leading the front-end team at Türkiye's Ministry of Interior. I architect React and TypeScript applications that manage nationwide authorization, analytics, and operational workflows for thousands of public servants every day while mentoring a team of four developers and driving modernization across the organization."
   },
   "sections": {
