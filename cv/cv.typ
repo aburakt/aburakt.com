@@ -5,7 +5,7 @@
 #let keywords = (
   "Full-stack Developer", "Front-end Developer", "React", "TypeScript", "Node.js", "Go",
   "Astro", "PocketBase", "PostgreSQL", "REST API", "CI/CD", "GitHub Actions", "Cloudflare",
-  "Team Lead", "Accessibility", "Performance",
+  "Team Lead", "Accessibility", "Performance", "Docker", "AWS", "Agile", "Scrum",
 )
 
 #set document(
@@ -104,8 +104,9 @@ TypeScript, with back-end experience in Node.js, Go, PostgreSQL and REST APIs.
 *UI and Styling:* Tailwind CSS, shadcn/ui, Radix UI, Material UI, PrimeReact, Bootstrap, Styled Components, Figma \
 *Back-end and Databases:* Node.js, Fastify, Express.js, Go, PocketBase, REST APIs, Java Spring Boot (API integration), PostgreSQL, Prisma, Supabase, SQLite \
 *Security and Auth:* JWT, OAuth 2.0, LDAP, RBAC, Content Security Policy, KVKK, ISO/IEC 27001 \
-*DevOps and Cloud:* Git, GitHub Actions, CI/CD, Cloudflare (Pages, Workers), Linux, Caddy, systemd, Hetzner, Vite, Bun \
-*Testing and Quality:* Jest, Vitest, Bun test, MSW, accessibility audits, performance budgets, Biome, oxlint, code review \
+*DevOps and Cloud:* Git, GitHub Actions, CI/CD, Docker, AWS, Cloudflare (Pages, Workers), Linux, Caddy, systemd, Hetzner, Vite, Bun \
+*Testing and Quality:* Jest, Vitest, Bun test, MSW, accessibility audits, performance budgets, Biome, oxlint \
+*Practices:* Agile / Scrum, code review, mentoring, technical documentation \
 *AI:* RAG, on-premise LLM integration, Open WebUI, AI-assisted development (Claude Code), n8n automation
 
 #section("Education")
