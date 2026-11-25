@@ -785,8 +785,12 @@ const ALL: Project[] = [
 
 export const GROUPS: Group[] = ["app", "site", "tool"];
 
-/** Grouped order: web apps, websites (platform first), open-source tools. */
-export const PROJECTS: Project[] = GROUPS.flatMap((g) => ALL.filter((p) => p.group === g));
+/** Grouped order: web apps (DermaCep first), websites (platform first), open-source tools. */
+const FIRST = ["dermacep"];
+const rank = (p: Project) => (FIRST.includes(p.slug) ? FIRST.indexOf(p.slug) : FIRST.length);
+export const PROJECTS: Project[] = GROUPS.flatMap((g) =>
+  ALL.filter((p) => p.group === g).sort((a, b) => rank(a) - rank(b)),
+);
 
 export const GROUP_LABEL: Record<Locale, Record<Group, string>> = {
   tr: { app: "Web uygulamaları", site: "Web siteleri", tool: "Açık kaynak araçlar" },
