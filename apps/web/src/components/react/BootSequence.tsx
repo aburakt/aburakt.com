@@ -24,6 +24,11 @@ export default function BootSequence() {
 
     const alreadySeen = localStorage.getItem('boot_seen')
     if (alreadySeen) return
+    // Hareket azaltmayı seçen ziyaretçiye açılış animasyonu gösterilmez.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      localStorage.setItem('boot_seen', '1')
+      return
+    }
 
     setVisible(true)
 
@@ -53,6 +58,7 @@ export default function BootSequence() {
 
   return (
     <div
+      aria-hidden="true"
       style={{
         position: 'fixed',
         inset: 0,

@@ -16,7 +16,7 @@ const { title, description, zone, type } = Astro.props
 <BaseLayout title={title} description={description} type={type}>
   <div class="relative flex min-h-screen w-full flex-col">
     <Header />
-    <main class="flex-auto" data-zone={zone}>
+    <main id="main" tabindex="-1" class="flex-auto" data-zone={zone}>
       <slot />
     </main>
     <Footer />

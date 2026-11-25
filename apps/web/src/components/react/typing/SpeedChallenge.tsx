@@ -149,7 +149,7 @@ export default function SpeedChallenge({ locale }: Props) {
               {tr ? 'En iyi' : 'Best'}: <span className="font-mono text-green-400">{bestWpm} WPM</span>
             </p>
           )}
-          <button
+          <button type="button"
             onClick={startGame}
             className="rounded-lg bg-green-600 px-8 py-3 text-sm font-medium text-black transition hover:bg-green-500"
           >
@@ -235,7 +235,7 @@ export default function SpeedChallenge({ locale }: Props) {
             </div>
           )}
 
-          <button
+          <button type="button"
             onClick={startGame}
             className="rounded-lg bg-green-600 px-8 py-3 text-sm font-medium text-black transition hover:bg-green-500"
           >

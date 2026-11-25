@@ -85,6 +85,7 @@ const siteLd = isHome
     {siteLd && <script type="application/ld+json" set:html={JSON.stringify(siteLd).replace(/</g, '\\u003c')} />}
   </head>
   <body class="min-h-screen bg-black text-green-400">
+    <a href="#main" class="skip-link">{locale === 'en' ? 'Skip to content' : 'İçeriğe geç'}</a>
     <BootSequence client:load />
     <slot />
     <VimNavigation locale={locale} client:load />

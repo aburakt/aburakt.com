@@ -1,6 +1,6 @@
 ---
 title: "Building This Portfolio"
-description: "Why I rebuilt aburakt.com with Astro, Hono, and Cloudflare — a terminal-themed developer playground."
+description: "Why I rebuilt aburakt.com with Astro, Hono, and Cloudflare – a terminal-themed developer playground."
 date: "2024-09-18"
 ---
 

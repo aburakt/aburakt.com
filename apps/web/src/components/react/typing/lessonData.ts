@@ -12,8 +12,8 @@ export interface Lesson {
 export const lessons: Lesson[] = [
   {
     id: 'home-row-left',
-    title: 'Home Row — Left Hand',
-    titleTr: 'Ana Sıra — Sol El',
+    title: 'Home Row – Left Hand',
+    titleTr: 'Ana Sıra – Sol El',
     description: 'Master the left home row keys: A S D F',
     descriptionTr: 'Sol el ana sıra tuşlarını öğrenin: A S D F',
     keys: ['a', 's', 'd', 'f'],
@@ -32,8 +32,8 @@ export const lessons: Lesson[] = [
   },
   {
     id: 'home-row-right',
-    title: 'Home Row — Right Hand',
-    titleTr: 'Ana Sıra — Sağ El',
+    title: 'Home Row – Right Hand',
+    titleTr: 'Ana Sıra – Sağ El',
     description: 'Master the right home row keys: J K L ;',
     descriptionTr: 'Sağ el ana sıra tuşlarını öğrenin: J K L ;',
     keys: ['j', 'k', 'l', ';'],
@@ -52,8 +52,8 @@ export const lessons: Lesson[] = [
   },
   {
     id: 'home-row-full',
-    title: 'Home Row — Both Hands',
-    titleTr: 'Ana Sıra — İki El',
+    title: 'Home Row – Both Hands',
+    titleTr: 'Ana Sıra – İki El',
     description: 'Combine left and right home row keys',
     descriptionTr: 'Sol ve sağ el ana sıra tuşlarını birleştirin',
     keys: ['a', 's', 'd', 'f', 'j', 'k', 'l', ';'],
@@ -72,8 +72,8 @@ export const lessons: Lesson[] = [
   },
   {
     id: 'home-row-g-h',
-    title: 'Index Fingers — G H',
-    titleTr: 'İşaret Parmakları — G H',
+    title: 'Index Fingers – G H',
+    titleTr: 'İşaret Parmakları – G H',
     description: 'Add G and H to your home row skills',
     descriptionTr: 'G ve H tuşlarını ana sıraya ekleyin',
     keys: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],

@@ -241,7 +241,7 @@ export default function VimNavigation({ locale }: Props) {
 
   return (
     <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2 no-print">
-      <button
+      <button type="button"
         onClick={toggleVimNav}
         className="rounded bg-green-950/30 px-2 py-1 font-mono text-xs text-green-400 shadow-lg backdrop-blur transition hover:bg-green-900/30 dark:bg-green-950/30 dark:text-green-400"
         title={enabled ? 'Disable vim navigation' : 'Enable vim navigation'}

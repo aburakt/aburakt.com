@@ -274,7 +274,7 @@ export default function TypingTest({ locale }: Props) {
     )
   }
 
-  // Playing state — inline timer-based test
+  // Playing state – inline timer-based test
   return (
     <div
       ref={containerRef}

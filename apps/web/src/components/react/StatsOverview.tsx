@@ -53,7 +53,7 @@ export default function StatsOverview({ locale }: Props) {
   if (!authenticated) {
     return (
       <div className="flex items-center gap-3 rounded border border-green-900/30 bg-black/80 px-3 py-2 font-mono">
-        <svg
+        <svg aria-hidden="true"
           className="h-4 w-4 text-green-600"
           viewBox="0 0 16 16"
           fill="currentColor"
@@ -63,7 +63,7 @@ export default function StatsOverview({ locale }: Props) {
         <span className="text-xs text-green-600">
           {tr ? 'İlerlemenizi takip etmek için giriş yapın' : 'Sign in to track progress'}
         </span>
-        <button
+        <button type="button"
           onClick={login}
           className="ml-auto rounded border border-green-800 bg-green-900/30 px-2 py-1 text-xs text-green-400 transition-colors hover:bg-green-900/50"
         >
