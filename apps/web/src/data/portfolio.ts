@@ -130,6 +130,26 @@ const ALL: Project[] = [
         tr: "Öğrenci paneli: puan, gönüllülük saati ve sertifika yolu",
         en: "Student dashboard: points, volunteer hours and certificate path",
       },
+      {
+        image: "rla-act-tasks",
+        tr: "Görevler: modül sırasıyla ACTion'lar, puan ve saat",
+        en: "Tasks: ACTions by module, with points and hours",
+      },
+      {
+        image: "rla-act-review",
+        tr: "Gönderim değerlendirme: kanıt, açıklama ve geri bildirim",
+        en: "Submission review: evidence, description and feedback",
+      },
+      {
+        image: "rla-act-certificates",
+        tr: "Sertifikalar: kazanılanlar ve sıradaki hedef",
+        en: "Certificates: earned ones and the next goal",
+      },
+      {
+        image: "rla-act-analytics",
+        tr: "Platform analitiği: öğrenci hunisi ve bekleyen işler",
+        en: "Platform analytics: student funnel and pending work",
+      },
     ],
     tr: {
       summary:
