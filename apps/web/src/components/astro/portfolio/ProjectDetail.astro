@@ -15,6 +15,8 @@ const t = p[locale];
 const { prev, next } = neighbours(p.slug);
 const hasMobile = p.mobile !== false;
 const label = p.url ? p.url.replace(/^https:\/\//, "") : `~/${p.slug}`;
+const phones = (p.gallery ?? []).filter((g) => g.phone);
+const wides = (p.gallery ?? []).filter((g) => !g.phone);
 ---
 
 <Container class="mt-16 sm:mt-24">
@@ -75,14 +77,26 @@ const label = p.url ? p.url.replace(/^https:\/\//, "") : `~/${p.slug}`;
       <section aria-labelledby="screens" class="mt-12">
         <h2 id="screens" class="text-base font-semibold text-amber-400">## {ui.gallery}</h2>
         <p class="mt-2 text-xs text-green-600"># {ui.galleryNote}</p>
-        <ul class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2" role="list">
-          {p.gallery.map((g) => (
-            <li>
-              <Shot src={`/images/portfolio/${g.image}.webp`} alt={`${p.name}: ${g[locale]}`} label={g.image} width={1200} height={750} />
-              <p class="mt-2 text-xs text-green-500">{g[locale]}</p>
-            </li>
-          ))}
-        </ul>
+        {phones.length > 0 && (
+          <ul class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4" role="list">
+            {phones.map((g) => (
+              <li>
+                <Shot src={`/images/portfolio/${g.image}.webp`} alt={`${p.name}: ${g[locale]}`} label={ui.mobile} width={390} height={844} />
+                <p class="mt-2 text-xs text-green-500">{g[locale]}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+        {wides.length > 0 && (
+          <ul class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2" role="list">
+            {wides.map((g) => (
+              <li>
+                <Shot src={`/images/portfolio/${g.image}.webp`} alt={`${p.name}: ${g[locale]}`} label={label} width={1200} height={750} />
+                <p class="mt-2 text-xs text-green-500">{g[locale]}</p>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
     )
   }

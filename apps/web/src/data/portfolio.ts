@@ -30,7 +30,8 @@ export interface Project {
   /** false: no phone screenshot. */
   mobile?: boolean;
   /** Extra screens for wide-scope projects (desktop WebP base names + captions). Sample data only, no real user data. */
-  gallery?: { image: string; tr: string; en: string }[];
+  /** Extra screens; `phone` ones are portrait phone screenshots (390x844). */
+  gallery?: { image: string; phone?: boolean; tr: string; en: string }[];
   tr: ProjectText;
   en: ProjectText;
 }
@@ -628,20 +629,47 @@ const ALL: Project[] = [
       "PostgreSQL",
       "tRPC",
       "Supabase",
-      "Jitsi",
       "Astro",
     ],
     image: "dermacep",
     gallery: [
       {
-        image: "dermacep-login",
-        tr: "Web uygulaması: hasta girişi ve süreç özeti",
-        en: "Web app: patient sign-in and process overview",
+        image: "dermacep-app-home",
+        phone: true,
+        tr: "Mobil: hasta ana ekranı, vaka durumu",
+        en: "Mobile: patient home with case status",
       },
       {
-        image: "dermacep-doctor",
-        tr: "Hekim başvurusu: ÇKYS doğrulaması ve yönetici onayı",
-        en: "Physician application: ÇKYS registry check and admin approval",
+        image: "dermacep-app-new-case",
+        phone: true,
+        tr: "Mobil: vaka açma sihirbazı, vücut haritası",
+        en: "Mobile: case wizard with body map",
+      },
+      {
+        image: "dermacep-app-profile",
+        phone: true,
+        tr: "Mobil: profil, sağlık bilgileri ve tercihler",
+        en: "Mobile: profile, health details and preferences",
+      },
+      {
+        image: "dermacep-web-patient",
+        tr: "Web: hastanın vaka özeti ve süreç adımları",
+        en: "Web: patient case summary and progress steps",
+      },
+      {
+        image: "dermacep-web-new-case",
+        tr: "Web: şikâyet ve bölge seçimi",
+        en: "Web: complaint and body area selection",
+      },
+      {
+        image: "dermacep-web-doctor",
+        tr: "Web: hekim masası, havuz ve aksiyon bekleyen vakalar",
+        en: "Web: physician desk with case pool and pending actions",
+      },
+      {
+        image: "dermacep-web-reports",
+        tr: "Web: hekim raporları, haftalık efor ve medyan süreler",
+        en: "Web: physician reports, weekly effort and median times",
       },
     ],
     tr: {
@@ -652,7 +680,7 @@ const ALL: Project[] = [
       build: [
         "Tek kod tabanından iOS ve Android (Expo, React Native) ve React web istemcisi.",
         "Fastify, Prisma ve PostgreSQL üzerinde tRPC ile uçtan uca tip güvenli back-end.",
-        "Jitsi ile görüntülü görüşme, fotoğraf yükleme, Supabase ile gerçek zamanlı mesajlaşma, Face ID ve Touch ID, ödeme ve randevu.",
+        "Bölgeye göre fotoğraf adımları, sunucuda fotoğraf kalite kontrolü, hekimin yapılandırılmış ek bilgi talepleri, vardiya ve kapasiteye göre otomatik vaka ataması.",
         "ICD-10 kodlu değerlendirme ve e-reçete desteği; KVKK uyumlu denetim kaydı.",
         "Uyum paketini (USBS, KVKK) hazırladım; Sağlık Bakanlığı onayı alındı, ISO/IEC 27001 ve SPICE (ISO/IEC 15504) Seviye 2 denetimleri geçildi.",
         "Tanıtım sitesi Astro ile, içerik Payload CMS’ten.",
@@ -660,7 +688,7 @@ const ALL: Project[] = [
       features: [
         "Vücut haritasında bölge seçimi ve fotoğrafla vaka oluşturma",
         "Hekim başvurusu: ÇKYS hekim kaydı doğrulaması ve yönetici onayı",
-        "Görüntülü görüşme ve mesajlaşma",
+        "Hekim masası: vaka havuzu, vardiya ve haftalık efor raporu",
         "e-Reçete ve tedavi takibi",
       ],
     },
@@ -672,7 +700,7 @@ const ALL: Project[] = [
       build: [
         "iOS and Android from one codebase (Expo, React Native) plus a React web client.",
         "End-to-end type-safe back-end with tRPC on Fastify, Prisma and PostgreSQL.",
-        "Jitsi video calls, photo uploads, real-time messaging with Supabase, Face ID and Touch ID, payments and scheduling.",
+        "Photo steps per body area, server-side photo quality checks, structured information requests from physicians, automatic case assignment by shift and capacity.",
         "ICD-10 coded assessments and e-prescription support; KVKK compliant audit logging.",
         "Prepared the compliance package (USBS, KVKK); the platform received Ministry of Health approval and passed ISO/IEC 27001 and SPICE (ISO/IEC 15504) Level 2 audits.",
         "Marketing site built with Astro, content from Payload CMS.",
@@ -680,7 +708,7 @@ const ALL: Project[] = [
       features: [
         "Pick areas on a body map and open a case with photos",
         "Physician application with ÇKYS registry check and admin approval",
-        "Video calls and messaging",
+        "Physician desk: case pool, shifts and weekly effort report",
         "e-Prescriptions and treatment tracking",
       ],
     },
