@@ -94,7 +94,7 @@ TypeScript, with back-end experience in Node.js, Go, PostgreSQL and REST APIs.
 - Back-end with Fastify, Prisma and PostgreSQL using tRPC end-to-end type safety, e-prescription (ICD-10) support and KVKK compliant audit logging.
 - Prepared the compliance package (USBS, KVKK), obtained Ministry of Health approval and passed ISO/IEC 27001 and SPICE (ISO/IEC 15504) Level 2 audits.
 
-#entry("kacadolar.com: EV Charging Cost Comparison", "Personal product", "", "2025 – Present")
+#entry("kacadolar.com: EV Charging Cost Comparison", "Personal product", "", "2026 – Present")
 - Catalog and charging cost calculator for every electric car sold in Türkiye: Next.js static export on Cloudflare Workers, data pipelines in GitHub Actions (daily tariff tracking, weekly EPDK station sync), Telegram bot for review moderation, WebMCP tools for AI agents.
 
 #section("Skills")
