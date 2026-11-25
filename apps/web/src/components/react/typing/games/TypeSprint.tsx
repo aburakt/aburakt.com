@@ -38,6 +38,7 @@ export default function TypeSprint({ locale }: Props) {
   const [errors, setErrors] = useState(0)
   const [timeLeft, setTimeLeft] = useState(DURATION)
   const [wordQueue, setWordQueue] = useState<string[]>([])
+  const [prevWord, setPrevWord] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
   const timerRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined)
 
@@ -61,6 +62,7 @@ export default function TypeSprint({ locale }: Props) {
     const queue = generateQueue()
     setCurrentWord(queue[0])
     setWordQueue(queue.slice(1))
+    setPrevWord('')
     setInput('')
     setWordsTyped(0)
     setErrors(0)
@@ -88,12 +90,18 @@ export default function TypeSprint({ locale }: Props) {
 
     if (val.endsWith(' ') || val.endsWith('\n')) {
       const trimmed = val.trim()
+      // a stray space before the word is not an attempt
+      if (trimmed === '') {
+        setInput('')
+        return
+      }
       if (trimmed === currentWord) {
         setWordsTyped((w) => w + 1)
       } else {
         setErrors((err) => err + 1)
       }
       setInput('')
+      setPrevWord(currentWord)
       nextWord(wordQueue)
       return
     }
@@ -114,7 +122,7 @@ export default function TypeSprint({ locale }: Props) {
 
   return (
     <div className="rounded-xl border border-green-900/30 bg-green-950/20 p-6">
-      <h3 className="text-lg font-semibold text-green-400">🏃 Type Sprint</h3>
+      <h2 className="text-lg font-semibold text-green-400">🏃 Type Sprint</h2>
       <p className="mt-1 text-sm text-green-600">
         {tr
           ? `${DURATION} saniyede mümkün olduğunca çok kelime yazın. Boşluk ile onaylayın.`
@@ -148,10 +156,10 @@ export default function TypeSprint({ locale }: Props) {
 
           <div className="flex items-center justify-center gap-3 py-6">
             <span className="font-mono text-sm text-green-800">
-              {wordQueue.length > 0 ? wordQueue[wordQueue.length - 1] : ''}
+              {prevWord}
             </span>
             <div className="rounded-lg bg-black px-6 py-4 text-center">
-              <p className="font-mono text-2xl font-bold text-green-400">
+              <p className="font-mono text-2xl font-bold text-green-400" data-current-word={currentWord}>
                 {currentWord.split('').map((char, i) => {
                   let cls = 'text-green-400'
                   if (i < input.length) {
@@ -162,12 +170,13 @@ export default function TypeSprint({ locale }: Props) {
               </p>
             </div>
             <span className="font-mono text-sm text-green-800">
-              {wordQueue.length > 1 ? wordQueue[0] : ''}
+              {wordQueue[0] ?? ''}
             </span>
           </div>
 
           <input
             ref={inputRef}
+            aria-label={tr ? 'Kelimeyi yazın' : 'Type the word'}
             type="text"
             value={input}
             onChange={handleInput}

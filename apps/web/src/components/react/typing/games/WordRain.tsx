@@ -49,6 +49,7 @@ export default function WordRain({ locale }: Props) {
   const inputRef = useRef<HTMLInputElement>(null)
   const frameRef = useRef<number | undefined>(undefined)
   const lastSpawnRef = useRef(0)
+  const lastFrameRef = useRef(0)
   const idRef = useRef(0)
   const startTimeRef = useRef(0)
   const maxMissed = 5
@@ -75,9 +76,12 @@ export default function WordRain({ locale }: Props) {
       lastSpawnRef.current = now
     }
 
-    // Move words down
+    // Move words down. Speed is tuned per 60 fps frame; scale by real elapsed
+    // time so the game is not twice as fast on a 120 Hz screen.
+    const frames = Math.min((now - (lastFrameRef.current || now)) / (1000 / 60), 4)
+    lastFrameRef.current = now
     setWords((prev) => {
-      const updated = prev.map((w) => ({ ...w, y: w.y + w.speed }))
+      const updated = prev.map((w) => ({ ...w, y: w.y + w.speed * frames }))
       const fallen = updated.filter((w) => w.y >= 100)
       if (fallen.length > 0) {
         setMissed((m) => {
@@ -98,6 +102,7 @@ export default function WordRain({ locale }: Props) {
   useEffect(() => {
     if (state === 'playing') {
       lastSpawnRef.current = Date.now()
+      lastFrameRef.current = 0
       frameRef.current = requestAnimationFrame(gameLoop)
       return () => {
         if (frameRef.current) cancelAnimationFrame(frameRef.current)
@@ -158,7 +163,7 @@ export default function WordRain({ locale }: Props) {
 
   return (
     <div className="rounded-xl border border-green-900/30 bg-green-950/20 p-6">
-      <h3 className="text-lg font-semibold text-green-400">🌧️ Word Rain</h3>
+      <h2 className="text-lg font-semibold text-green-400">🌧️ Word Rain</h2>
       <p className="mt-1 text-sm text-green-600">
         {tr
           ? 'Düşen kelimeleri yere ulaşmadan önce yazın. 5 kelime kaçırırsanız oyun biter.'
@@ -187,6 +192,7 @@ export default function WordRain({ locale }: Props) {
             {words.map((w) => (
               <div
                 key={w.id}
+                data-word={w.word}
                 className="absolute font-mono text-sm font-medium text-green-400 transition-none"
                 style={{
                   left: `${w.x}%`,
@@ -209,6 +215,7 @@ export default function WordRain({ locale }: Props) {
 
           <input
             ref={inputRef}
+            aria-label={tr ? 'Kelimeyi yazın' : 'Type the word'}
             type="text"
             value={input}
             onChange={handleInput}

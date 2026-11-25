@@ -10,6 +10,8 @@ export interface VimExercise {
   hintTr: string
   expectedMotion: string
   category: string
+  /** for motion-only tasks the text does not change: solved when the cursor is on this word */
+  cursorOn?: string
 }
 
 export const exercises: VimExercise[] = [
@@ -182,6 +184,7 @@ export const exercises: VimExercise[] = [
     hintTr: '/target yazın sonra Enter',
     expectedMotion: '/target',
     category: 'Search/Replace',
+    cursorOn: 'target',
   },
   {
     id: 14,
@@ -252,13 +255,13 @@ export const exercises: VimExercise[] = [
     id: 19,
     title: 'Change a tag content',
     titleTr: 'Tag içeriğini değiştir',
-    description: 'Change "old text" inside the <p> tag to "new text".',
-    descriptionTr: '<p> tag içindeki "old text"i "new text" olarak değiştirin.',
+    description: 'Change "old text" inside the <p> tag to "new text". This editor has no tag text object (cit), so change up to the closing tag with ct<.',
+    descriptionTr: '<p> tag içindeki "old text"i "new text" olarak değiştirin. Bu editörde tag nesnesi (cit) yok; kapanış tag\'ine kadar ct< ile değiştirin.',
     initialContent: '<p>old text</p>',
     goalContent: '<p>new text</p>',
-    hint: 'Place cursor inside tag, press cit, type "new text"',
-    hintTr: 'İmleci tag içine koyun, cit basın, "new text" yazın',
-    expectedMotion: 'cit',
+    hint: 'f> moves to the end of <p>, l steps inside, then ct< and type "new text"',
+    hintTr: 'f> ile <p> sonuna gidin, l ile içeri girin, sonra ct< ve "new text" yazın',
+    expectedMotion: 'f>l ct<',
     category: 'Text Objects',
   },
   {

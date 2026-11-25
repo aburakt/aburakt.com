@@ -122,6 +122,11 @@ export default function Survival({ locale }: Props) {
 
     if (val.endsWith(' ') || val.endsWith('\n')) {
       const trimmed = val.trim()
+      // a stray space before the word is not an attempt
+      if (trimmed === '') {
+        setInput('')
+        return
+      }
       if (trimmed === currentWord) {
         const newScore = score + 1
         setScore(newScore)
@@ -149,7 +154,7 @@ export default function Survival({ locale }: Props) {
 
   return (
     <div className="rounded-xl border border-green-900/30 bg-green-950/20 p-6">
-      <h3 className="text-lg font-semibold text-green-400">💀 Survival</h3>
+      <h2 className="text-lg font-semibold text-green-400">💀 Survival</h2>
       <p className="mt-1 text-sm text-green-600">
         {tr
           ? 'Her kelimeyi süre dolmadan yazın. Zorluk giderek artar. 3 can hakkınız var.'
@@ -181,7 +186,7 @@ export default function Survival({ locale }: Props) {
           </div>
 
           <div className="rounded-lg bg-black px-6 py-8 text-center">
-            <p className="font-mono text-3xl font-bold text-green-400">
+            <p className="font-mono text-3xl font-bold text-green-400" data-current-word={currentWord}>
               {currentWord.split('').map((char, i) => {
                 let cls = 'text-green-400'
                 if (i < input.length) {
@@ -194,6 +199,7 @@ export default function Survival({ locale }: Props) {
 
           <input
             ref={inputRef}
+            aria-label={tr ? 'Kelimeyi yazın' : 'Type the word'}
             type="text"
             value={input}
             onChange={handleInput}

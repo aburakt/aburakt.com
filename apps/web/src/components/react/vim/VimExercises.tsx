@@ -10,6 +10,16 @@ interface Props {
   locale: string
 }
 
+function isDone(state: EditorState, ex: VimExercise): boolean {
+  if (ex.cursorOn) {
+    const doc = state.doc.toString()
+    const at = doc.indexOf(ex.cursorOn)
+    const head = state.selection.main.head
+    return doc === ex.goalContent && at >= 0 && head >= at && head < at + ex.cursorOn.length
+  }
+  return state.doc.toString() === ex.goalContent
+}
+
 const editorTheme = EditorView.theme({
   '&': {
     backgroundColor: '#18181b',
@@ -63,10 +73,19 @@ export default function VimExercises({ locale }: Props) {
       doc: ex.initialContent,
       extensions: [
         vim(),
+        // visual block (Ctrl+v) edits several lines at once and needs multiple selections
+        EditorState.allowMultipleSelections.of(true),
         keymap.of(defaultKeymap),
         javascript(),
         editorTheme,
         EditorView.lineWrapping,
+        EditorView.contentAttributes.of({ 'aria-label': tr ? 'Vim editörü' : 'Vim editor' }),
+        // mark the task solved as soon as the text (or cursor) matches the goal
+        EditorView.updateListener.of((u) => {
+          if ((u.docChanged || u.selectionSet) && isDone(u.state, ex)) {
+            setSolved((s) => (s.has(ex.id) ? s : new Set(s).add(ex.id)))
+          }
+        }),
       ],
     })
 
@@ -76,7 +95,7 @@ export default function VimExercises({ locale }: Props) {
     })
 
     viewRef.current.focus()
-  }, [])
+  }, [tr])
 
   useEffect(() => {
     initEditor(exercise)
@@ -95,9 +114,8 @@ export default function VimExercises({ locale }: Props) {
 
   function checkSolution() {
     if (!viewRef.current) return
-    const current = viewRef.current.state.doc.toString()
     setAttempts((a) => a + 1)
-    if (current === exercise.goalContent) {
+    if (isDone(viewRef.current.state, exercise)) {
       setSolved((s) => new Set(s).add(exercise.id))
     }
   }
