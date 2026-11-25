@@ -62,7 +62,7 @@ export default function TypingLessons({ locale }: Props) {
             const stats = completedTexts.get(l.id)
             const done = stats && stats.length >= (tr ? l.textsTr : l.texts).length
             return (
-              <button
+              <button type="button"
                 key={l.id}
                 onClick={() => setSelectedLesson(l.id)}
                 className="group rounded-xl border border-green-900/30 bg-green-950/20 p-5 text-left transition hover:border-green-500/50"
@@ -99,7 +99,7 @@ export default function TypingLessons({ locale }: Props) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <button onClick={backToList} className="text-sm text-green-400 hover:text-green-300">
+        <button type="button" onClick={backToList} className="text-sm text-green-400 hover:text-green-300">
           ← {tr ? 'Dersler' : 'Lessons'}
         </button>
         <span className="text-xs text-green-700">
@@ -130,7 +130,7 @@ export default function TypingLessons({ locale }: Props) {
 
       {isTextDone && !isLessonDone && (
         <div className="flex justify-center">
-          <button
+          <button type="button"
             onClick={nextText}
             className="rounded-lg bg-green-600 px-6 py-2 text-sm font-medium text-black transition hover:bg-green-500"
           >
@@ -152,13 +152,13 @@ export default function TypingLessons({ locale }: Props) {
             </p>
           </div>
           <div className="flex justify-center gap-3">
-            <button
+            <button type="button"
               onClick={resetLesson}
               className="rounded-lg border border-green-900/30 px-4 py-2 text-sm text-green-400 transition hover:border-green-500/50"
             >
               {tr ? 'Tekrarla' : 'Retry'}
             </button>
-            <button
+            <button type="button"
               onClick={backToList}
               className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-black transition hover:bg-green-500"
             >

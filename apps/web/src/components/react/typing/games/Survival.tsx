@@ -42,7 +42,7 @@ export default function Survival({ locale }: Props) {
   const [maxTime, setMaxTime] = useState(5000)
   const [streak, setStreak] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
-  const timerRef = useRef<ReturnType<typeof setInterval>>()
+  const timerRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined)
   const startTimeRef = useRef(0)
   const gameStartRef = useRef(0)
 

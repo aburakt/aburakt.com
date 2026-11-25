@@ -22,8 +22,17 @@ export default function BootSequence() {
 
     if (typeof window === 'undefined') return
 
+    // BaseLayout's inline head script hides the page with `html.booting` before first paint;
+    // this component lifts that cover once its own overlay takes over (or is skipped).
+    const release = () => document.documentElement.classList.remove('booting')
+
     const alreadySeen = localStorage.getItem('boot_seen')
-    if (alreadySeen) return
+    if (alreadySeen) return release()
+    // Hareket azaltmayı seçen ziyaretçiye açılış animasyonu gösterilmez.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      localStorage.setItem('boot_seen', '1')
+      return release()
+    }
 
     setVisible(true)
 
@@ -38,6 +47,7 @@ export default function BootSequence() {
         setTimeout(() => setShowCursor(true), 100)
         // Start fade out
         setTimeout(() => {
+          release()
           setFadingOut(true)
           localStorage.setItem('boot_seen', '1')
         }, 600)
@@ -53,6 +63,7 @@ export default function BootSequence() {
 
   return (
     <div
+      aria-hidden="true"
       style={{
         position: 'fixed',
         inset: 0,

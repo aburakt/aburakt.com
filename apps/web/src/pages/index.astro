@@ -16,7 +16,7 @@ const articles = (await getCollection('articles')).sort(
   <!-- Hero -->
   <Container class="mt-16 sm:mt-24" data-section="hero">
     <div class="max-w-3xl">
-      <pre class="text-xs text-cyan-400/60 leading-tight mb-6 hidden sm:block">
+      <pre aria-hidden="true" class="text-xs text-cyan-400/60 leading-tight mb-6 hidden sm:block">
 {`   _   ___ _   _ ___    _   _  _______
   /_\\ | _ ) | | | _ \\  /_\\ | |/ /_   _|
  / _ \\| _ \\ |_| |   / / _ \\| ' <  | |
@@ -78,7 +78,7 @@ const articles = (await getCollection('articles')).sort(
         </div>
         <div>
           <span class="text-cyan-600">UPTIME</span>
-          <p class="mt-1 text-green-400">Dec 2022 — present</p>
+          <p class="mt-1 text-green-400">Dec 2022 – present</p>
           <p class="text-green-600">~{Math.floor((Date.now() - new Date('2022-12-01').getTime()) / (1000 * 60 * 60 * 24))} days</p>
         </div>
         <div>
@@ -124,11 +124,12 @@ const articles = (await getCollection('articles')).sort(
   </Container>
 
   <!-- Projects -->
-  <Container class="mt-20" data-section="projects">
+  <Container class="mt-20" data-section="enterprise">
     <div class="flex items-center gap-2 text-xs text-green-700 mb-6">
       <span class="text-green-500">$</span>
-      <span>ls -la ~/projects/</span>
+      <span>ls -la ~/enterprise/</span>
     </div>
+    <p class="-mt-3 mb-6 text-xs text-green-600"># İçişleri Bakanlığı kurumsal projeleri (kurum içi, kod kapalı)</p>
 
     <div class="space-y-3">
       {[
@@ -187,10 +188,16 @@ const articles = (await getCollection('articles')).sort(
           size: '640M',
         },
         {
-          name: 'teledermatology-app',
-          desc: 'Freelance cross-platform tele-dermatology platform (iOS, Android, web)',
+          name: 'training-portal',
+          desc: 'Training-video platform where completed courses grant system permissions (React, Spring Boot, Oracle)',
           perms: 'drwxr-xr-x',
-          size: '980M',
+          size: '1.1G',
+        },
+        {
+          name: 'inventory-tracker',
+          desc: 'Stock and asset tracking with movement history and reporting',
+          perms: 'drwxr-xr-x',
+          size: '520M',
         },
         {
           name: 'visitor-facility-suite',
@@ -215,6 +222,16 @@ const articles = (await getCollection('articles')).sort(
         </div>
       ))}
     </div>
+  </Container>
+
+  <!-- Portfolio link -->
+  <Container class="mt-12" data-section="portfolio-link">
+    <a href="/portfolio/" class="group flex flex-wrap items-center gap-2 rounded border border-cyan-900/40 bg-cyan-950/10 p-4 text-xs transition hover:border-cyan-500/50">
+      <span class="text-green-500">$</span>
+      <span class="font-semibold text-cyan-400 group-hover:text-glow-cyan">cd ~/portfolio/</span>
+      <span class="text-green-600"># Serbest çalışma projeleri, ekran görüntüleri ve geliştirme detaylarıyla</span>
+      <span aria-hidden="true" class="ml-auto text-cyan-500">-&gt;</span>
+    </a>
   </Container>
 
   <!-- Articles -->
@@ -251,15 +268,16 @@ const articles = (await getCollection('articles')).sort(
 
     <div class="space-y-4">
       {[
-        { hash: 'a1b2c3d', company: 'Ministry of Interior', role: 'Software Developer · Front-end Team Lead', date: 'Dec 2022 — present', active: true },
-        { hash: 'e4f5g6h', company: 'EBS Computer Systems & IT', role: 'Web Developer', date: 'Mar 2019 — Jan 2022', active: false },
-        { hash: 'i7j8k9l', company: 'EGO General Directorate', role: 'Summer Intern', date: 'Jul 2016 — Aug 2016', active: false },
-        { hash: 'm0n1o2p', company: 'PRO-DAY Software & IT', role: 'Summer Intern', date: 'Jul 2015 — Aug 2015', active: false },
+        { hash: 'f0e1d2c', company: 'Freelance (aburakt.com)', role: 'Full-stack Developer', date: '2025 – present', active: true },
+        { hash: 'a1b2c3d', company: 'Ministry of Interior', role: 'Software Developer · Front-end Team Lead', date: 'Dec 2022 – present', active: true },
+        { hash: 'e4f5g6h', company: 'EBS Computer Systems & IT', role: 'Web Developer', date: 'Mar 2019 – Jan 2022', active: false },
+        { hash: 'i7j8k9l', company: 'EGO General Directorate', role: 'Summer Intern', date: 'Jul 2016 – Aug 2016', active: false },
+        { hash: 'm0n1o2p', company: 'PRO-DAY Software & IT', role: 'Summer Intern', date: 'Jul 2015 – Aug 2015', active: false },
       ].map((role, i) => (
         <div class="flex items-start gap-3 text-xs">
           <div class="flex flex-col items-center">
             <span class={`font-bold ${role.active ? 'text-green-400' : 'text-green-700'}`}>*</span>
-            {i < 3 && <span class="h-8 w-px bg-green-900/30"></span>}
+            {i < 4 && <span class="h-8 w-px bg-green-900/30"></span>}
           </div>
           <div>
             <div class="flex items-center gap-2">
@@ -287,12 +305,12 @@ const articles = (await getCollection('articles')).sort(
           {skill}
         </span>
       ))}
-      {['TanStack', 'tRPC', 'Vite', 'Node.js', 'Fastify', 'Hono', 'Cloudflare Workers'].map((skill) => (
+      {['TanStack', 'tRPC', 'Vite', 'Node.js', 'Fastify', 'Hono', 'Go', 'PocketBase', 'Cloudflare Workers'].map((skill) => (
         <span class="rounded border border-amber-900/30 bg-green-950/30 px-3 py-1 text-xs text-amber-500 transition hover:border-amber-500/50 hover:text-amber-400">
           {skill}
         </span>
       ))}
-      {['PostgreSQL / Prisma', 'D1 / SQLite', 'JWT / OAuth', 'Open WebUI', 'Java Spring Boot', 'Git / CI/CD', 'Team Leadership', 'Mentoring'].map((skill) => (
+      {['PostgreSQL / Prisma', 'D1 / SQLite', 'JWT / OAuth', 'Open WebUI', 'Java Spring Boot', 'Git / CI/CD', 'Docker', 'AWS', 'Agile / Scrum', 'Team Leadership', 'Mentoring'].map((skill) => (
         <span class="rounded border border-green-900/30 bg-green-950/30 px-3 py-1 text-xs text-green-500 transition hover:border-green-500/50 hover:text-green-400">
           {skill}
         </span>

@@ -204,3 +204,158 @@ body::after {
   body { background: white !important; color: black !important; }
   body::after { display: none; }
 }
+
+/* Erişilebilirlik: klavye odağı ve içeriğe geç bağlantısı */
+:focus-visible {
+  outline: 2px solid #22d3ee;
+  outline-offset: 2px;
+}
+main:focus {
+  outline: none;
+}
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: -3rem;
+  z-index: 10000;
+  padding: 0.5rem 0.75rem;
+  background: #000;
+  color: #22d3ee;
+  border: 1px solid #22d3ee;
+  font-size: 0.875rem;
+}
+.skip-link:focus {
+  top: 0.5rem;
+}
+
+/* First-visit boot cover: set by the inline head script, lifted by BootSequence. */
+html.booting body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9997;
+  background: #000;
+}
+
+/* Page transitions: native cross-document View Transitions (no JS router, islands keep working).
+   Old page powers off like a CRT line, new page scans in from the top. Unsupported browsers just navigate. */
+@view-transition {
+  navigation: auto;
+}
+
+header[data-section="header"] {
+  view-transition-name: site-header;
+}
+
+::view-transition-old(root) {
+  animation: crt-out 180ms ease-in both;
+}
+
+::view-transition-new(root) {
+  animation: crt-in 320ms cubic-bezier(0.2, 0.7, 0.2, 1) 60ms both;
+}
+
+::view-transition-group(site-header) {
+  animation-duration: 0s;
+}
+
+@keyframes crt-out {
+  to {
+    opacity: 0;
+    filter: brightness(1.8) saturate(0);
+    transform: scaleY(0.985);
+  }
+}
+
+@keyframes crt-in {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+    filter: brightness(1.6);
+  }
+  60% {
+    opacity: 1;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    filter: none;
+  }
+}
+
+/* Shared screenshot morphs from portfolio card to project page (names set inline per slug). */
+::view-transition-group(*.shot) {
+  animation-duration: 360ms;
+  animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Content blocks print in as they scroll into view, like terminal output. */
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 35%;
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* Shared hover/focus feel for cards and links */
+a,
+button {
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 160ms;
+  transition-timing-function: ease-out;
+}
+
+.card-lift {
+  transition: transform 200ms ease-out, border-color 200ms ease-out, background-color 200ms ease-out, box-shadow 200ms ease-out;
+}
+
+.card-lift:hover,
+.card-lift:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 0 0 1px rgb(34 211 238 / 0.25), 0 10px 30px -12px rgb(34 211 238 / 0.35);
+}
+
+.card-lift img {
+  transition: transform 400ms ease-out, filter 400ms ease-out;
+}
+
+.card-lift:hover img {
+  transform: scale(1.02);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  @view-transition {
+    navigation: none;
+  }
+
+  .reveal {
+    animation: none !important;
+  }
+
+  .card-lift:hover,
+  .card-lift:hover img {
+    transform: none;
+  }
+}

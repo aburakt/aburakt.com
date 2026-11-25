@@ -1,0 +1,25 @@
+---
+import ProjectDetail from "@/components/astro/portfolio/ProjectDetail.astro";
+import { PROJECTS, type Project, projectPath } from "@/data/portfolio";
+import PortfolioLayout from "@/layouts/PortfolioLayout.astro";
+import { imageUrl, projectJsonLd } from "@/lib/portfolio";
+
+export function getStaticPaths() {
+  return PROJECTS.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+const locale = "tr";
+const { project } = Astro.props as { project: Project };
+---
+
+<PortfolioLayout
+  title={project.name}
+  description={project[locale].summary}
+  type="article"
+  image={imageUrl(project)}
+  imageAlt={project.name}
+  jsonLd={projectJsonLd(project, locale)}
+  markdown={`${projectPath(locale, project.slug).replace(/\/$/, '')}.md`}
+>
+  <ProjectDetail project={project} locale={locale} />
+</PortfolioLayout>

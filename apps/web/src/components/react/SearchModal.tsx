@@ -20,6 +20,7 @@ function getSearchItems(locale: string): SearchItem[] {
     // Navigation
     { title: tr ? 'Ana Sayfa' : 'Home', href: `${prefix}/`, category: tr ? 'Sayfalar' : 'Pages', badge: 'nav' },
     { title: tr ? 'Hakkımda' : 'About', href: `${prefix}/about`, category: tr ? 'Sayfalar' : 'Pages', badge: 'nav' },
+    { title: tr ? 'Portfolyo' : 'Portfolio', href: `${prefix}/portfolio`, category: tr ? 'Sayfalar' : 'Pages', badge: 'nav' },
     { title: 'CV', href: `${prefix}/cv`, category: tr ? 'Sayfalar' : 'Pages', badge: 'nav' },
     { title: 'Lab', href: `${prefix}/lab`, category: tr ? 'Sayfalar' : 'Pages', badge: 'nav' },
     { title: tr ? 'İstatistikler' : 'Stats', href: `${prefix}/lab/stats`, category: tr ? 'Sayfalar' : 'Pages', badge: 'nav' },
@@ -120,10 +121,14 @@ export default function SearchModal({ locale }: Props) {
 
   return (
     <div
+      role="presentation"
       className="fixed inset-0 z-[100] flex items-start justify-center pt-[20vh] bg-black/60 backdrop-blur-sm"
       onClick={() => setOpen(false)}
     >
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={locale === 'tr' ? 'Komut paleti' : 'Command palette'}
         className="mx-4 w-full max-w-lg rounded-xl border border-green-900/30 bg-black shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
@@ -138,12 +143,17 @@ export default function SearchModal({ locale }: Props) {
               setSelectedIndex(0)
             }}
             onKeyDown={handleKeyDown}
+            role="combobox"
+            aria-expanded="true"
+            aria-controls="search-results"
+            aria-activedescendant={results.length ? `search-result-${selectedIndex}` : undefined}
+            aria-label={locale === 'tr' ? 'Komut ya da sayfa ara' : 'Search commands or pages'}
             placeholder={locale === 'tr' ? 'Komut yazın...' : 'Type a command...'}
             className="w-full bg-transparent px-3 py-3 text-sm text-green-400 placeholder-green-700 outline-none"
           />
           <kbd className="rounded bg-green-950/20 px-1.5 py-0.5 text-xs text-green-700">Esc</kbd>
         </div>
-        <div className="max-h-64 overflow-y-auto p-2">
+        <div id="search-results" role="listbox" className="max-h-64 overflow-y-auto p-2">
           {results.length === 0 ? (
             <p className="px-3 py-4 text-center text-sm text-green-700">
               {locale === 'tr' ? 'Sonuç bulunamadı' : 'No results found'}
@@ -152,7 +162,9 @@ export default function SearchModal({ locale }: Props) {
             results.map((item, i) => (
               <div
                 key={item.title + (item.href || item.action || '')}
-                role="button"
+                id={`search-result-${i}`}
+                role="option"
+                aria-selected={i === selectedIndex}
                 className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm transition cursor-pointer ${
                   i === selectedIndex
                     ? 'bg-green-500/10 text-green-400'

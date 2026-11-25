@@ -1,0 +1,164 @@
+---
+import Container from "@/components/astro/Container.astro";
+import { KIND_LABEL, type Locale, type Project, projectPath } from "@/data/portfolio";
+import { imageUrl, neighbours, plain, UI } from "@/lib/portfolio";
+import Shot from "./Shot.astro";
+
+interface Props {
+  project: Project;
+  locale: Locale;
+}
+
+const { project: p, locale } = Astro.props;
+const ui = UI[locale];
+const t = p[locale];
+const { prev, next } = neighbours(p.slug);
+const hasMobile = p.mobile !== false;
+const label = p.url ? p.url.replace(/^https:\/\//, "") : `~/${p.slug}`;
+const phones = (p.gallery ?? []).filter((g) => g.phone);
+const wides = (p.gallery ?? []).filter((g) => !g.phone);
+---
+
+<Container class="mt-16 sm:mt-24">
+  <nav aria-label={locale === 'en' ? 'Breadcrumb' : 'Sayfa yolu'} class="mb-8 text-xs">
+    <ol class="flex flex-wrap items-center gap-2 text-green-600">
+      <li><a href={locale === 'en' ? '/en/' : '/'} class="text-cyan-500 hover:text-cyan-400">~</a></li>
+      <li aria-hidden="true">/</li>
+      <li><a href={projectPath(locale)} class="text-cyan-500 hover:text-cyan-400">portfolio</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="text-green-500">{p.slug}</li>
+    </ol>
+  </nav>
+
+  <div class="mb-4 flex items-center gap-2 text-xs text-green-700">
+    <span class="text-green-500">$</span>
+    <span>cat ~/portfolio/{p.slug}/README.md</span>
+  </div>
+
+  <h1 class="text-xl font-bold leading-tight text-cyan-400 text-glow-cyan sm:text-2xl">{p.name}</h1>
+  <p class="mt-4 max-w-3xl text-sm leading-relaxed text-green-500">{t.summary}</p>
+
+  <dl class="mt-8 grid grid-cols-1 gap-x-8 gap-y-3 text-xs sm:grid-cols-2 lg:grid-cols-4">
+    <div><dt class="text-green-600">{ui.client}</dt><dd class="mt-1 text-green-400">{p.client}</dd></div>
+    <div><dt class="text-green-600">{ui.year}</dt><dd class="mt-1 text-green-400">{p.year}</dd></div>
+    <div><dt class="text-green-600">{ui.type}</dt><dd class="mt-1 text-green-400">{KIND_LABEL[locale][p.kind]}</dd></div>
+    {
+      p.url && (
+        <div>
+          <dt class="text-green-600">{ui.live}</dt>
+          <dd class="mt-1">
+            <a href={p.url} rel="noopener" class="text-cyan-400 underline decoration-cyan-900 underline-offset-4 hover:decoration-cyan-400">
+              {label}
+            </a>
+          </dd>
+        </div>
+      )
+    }
+  </dl>
+
+  <div class:list={['mt-10 grid gap-6', hasMobile ? 'grid-cols-1 md:grid-cols-[1fr_200px] items-start' : 'grid-cols-1']}>
+    <Shot src={imageUrl(p)} alt={`${p.name}: ${ui.desktop}`} label={label} width={1200} height={750} eager vt={`shot-${p.slug}`} />
+    {
+      hasMobile && (
+        <Shot
+          src={imageUrl(p, true)}
+          alt={`${p.name}: ${ui.mobile}`}
+          label={ui.mobile}
+          width={390}
+          height={844}
+          class="mx-auto w-full max-w-[220px]"
+        />
+      )
+    }
+  </div>
+
+  {
+    p.gallery && p.gallery.length > 0 && (
+      <section aria-labelledby="screens" class="mt-12">
+        <h2 id="screens" class="text-base font-semibold text-amber-400">## {ui.gallery}</h2>
+        <p class="mt-2 text-xs text-green-600"># {ui.galleryNote}</p>
+        {phones.length > 0 && (
+          <ul class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4" role="list">
+            {phones.map((g) => (
+              <li>
+                <Shot src={`/images/portfolio/${g.image}.webp`} alt={`${p.name}: ${g[locale]}`} label={ui.mobile} width={390} height={844} />
+                <p class="mt-2 text-xs text-green-500">{g[locale]}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+        {wides.length > 0 && (
+          <ul class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2" role="list">
+            {wides.map((g) => (
+              <li>
+                <Shot src={`/images/portfolio/${g.image}.webp`} alt={`${p.name}: ${g[locale]}`} label={label} width={1200} height={750} />
+                <p class="mt-2 text-xs text-green-500">{g[locale]}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+    )
+  }
+
+  <div class="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-[1fr_260px]">
+    <div class="space-y-10 text-sm leading-relaxed">
+      <section aria-labelledby="need">
+        <h2 id="need" class="text-base font-semibold text-amber-400">## {ui.challenge}</h2>
+        <p class="mt-3 text-green-500">{t.challenge}</p>
+      </section>
+
+      <section aria-labelledby="build">
+        <h2 id="build" class="text-base font-semibold text-amber-400">## {ui.build}</h2>
+        <ul class="mt-3 space-y-2" role="list">
+          {t.build.map((b) => <li class="text-green-500"><span class="text-green-700" aria-hidden="true">&gt; </span>{plain(b)}</li>)}
+        </ul>
+      </section>
+
+      <section aria-labelledby="features">
+        <h2 id="features" class="text-base font-semibold text-amber-400">## {ui.features}</h2>
+        <ul class="mt-3 space-y-2" role="list">
+          {t.features.map((f) => <li class="text-green-500"><span class="text-green-700" aria-hidden="true">- </span>{f}</li>)}
+        </ul>
+      </section>
+
+      {
+        p.platform && (
+          <aside class="rounded border border-cyan-900/40 bg-cyan-950/10 p-4 text-xs text-green-500">
+            <p>{ui.platformNote}</p>
+            <a href={projectPath(locale, 'astro-pb-platform')} class="mt-2 inline-block text-cyan-400 hover:text-glow-cyan">
+              {ui.platformLink} <span aria-hidden="true">-&gt;</span>
+            </a>
+          </aside>
+        )
+      }
+    </div>
+
+    <div class="terminal-border h-fit rounded-lg p-4">
+      <h2 class="mb-3 text-xs text-cyan-500"># {ui.stack}</h2>
+      <ul class="flex flex-wrap gap-2" role="list">
+        {p.stack.map((s) => <li class="rounded border border-green-900/40 px-2 py-0.5 text-xs text-green-400">{s}</li>)}
+      </ul>
+    </div>
+  </div>
+
+  <nav aria-label={locale === 'en' ? 'Other projects' : 'Diğer projeler'} class="mt-16 grid grid-cols-1 gap-3 border-t border-green-900/30 pt-6 text-xs sm:grid-cols-3">
+    <div>
+      {prev && (
+        <a href={projectPath(locale, prev.slug)} class="text-cyan-500 hover:text-cyan-400">
+          <span aria-hidden="true">&lt;- </span>{ui.prev}: {prev.name}
+        </a>
+      )}
+    </div>
+    <div class="sm:text-center">
+      <a href={projectPath(locale)} class="text-cyan-500 hover:text-cyan-400">{ui.back}</a>
+    </div>
+    <div class="sm:text-right">
+      {next && (
+        <a href={projectPath(locale, next.slug)} class="text-cyan-500 hover:text-cyan-400">
+          {ui.next}: {next.name}<span aria-hidden="true"> -&gt;</span>
+        </a>
+      )}
+    </div>
+  </nav>
+</Container>

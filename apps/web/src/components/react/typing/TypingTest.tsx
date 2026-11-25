@@ -79,7 +79,7 @@ export default function TypingTest({ locale }: Props) {
   const [result, setResult] = useState<TestResult | null>(null)
   const [history, setHistory] = useState<TestResult[]>([])
   const containerRef = useRef<HTMLDivElement>(null)
-  const timerRef = useRef<ReturnType<typeof setInterval>>()
+  const timerRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined)
   const typedRef = useRef('')
   const errorsRef = useRef(0)
   const textRef = useRef('')
@@ -274,7 +274,7 @@ export default function TypingTest({ locale }: Props) {
     )
   }
 
-  // Playing state — inline timer-based test
+  // Playing state – inline timer-based test
   return (
     <div
       ref={containerRef}

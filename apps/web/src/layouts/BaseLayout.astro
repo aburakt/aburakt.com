@@ -12,10 +12,19 @@ interface Props {
   title?: string
   description?: string
   type?: 'website' | 'article'
+  /** Absolute or root-relative share image (default: avatar). */
+  image?: string
+  imageAlt?: string
+  /** Page JSON-LD, added next to the site graph. */
+  jsonLd?: Record<string, unknown>
+  /** Markdown twin of the page for AI readers (root-relative). */
+  markdown?: string
+  /** false: page has no twin in the other language (e.g. 404). */
+  alternates?: boolean
 }
 
 const locale = getLocaleFromUrl(Astro.url)
-const { title, description, type = 'website' } = Astro.props
+const { title, description, type = 'website', image, imageAlt, jsonLd, markdown, alternates = true } = Astro.props
 // Each page's own address: link previews (LinkedIn, X, Slack) follow og:url for the card's target.
 const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`
 const pageUrl = new URL(path, 'https://aburakt.com').href
@@ -25,6 +34,12 @@ const isHome = path === '/' || path === '/en/'
 // Without its own description a page gets its title in front, so search results do not repeat the home text.
 const siteDescription =
   description || (title && !isHome ? `${title}: ${t(locale, 'site.description')}` : t(locale, 'site.description'))
+// hreflang: every page exists under / (tr) and /en/ (en).
+const trPath = path.replace(/^\/en(\/|$)/, '/')
+const altUrls = alternates
+  ? { tr: new URL(trPath, 'https://aburakt.com').href, en: new URL(`/en${trPath}`, 'https://aburakt.com').href }
+  : undefined
+const ogImage = new URL(image || '/images/pp/logo.webp', 'https://aburakt.com').href
 const home = new URL(locale === 'en' ? '/en/' : '/', 'https://aburakt.com').href
 // Home only: WebSite gives Google the site name, Person ties the site to its author.
 const siteLd = isHome
@@ -47,7 +62,9 @@ const siteLd = isHome
           name: siteName,
           url: 'https://aburakt.com/',
           image: 'https://aburakt.com/images/pp/logo.webp',
-          jobTitle: locale === 'en' ? 'Front-end developer' : 'Front-end geliştirici',
+          jobTitle: locale === 'en' ? 'Full-stack developer' : 'Full-stack geliştirici',
+          knowsAbout: ['React', 'TypeScript', 'Node.js', 'Go', 'Astro', 'PocketBase', 'PostgreSQL', 'Accessibility', 'Web performance'],
+          address: { '@type': 'PostalAddress', addressLocality: 'Ankara', addressCountry: 'TR' },
           sameAs: ['https://github.com/aburakt', 'https://www.linkedin.com/in/aburakt'],
         },
       ],
@@ -73,25 +90,45 @@ const siteLd = isHome
     <meta property="og:locale" content={locale === 'en' ? 'en_US' : 'tr_TR'} />
     <meta property="og:url" content={pageUrl} />
     <link rel="canonical" href={pageUrl} />
-    <meta property="og:image" content="https://aburakt.com/images/pp/logo.webp" />
-    <meta name="twitter:card" content="summary" />
+    {altUrls && <link rel="alternate" hreflang="tr" href={altUrls.tr} />}
+    {altUrls && <link rel="alternate" hreflang="en" href={altUrls.en} />}
+    {altUrls && <link rel="alternate" hreflang="x-default" href={altUrls.tr} />}
+    {markdown && <link rel="alternate" type="text/markdown" href={markdown} />}
+    <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt" />
+    <meta property="og:image" content={ogImage} />
+    {imageAlt && <meta property="og:image:alt" content={imageAlt} />}
+    <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
     <meta name="twitter:title" content={siteTitle} />
     <meta name="twitter:description" content={siteDescription} />
-    <meta name="twitter:image" content="https://aburakt.com/images/pp/logo.webp" />
+    <meta name="twitter:image" content={ogImage} />
     <meta name="theme-color" content="#000000" />
     <meta name="color-scheme" content="dark" />
     <link rel="manifest" href="/manifest.json" />
     <title>{siteTitle}</title>
+    <script is:inline>
+      // First visit: cover the page before first paint so the boot screen comes before the site, not after it.
+      try {
+        if (!localStorage.getItem('boot_seen') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          var h = document.documentElement
+          h.classList.add('booting')
+          setTimeout(function () { h.classList.remove('booting') }, 4000)
+        }
+      } catch (e) {}
+    </script>
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />}
     {siteLd && <script type="application/ld+json" set:html={JSON.stringify(siteLd).replace(/</g, '\\u003c')} />}
   </head>
   <body class="min-h-screen bg-black text-green-400">
+    <a href="#main" class="skip-link">{locale === 'en' ? 'Skip to content' : 'İçeriğe geç'}</a>
     <BootSequence client:load />
     <slot />
-    <VimNavigation locale={locale} client:load />
-    <KeyboardCheatsheet locale={locale} client:idle />
-    <SearchModal locale={locale} client:idle />
-    <WhichKey locale={locale} client:idle />
-    <OnboardingHint locale={locale} client:idle />
+    <aside aria-label={locale === 'en' ? 'Keyboard navigation' : 'Klavye ile gezinme'}>
+      <VimNavigation locale={locale} client:load />
+      <KeyboardCheatsheet locale={locale} client:idle />
+      <SearchModal locale={locale} client:idle />
+      <WhichKey locale={locale} client:idle />
+      <OnboardingHint locale={locale} client:idle />
+    </aside>
     <script is:inline src="/register-sw.js"></script>
   </body>
 </html>

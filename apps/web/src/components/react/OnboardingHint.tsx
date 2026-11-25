@@ -41,7 +41,7 @@ export default function OnboardingHint({ locale }: Props) {
             ? 'İpucu: ? ile kısayolları, Space ile hızlı komutları görebilirsiniz'
             : 'Tip: Press ? for shortcuts or Space for quick commands'}
         </span>
-        <button
+        <button type="button"
           onClick={dismiss}
           className="ml-1 text-green-700 transition-colors hover:text-green-400"
           aria-label="Dismiss"

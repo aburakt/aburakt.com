@@ -1,0 +1,17 @@
+---
+import PortfolioIndex from "@/components/astro/portfolio/PortfolioIndex.astro";
+import PortfolioLayout from "@/layouts/PortfolioLayout.astro";
+import { indexJsonLd, UI } from "@/lib/portfolio";
+
+const locale = "tr";
+---
+
+<PortfolioLayout
+  title={UI[locale].title}
+  description={UI[locale].description}
+  image="/images/portfolio/astro-pb-platform.webp"
+  imageAlt="Astro + PocketBase platform"
+  jsonLd={indexJsonLd(locale)}
+>
+  <PortfolioIndex locale={locale} />
+</PortfolioLayout>
