@@ -124,11 +124,12 @@ const articles = (await getCollection('articles')).sort(
   </Container>
 
   <!-- Projects -->
-  <Container class="mt-20" data-section="projects">
+  <Container class="mt-20" data-section="enterprise">
     <div class="flex items-center gap-2 text-xs text-green-700 mb-6">
       <span class="text-green-500">$</span>
-      <span>ls -la ~/projects/</span>
+      <span>ls -la ~/enterprise/</span>
     </div>
+    <p class="-mt-3 mb-6 text-xs text-green-600"># İçişleri Bakanlığı kurumsal projeleri (kurum içi, kod kapalı)</p>
 
     <div class="space-y-3">
       {[
@@ -187,10 +188,16 @@ const articles = (await getCollection('articles')).sort(
           size: '640M',
         },
         {
-          name: 'teledermatology-app',
-          desc: 'Freelance cross-platform tele-dermatology platform (iOS, Android, web)',
+          name: 'training-portal',
+          desc: 'Training-video platform where completed courses grant system permissions (React, Spring Boot, Oracle)',
           perms: 'drwxr-xr-x',
-          size: '980M',
+          size: '1.1G',
+        },
+        {
+          name: 'inventory-tracker',
+          desc: 'Stock and asset tracking with movement history and reporting',
+          perms: 'drwxr-xr-x',
+          size: '520M',
         },
         {
           name: 'visitor-facility-suite',
