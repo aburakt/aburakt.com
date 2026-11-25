@@ -56,16 +56,17 @@ TypeScript, with back-end experience in Node.js, Go, PostgreSQL and REST APIs.
 #entry("Software Developer (Front-end Team Lead)", "Ministry of Interior (Türkiye)", "Ankara", "Dec 2022 – Present")
 - Lead a team of 4 front-end developers: project planning, code review, technical decisions and mentoring across multiple enterprise applications.
 - Designed and built the complete React front-end architecture of the Ministry's authorization management system (Java Spring Boot back-end), which handles permission requests, approvals, statistics and reporting for administrative offices nationwide; contributed to back-end development and API integration.
-- Cut CI/CD pipeline build times by 75% by moving builds to Vite; led the migration from JavaScript to TypeScript across multiple projects.
+- Cut CI/CD pipeline build times by 75% by moving builds to Vite; led the migration from JavaScript to TypeScript across multiple projects and took part in migrating an Angular application to React.
 - Maintain the centralized authentication service (JWT, OAuth 2.0) that issues tokens for all applications in the organization.
 - Maintain a nationwide analytics platform used by government agencies in all 81 provinces, focusing on reliability and performance.
 - Built a schema-driven data querying application from scratch (React 19, TypeScript, TanStack Router/Query/Table): entity and field definitions generate forms automatically, enabling relational analysis, filterable reports and charts on nationwide administrative data.
-- Built an enterprise video-conferencing solution on Jitsi Meet with LDAP login, scheduled meetings, RFC 5545 ICS email invitations, multi-channel reminders (email, push, in-app) and Turkish localization.
+- Built an enterprise video-conferencing solution on Jitsi Meet with LDAP login, scheduled meetings, RFC 5545 ICS email invitations, multi-channel reminders (email, push, in-app), real-time updates over WebSocket and Turkish localization.
 - Delivered a self-hosted generative AI chat platform by extending Open WebUI (SvelteKit) with role-based access control (RBAC), retrieval-augmented generation (RAG) and on-premise LLM integration.
 - Built personnel attendance/timesheet and shift-roster scheduling applications (React 19, TypeScript, TanStack, Tailwind CSS, shadcn/ui) with advanced data tables, reporting and multi-sheet PDF export (jsPDF).
 - Built an audio transcription and translation tool for archival recordings with waveform segment editing, voice activity detection, multi-user soft locking and JSONL/CSV/Hugging Face export (Zustand, TanStack Query).
 - Contributed the Turkish localization of Apache Answer (open source) and deployed it as the organization's internal knowledge base; built a photo upload and processing application.
 - Directed or mentored 4 more internal applications: visitor management, hotel management, internal audit and procurement.
+- Led the R&D for a micro-frontend architecture (Module Federation) for the organization's front-end transformation: built the proof of concept and completed its tests.
 - Standardized front-end components to institutional UI/UX guidelines and introduced structured code review and documentation practices.
 
 #entry("Freelance Full-stack Developer", "Self-employed (aburakt.com)", "Ankara", "2025 – Present")
@@ -78,7 +79,7 @@ TypeScript, with back-end experience in Node.js, Go, PostgreSQL and REST APIs.
 
 #entry("Web Developer", "EBS Computer Systems & IT", "Ankara", "Mar 2019 – Jan 2022")
 - Built responsive websites with HTML, CSS and JavaScript; developed and maintained PHP and WordPress sites.
-- Managed SQL databases and wrote reporting queries and rules for accounting software (Logo) workflows.
+- Managed MySQL databases for WordPress sites and wrote SQL reporting queries and rules for accounting software (Logo) workflows.
 
 #entry("Intern", "EGO General Directorate; PRO-DAY Software & IT; Halkbank", "Ankara", "2013 – 2016")
 - Software development and ERP internships: web development with HTML, CSS, JavaScript and Git in a 25-person software company; ERP rollout in the public sector.
@@ -99,13 +100,13 @@ TypeScript, with back-end experience in Node.js, Go, PostgreSQL and REST APIs.
 
 #section("Skills")
 *Languages:* TypeScript, JavaScript, Go, SQL, HTML, CSS, PHP, Python \
-*Front-end and Mobile:* React (React 19), Next.js, Astro, Vue.js, Svelte / SvelteKit, React Native, Expo, Electron \
+*Front-end and Mobile:* React (React 19), Next.js, Astro, Vue.js, Angular, Svelte / SvelteKit, React Native, Expo, Electron, Micro-frontends (Module Federation) \
 *State, Data and Forms:* TanStack (Query, Router, Table, Form), Redux, Zustand, Recoil, tRPC, Zod, React Hook Form \
 *UI and Styling:* Tailwind CSS, shadcn/ui, Radix UI, Material UI, PrimeReact, Bootstrap, Styled Components, Figma \
-*Back-end and Databases:* Node.js, Fastify, Express.js, Go, PocketBase, REST APIs, Java Spring Boot (API integration), PostgreSQL, Prisma, Supabase, SQLite \
+*Back-end and Databases:* Node.js, Fastify, Express.js, NestJS, Go, PocketBase, REST APIs, WebSocket, Java Spring Boot (API integration), PostgreSQL, MySQL, Prisma, Supabase, SQLite \
 *Security and Auth:* JWT, OAuth 2.0, LDAP, RBAC, Content Security Policy, KVKK, ISO/IEC 27001 \
 *DevOps and Cloud:* Git, GitHub Actions, CI/CD, Docker, AWS, Cloudflare (Pages, Workers), Linux, Caddy, systemd, Hetzner, Vite, Bun \
-*Testing and Quality:* Jest, Vitest, Bun test, MSW, accessibility audits, performance budgets, Biome, oxlint \
+*Testing and Quality:* Unit testing, Jest, Vitest, Bun test, MSW, end-to-end testing (Playwright), accessibility audits, performance budgets, Biome, oxlint \
 *Practices:* Agile / Scrum, code review, mentoring, technical documentation \
 *AI:* RAG, on-premise LLM integration, Open WebUI, AI-assisted development (Claude Code), n8n automation
 
