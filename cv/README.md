@@ -6,8 +6,8 @@ Kaynak `cv.typ` (Typst). ATS kuralları: tek sütun, tablo/ikon/görsel yok, sta
 
 ```bash
 pip install typst            # ya da: brew install typst
-python3 -c "import typst; typst.compile('cv/cv.typ', output='apps/web/public/cv/Ahmet_Burak_Tekin_CV.v2026-11b.pdf')"
-# typst CLI ile: typst compile cv/cv.typ apps/web/public/cv/Ahmet_Burak_Tekin_CV.v2026-11b.pdf
+python3 -c "import typst; typst.compile('cv/cv.typ', output='apps/web/public/cv/Ahmet_Burak_Tekin_CV.v2026-11c.pdf')"
+# typst CLI ile: typst compile cv/cv.typ apps/web/public/cv/Ahmet_Burak_Tekin_CV.v2026-11c.pdf
 ```
 
 ## Yeni sürüm
