@@ -5,7 +5,7 @@ import { articleSlug } from "@/lib/articles";
 import { projectMarkdown } from "@/lib/portfolio";
 
 const SITE = "https://aburakt.com";
-const CV = `${SITE}/cv/Ahmet_Burak_Tekin_CV.v2026-11.pdf`;
+const CV = `${SITE}/cv/Ahmet_Burak_Tekin_CV.v2026-11b.pdf`;
 
 const header = [
   "# Ahmet Burak Tekin",
